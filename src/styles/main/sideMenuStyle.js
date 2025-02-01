@@ -4,13 +4,12 @@ import { RADIUS, RADIUS_CATEGORY } from '../values';
 import { colorRed, colorWhite, sideMenuColor } from '../../assets/colors/color';
 //width:15.9%;
 export const SideMenuWrapper = styled.View`
-    height:130px;
-    width:100%;
+    height:100%;
+    width:220px;
     backgroundColor:${sideMenuColor};
     borderTopRightRadius:${RADIUS};
     borderBottomRightRadius:${RADIUS};
     zIndex:999;
-    position:absolute;
 `
 export const LogoWrapper = styled.View`
     width:210px;

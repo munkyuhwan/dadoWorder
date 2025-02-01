@@ -77,8 +77,8 @@ const MainScreen = () =>{
         <>
             <KeyboardAvoidingView behavior="padding" enabled style={{width:'100%', height:'100%'}} >
                 <WholeWrapper onTouchStart={()=>{     screenTimeOut();  quickOrderTimeOut();   }} >
+                    <SideMenu/>
                     <MainWrapper>
-                        <SideMenu/>
                         <TopMenu/>
                         <MenuListView/>
                         <CartView/>
