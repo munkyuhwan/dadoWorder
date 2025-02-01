@@ -1,0 +1,8 @@
+{
+  "name": "MetaCity",
+  "displayName": "MetaCity"
+}
+/*
+@adrianso/react-native-device-brightness @homielab/react-native-auto-scroll @react-native-async-storage/async-storage @react-native-community/checkbox @react-native-community/masked-view @react-native-community/netinfo @react-native-firebase/app @react-native-firebase/messaging @react-native-picker/picker @react-navigation/native @react-navigation/stack @reduxjs/toolkit @types/styled-components @types/styled-components-react-native axios lodash moment react-native-check-box react-native-code-push react-native-date-picker react-native-device-info react-native-event-listeners react-native-fast-image react-native-fs react-native-gesture-handler react-native-logs react-native-picker-select react-native-radio-buttons-group react-native-reanimated react-native-safe-area-context react-native-screens react-native-swipe-render react-native-swiper react-native-version-check react-native-video react-native-vlc-media-player react-native-webview react-redux rn-fetch-blob styled-components appcenter appcenter-analytics appcenter-crashes
+    
+*/
