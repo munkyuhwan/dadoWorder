@@ -20,6 +20,7 @@ import { regularUpdate } from '../store/menu'
 import { QuickOrderPopup } from '../components/popups/quickOrderPopup'
 import FloatingBtn from '../components/popups/floatingButtonPopup'
 import { setQuickShow } from '../store/order'
+import SubMenu from '../components/main/subMenu'
 let timeoutSet = null;
 let quickOrderTimeoutSet = null;
 
@@ -77,9 +78,10 @@ const MainScreen = () =>{
         <>
             <KeyboardAvoidingView behavior="padding" enabled style={{width:'100%', height:'100%'}} >
                 <WholeWrapper onTouchStart={()=>{     screenTimeOut();  quickOrderTimeOut();   }} >
-                    <SideMenu/>
+                    {/* <SideMenu/> */}
                     <MainWrapper>
                         <TopMenu/>
+                        <SubMenu/>
                         <MenuListView/>
                         <CartView/>
                     </MainWrapper>
