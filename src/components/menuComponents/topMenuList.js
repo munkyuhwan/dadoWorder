@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSubCategory } from '../../store/categories';
 import { useFocusEffect } from '@react-navigation/native';
 import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
-
+import { setCommon } from '../../store/common';
 
 
 
 const TopMenuList = (props) => {
+    const dispatch = useDispatch();
     const TOP_MENU = [
         {idx:0, code:"lang", title_kor:"언어선택",},
         {idx:1, code:"menu", title_kor:"메뉴선택",},
@@ -19,29 +20,20 @@ const TopMenuList = (props) => {
         {idx:3, code:"orderList", title_kor:"주문내역",},
         {idx:4, code:"cart", title_kor:"장바구니",},
     ];
-
-    const [currentTab, setCurrentTab] = useState("")
-
-    useEffect(()=>{
-        console.log("currentTab: ",currentTab);
-        if(currentTab != "") {
-            props?.onSelectItem(currentTab);
-        }
-    },[currentTab])
-
+    const {tab} = useSelector(state=>state.common);
     return (
             TOP_MENU.map((el) => {
                 return(
                     <>
-                        {currentTab==el.code &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{ setCurrentTab(el.code);}}>
+                        {tab==el.code &&
+                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setCommon({"tab":el.code})); }}>
                                 <CategorySelected>
                                     <TopMenuText key={"subcatText_"+el?.idx} >{el?.title_kor}</TopMenuText>
                                 </CategorySelected>
                             </TouchableWithoutFeedback>
                         }
-                        {currentTab!=el.code &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{ setCurrentTab(el.code);}}>
+                        {tab!=el.code &&
+                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setCommon({"tab":el.code}));}}>
                                 <CategoryDefault>
                                     <TopMenuText key={"subcatText_"+el?.idx} >{el?.title_kor}</TopMenuText>
                                 </CategoryDefault>
@@ -51,99 +43,6 @@ const TopMenuList = (props) => {
                         
                 )
             })
-    )
-
-
-
-    const dispatch = useDispatch();
-    const data = props.data;
-    const initSelect = props.initSelect;
-    const {selectedMainCategory, selectedSubCategory, subCategories, allCategories} = useSelector((state)=>state.categories);
-    const [selectedCode, setSelectedCode] = useState(DEFAULT_CATEGORY_ALL_CODE);
-
-    const {menuCategories} = useSelector(state=>state.menuExtra);
-    const {language} =  useSelector(state=>state.languages);
-
-    const [selectedSubList, setSelectedSubList] = useState();
-    const ItemTitle = (cateCode) => {
-        const selectedData = selectedSubList.filter(el=>el.cate_code2 == cateCode);
-        if(language=="korean") {
-            return selectedData[0].cate_name2;
-        }else if(language=="japanese") {
-            return selectedData[0]?.cate_name2_jp||selectedData[0].cate_name2;
-        }
-        else if(language=="chinese") {
-            return selectedData[0]?.cate_name2_cn||selectedData[0].cate_name2;
-        }
-        else if(language=="english") {
-            return selectedData[0]?.cate_name2_en||selectedData[0].cate_name2;
-        }
-        return "";
-
-    }
-    const ItemWhole = () =>{
-        let selTitleLanguage = "";
-        if(language=="korean") {
-            selTitleLanguage = '전체'
-        }
-        else if(language=="japanese") {
-            selTitleLanguage = "全体"
-        }
-        else if(language=="chinese") {
-            selTitleLanguage = "全部的"
-        }
-        else if(language=="english") {
-            selTitleLanguage = "ALL"
-        }
-        return selTitleLanguage; 
-    }
-/* 
-    useEffect(()=>{
-        if(selectedMainCategory) {
-            const changedSelectedMainCat = allCategories.filter(el=>el.PROD_L1_CD==selectedMainCategory);
-            if(changedSelectedMainCat) {
-                if(changedSelectedMainCat?.length > 0) {
-                    setSelectedSubList(changedSelectedMainCat[0].PROD_L2_LIST);
-                }
-            }
-        }
-    },[selectedMainCategory]) */
-
-    useEffect(()=>{
-        setSelectedSubList(subCategories);
-    },[subCategories])
-
-    const onPressAction = (itemCD) =>{
-        dispatch(setSelectedSubCategory(itemCD)); 
-    }
-    return (
-        <>
-        {selectedSubList &&
-        selectedSubList.map((el, index)=>{
-            return(
-                <>            
-                        {
-                        (el?.cate_code2==selectedSubCategory) &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
-                                <CategorySelected>
-                                    <TopMenuText key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
-                                </CategorySelected>
-                            </TouchableWithoutFeedback>
-                        }
-                        {
-                        (el?.cate_code2!=selectedSubCategory) &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
-                                <CategoryDefault>
-                                    <TopMenuText key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
-                                </CategoryDefault>
-                            </TouchableWithoutFeedback>
-                        }
-                        
-                </>
-            )
-
-        })}
-        </>
     )
 
 }

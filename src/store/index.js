@@ -21,6 +21,7 @@ import { menuExtraSlice } from './menuExtra'
 import { imageStorageSlice } from './imageStorage'
 import { monthSelectSlice } from './monthPopup'
 import { dispatchPopupSlice } from './dispatchPopup'
+import { commonSlice } from './common'
 
 const store = configureStore({
     reducer:{
@@ -39,6 +40,7 @@ const store = configureStore({
         imageStorage:imageStorageSlice.reducer,
         monthSelect:monthSelectSlice.reducer,
         dispatchPopup:dispatchPopupSlice.reducer,
+        common:commonSlice.reducer,
         
         error:errorSlice.reducer,
     },
