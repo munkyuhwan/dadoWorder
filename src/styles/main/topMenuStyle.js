@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE } from '../values';
-import { colorBrown, colorRed, tabBaseColor, textColorWhite } from '../../assets/colors/color';
+import { colorBrown, colorRed, colorWhite, tabBaseColor, textColorWhite } from '../../assets/colors/color';
 import { ScrollView } from 'react-native';
 
 export const TopMenuWrapper = styled.View`
@@ -10,6 +10,7 @@ export const TopMenuWrapper = styled.View`
     display: flex;
     justifyContent: flex-start;
     zIndex:99999;
+    backgroundColor:${colorWhite};
 `
 // 공지사항 텍스트
 export const BulletinWrapper = styled(ScrollView)`
@@ -31,13 +32,12 @@ export const CategoryWrapper = styled.View`
 `;
 export const CategoryScrollView = styled.ScrollView`
     paddingLeft:30px;
-    marginRight:36%;
     flex:1;
     flowDirection:column;
 `
 export const CategoryDefault = styled.View`
     backgroundColor: ${tabBaseColor};
-    width:160px;
+    width:140px;
     height:90%;
     marginRight:7px;
     justifyContent: flex-end;
@@ -46,8 +46,8 @@ export const CategoryDefault = styled.View`
     borderTopRightRadius:${RADIUS_DOUBLE}px;
 `
 export const CategorySelected = styled.View`
-    backgroundColor: ${ props => props?.isSelected?colorRed:colorBrown };
-    width:160px;
+    backgroundColor: #cba36f;
+    width:140px;
     height:90%;
     marginRight:7px;
     justifyContent: flex-end;

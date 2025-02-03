@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE } from '../values';
-import { colorBrown, colorRed, tabBaseColor, textColorWhite } from '../../assets/colors/color';
+import { colorBrown, colorRed, colorWhite, tabBaseColor, textColorWhite } from '../../assets/colors/color';
 import { ScrollView } from 'react-native';
 
 export const TopMenuWrapper = styled.View`
@@ -35,20 +35,19 @@ export const CategoryScrollView = styled.ScrollView`
     flex:1;
     flowDirection:column;
 `
-export const CategoryDefault = styled.View`
-    backgroundColor: ${tabBaseColor};
+export const SubCategoryDefault = styled.View`
+    backgroundColor: ${colorWhite};
     width:160px;
-    height:90%;
+    height:50px;
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:24px;
-    borderTopLeftRadius:${RADIUS_DOUBLE}px;
-    borderTopRightRadius:${RADIUS_DOUBLE}px;
+    borderRadius:40px;
 `
-export const CategorySelected = styled.View`
+export const SubCategorySelected = styled.View`
     backgroundColor: ${colorRed};
     width:160px;
-    height:40px;
+    height:50px;
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:24px;

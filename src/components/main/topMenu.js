@@ -25,6 +25,7 @@ import { uploadFile } from '../../store/etcFunctions'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AutoScroll from "@homielab/react-native-auto-scroll";
 import { setTableInfo } from '../../store/tableInfo'
+import FastImage from 'react-native-fast-image'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -115,7 +116,8 @@ const TopMenu = () =>{
     },[])
 
     const onPressItem = (index) => {
-        dispatch(setSelectedSubCategory(index)); 
+        
+        //dispatch(setSelectedSubCategory(index)); 
     }
 
       
@@ -158,35 +160,28 @@ const TopMenu = () =>{
     return(
         <>
             <TopMenuWrapper>
+                <FastImage source={require("../../assets/icons/daedo_logo.png")} style={{ marginLeft:40,marginRight:20, flex:0.5}} resizeMode='contain' />
                 <SafeAreaView>
                     <CategoryScrollView ref={scrollViewRef} horizontal showsHorizontalScrollIndicator={false} >
                         <CategoryWrapper>
-                            {
-                                <TopMenuList
-                                    data={subCategories}
-                                    onSelectItem={(index)=>{ onPressItem(index); }}
-                                    initSelect={0}
-                                />
-                            }
+                            <TopMenuList
+                                onSelectItem={(data)=>{ console.log("data: ",data);  /* onPressItem(index); */ }}
+                                initSelect={0}
+                            />
                        </CategoryWrapper>
                     </CategoryScrollView>
-                    {((bulletinCode == selectedMainCategory)&&(isBulletinShow)) &&
+                    {/*((bulletinCode == selectedMainCategory)&&(isBulletinShow)) &&
                         <AutoScroll duration={10000}  style={{width:600}}>
                             <BulletinText>{bulletinText}</BulletinText>
                         </AutoScroll>
-                    }
+                    */}
                 </SafeAreaView>
-                { (tableStatus?.is_cctv=="Y" && cctv?.length > 0)&&
-                    <TouchableWithoutFeedback onPress={()=>{openTransperentPopup(dispatch, {innerView:"CameraView", isPopupVisible:true}); }} >
-                        <Image style={{width:50,height:50, position:'absolute',right:'40%'}} resizeMode='contain' source={require("../../assets/icons/cctv.png")}/>
-                    </TouchableWithoutFeedback>
-                }
-                <TouchableWithoutFeedback onPress={()=>{ countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
+                {/* <TouchableWithoutFeedback onPress={()=>{ countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
                 <TableName>
                     <TableNameSmall>테이블</TableNameSmall>
                     <TableNameBig>{tableNoText}</TableNameBig>
                 </TableName>
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback> */}
 
                 
             </TopMenuWrapper>
