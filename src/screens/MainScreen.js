@@ -31,6 +31,7 @@ const MainScreen = () =>{
     const {menuDetailID} = useSelector((state)=>state.menuDetail);
     const {isShow, adList} = useSelector((state)=>state.ads);
     const {quickOrderList, isQuickShow} = useSelector(state=>state.order);
+    const {tab} = useSelector(state=>state.common);
 
     useEffect(()=>{
         dispatch(setLanguage("korean"));  
@@ -81,9 +82,8 @@ const MainScreen = () =>{
                     {/* <SideMenu/> */}
                     <MainWrapper>
                         <TopMenu/>
-                        <SubMenu/>
                         <MenuListView/>
-                        <CartView/>
+                        {/* <CartView/> */}
                     </MainWrapper>
                 </WholeWrapper> 
             </KeyboardAvoidingView>

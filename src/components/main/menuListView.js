@@ -12,6 +12,8 @@ import { numberPad, openFullSizePopup, openPopup } from '../../utils/common';
 import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
 import FloatingBtn from '../popups/floatingButtonPopup';
 import { QuickOrderPopup } from '../popups/quickOrderPopup';
+import { MenuSelectBg, MenuSelectCategory, MenuSelectCategoryIcon, MenuSelectCategorySubText, MenuSelectCategoryText, MenuSelectCategoryView, MenuSelectView } from '../../styles/main/mainStyle';
+import SubMenu from './subMenu';
 
 // 스크롤링 관련
 var touchStartOffset = 0;
@@ -88,12 +90,48 @@ const MenuListView = () => {
         return contentOffset.y == 0;
     };
     //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
-    if(displayMenu?.length <= 0) {
-        return(<></>);
-    }
+    
+    console.log("allCategories: ",allCategories);
+    return(
+        <>
+            <MenuSelectView>
+                <MenuSelectBg source={require("../../assets/icons/daedo_bg.png")} resizeMethod={"contain"} />
+                <MenuSelectCategoryView style={{paddingTop:50}} >
+                    <MenuSelectCategory>
+                        <MenuSelectCategoryIcon source={require('../../assets/icons/meat.png')} resizeMode={"contain"} />
+                        <MenuSelectCategoryText>고기</MenuSelectCategoryText>
+                    </MenuSelectCategory>
+                    <MenuSelectCategory>
+                        <MenuSelectCategoryIcon source={require('../../assets/icons/meal.png')} resizeMode={"contain"} />
+                        <MenuSelectCategoryText>식사</MenuSelectCategoryText>
+                        <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
+                    </MenuSelectCategory>
+                    <MenuSelectCategory>
+                        <MenuSelectCategoryIcon source={require('../../assets/icons/lunch.png')} resizeMode={"contain"} />
+                        <MenuSelectCategoryText>점심 식사</MenuSelectCategoryText>
+                    </MenuSelectCategory>
+                </MenuSelectCategoryView>
+                <MenuSelectCategoryView style={{paddingBottom:50}} >
+                    <MenuSelectCategory>
+                        <MenuSelectCategoryIcon source={require('../../assets/icons/extra.png')} resizeMode={"contain"} />
+                        <MenuSelectCategoryText>추가메뉴</MenuSelectCategoryText>
+                    </MenuSelectCategory>
+                    <MenuSelectCategory>
+                        <MenuSelectCategoryIcon source={require('../../assets/icons/liquor.png')} resizeMode={"contain"} />
+                        <MenuSelectCategoryText>주류</MenuSelectCategoryText>
+                    </MenuSelectCategory>
+                    <MenuSelectCategory>
+                        <MenuSelectCategoryIcon source={require('../../assets/icons/drinks.png')} resizeMode={"contain"} />
+                        <MenuSelectCategoryText>음료</MenuSelectCategoryText>
+                    </MenuSelectCategory>
+                </MenuSelectCategoryView>
+            </MenuSelectView>
+        </>
+    )
 
     return(
         <>
+            <SubMenu/>
             <MenuListWrapper>
                 {displayMenu?.length > 0 &&
                     <FlatList
