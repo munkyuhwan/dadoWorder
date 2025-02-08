@@ -137,6 +137,7 @@ const MenuListView = () => {
         )
     }  
     console.log("displayMenu: ",displayMenu)
+    console.log("selectedMainCategory: ",selectedMainCategory)
 
     if(selectedMainCategory!= "") {
         if(selectedMainCategory == "liquor") {

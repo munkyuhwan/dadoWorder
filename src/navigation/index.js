@@ -222,7 +222,7 @@ export default function Navigation() {
     },[selectedMainCategory, selectedSubCategory])
     useEffect(()=>{
         if(allItems?.length > 0) {
-            dispatch(setSelectedMainCategory(allCategories[0]?.cate_code1));
+            //dispatch(setSelectedMainCategory(allCategories[0]?.cate_code1));
             allItems.map(el=>{
                 FastImage.preload([{uri:el?.gimg_chg}]);
 
