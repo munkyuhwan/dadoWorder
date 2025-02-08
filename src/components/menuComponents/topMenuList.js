@@ -4,7 +4,7 @@ import { CategoryDefault, CategorySelected, TopMenuText } from '../../styles/mai
 import { colorBrown, tabBaseColor } from '../../assets/colors/color';
 import { RADIUS_DOUBLE } from '../../styles/values';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedSubCategory } from '../../store/categories';
+import { setSelectedMainCategory, setSelectedSubCategory } from '../../store/categories';
 import { useFocusEffect } from '@react-navigation/native';
 import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
 import { setCommon } from '../../store/common';
@@ -26,14 +26,14 @@ const TopMenuList = (props) => {
                 return(
                     <>
                         {tab==el.code &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setCommon({"tab":el.code})); }}>
+                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":el.code})); }}>
                                 <CategorySelected>
                                     <TopMenuText key={"subcatText_"+el?.idx} >{el?.title_kor}</TopMenuText>
                                 </CategorySelected>
                             </TouchableWithoutFeedback>
                         }
                         {tab!=el.code &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setCommon({"tab":el.code}));}}>
+                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":el.code}));}}>
                                 <CategoryDefault>
                                     <TopMenuText key={"subcatText_"+el?.idx} >{el?.title_kor}</TopMenuText>
                                 </CategoryDefault>

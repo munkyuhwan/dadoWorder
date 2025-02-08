@@ -74,7 +74,7 @@ const MainScreen = () =>{
         } 
           
     },[isQuickShow])
-
+    console.log("tab: ",tab);
     return(
         <>
             <KeyboardAvoidingView behavior="padding" enabled style={{width:'100%', height:'100%'}} >
@@ -82,7 +82,9 @@ const MainScreen = () =>{
                     {/* <SideMenu/> */}
                     <MainWrapper>
                         <TopMenu/>
-                        <MenuListView/>
+                        {tab == "menu" &&
+                            <MenuListView/>
+                        }
                         {/* <CartView/> */}
                     </MainWrapper>
                 </WholeWrapper> 

@@ -94,24 +94,22 @@ const MenuItem = ({item,index,setDetailShow}) => {
     return(
         <>
         {reload &&
+        <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
             <MenuItemWrapper>
                 <MenuItemTopWrapper>
                     {imgUrl &&
                         <>
-                            <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
-                                {/* <FastImage style={{ width:'100%',height:height*0.28, borderRadius:RADIUS_DOUBLE}} source={{uri:filteredImg[0]?.imgData}} resizeMode={FastImage.resizeMode.cover} /> */}
-                                <FastImage style={{ width:'100%',height:height*0.28, borderRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
-                            </TouchableWithoutFeedback>
+                                <FastImage style={{ width:'100%',height:height*0.33, borderRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
                         </>
                     }
                     {!imgUrl &&
-                        <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
-                            <MenuImageDefaultWrapper>
-                                <MenuImageDefault source={require("../../assets/icons/logo.png")}/>
-                            </MenuImageDefaultWrapper>
-                        </TouchableWithoutFeedback>
+                            <FastImage style={{ width:'100%',height:height*0.32, borderRadius:RADIUS_DOUBLE}} source={require("../../assets/icons/logo.png")} resizeMode={FastImage.resizeMode.cover} />
                     }
                     
+                    <MenuItemBottomWRapper>
+                        <MenuItemName>{itemTitle()||item.gname_kr}</MenuItemName>
+                        <MenuItemPrice>{numberWithCommas(itemPrice)}원</MenuItemPrice>
+                    </MenuItemBottomWRapper>
                     <MenuItemImageWrapper>
                         <MenuItemHotnessWrapper>
                         {item?.is_new=='Y'&&
@@ -167,11 +165,11 @@ const MenuItem = ({item,index,setDetailShow}) => {
                                     <MenuItemSpiciness source={require('../../assets/icons/cold_icon.png')}/>
                                 </MenuItemButtonInnerWrapperRight>
                             }
-                            <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} }} >
+                            {/* <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} }} >
                                 <MenuItemButtonInnerWrapperLeft>
                                     <MenuItemButton source={require('../../assets/icons/add.png')}/>
                                 </MenuItemButtonInnerWrapperLeft>
-                            </TouchableWithoutFeedback>
+                            </TouchableWithoutFeedback> */}
                         </MenuItemButtonWrapper>
                     </MenuItemImageWrapper>
                     {item?.sale_status=='3'&&// 1:대기, 2: 판매, 3: 매진
@@ -188,11 +186,8 @@ const MenuItem = ({item,index,setDetailShow}) => {
                     }
 
                 </MenuItemTopWrapper>
-                <MenuItemBottomWRapper>
-                    <MenuItemName>{itemTitle()||item.gname_kr}</MenuItemName>
-                    <MenuItemPrice>{numberWithCommas(itemPrice)}원</MenuItemPrice>
-                </MenuItemBottomWRapper>
             </MenuItemWrapper>
+            </TouchableWithoutFeedback>
         }
         </>
     );

@@ -38,11 +38,8 @@ const MenuListView = () => {
     const [numColumns, setNumColumns] = useState(3);
     const [isDetailShow, setDetailShow] = useState(false);
 
-
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
-
-
     const toNextCaterogy = () =>{
         const selectedCat = allCategories.filter(e => e.cate_code1==selectedMainCategory);
         const selectedIndex = allCategories.indexOf(selectedCat[0]);
@@ -70,7 +67,6 @@ const MenuListView = () => {
         }
     },[isOn])
 
-
     useEffect(()=>{
         if(displayMenu.length>0) {
             //listRef?.current?.scrollTo({x:0,animated: false});
@@ -90,139 +86,160 @@ const MenuListView = () => {
         return contentOffset.y == 0;
     };
     //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
-    
-    console.log("allCategories: ",allCategories);
-    return(
-        <>
-            <MenuSelectView>
-                <MenuSelectBg source={require("../../assets/icons/daedo_bg.png")} resizeMethod={"contain"} />
-                <MenuSelectCategoryView style={{paddingTop:50}} >
-                    <MenuSelectCategory>
-                        <MenuSelectCategoryIcon source={require('../../assets/icons/meat.png')} resizeMode={"contain"} />
-                        <MenuSelectCategoryText>고기</MenuSelectCategoryText>
-                    </MenuSelectCategory>
-                    <MenuSelectCategory>
-                        <MenuSelectCategoryIcon source={require('../../assets/icons/meal.png')} resizeMode={"contain"} />
-                        <MenuSelectCategoryText>식사</MenuSelectCategoryText>
-                        <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
-                    </MenuSelectCategory>
-                    <MenuSelectCategory>
-                        <MenuSelectCategoryIcon source={require('../../assets/icons/lunch.png')} resizeMode={"contain"} />
-                        <MenuSelectCategoryText>점심 식사</MenuSelectCategoryText>
-                    </MenuSelectCategory>
-                </MenuSelectCategoryView>
-                <MenuSelectCategoryView style={{paddingBottom:50}} >
-                    <MenuSelectCategory>
-                        <MenuSelectCategoryIcon source={require('../../assets/icons/extra.png')} resizeMode={"contain"} />
-                        <MenuSelectCategoryText>추가메뉴</MenuSelectCategoryText>
-                    </MenuSelectCategory>
-                    <MenuSelectCategory>
-                        <MenuSelectCategoryIcon source={require('../../assets/icons/liquor.png')} resizeMode={"contain"} />
-                        <MenuSelectCategoryText>주류</MenuSelectCategoryText>
-                    </MenuSelectCategory>
-                    <MenuSelectCategory>
-                        <MenuSelectCategoryIcon source={require('../../assets/icons/drinks.png')} resizeMode={"contain"} />
-                        <MenuSelectCategoryText>음료</MenuSelectCategoryText>
-                    </MenuSelectCategory>
-                </MenuSelectCategoryView>
-            </MenuSelectView>
-        </>
-    )
+    if(selectedMainCategory == "") {
+        return(
+            <>
+                <MenuSelectView>
+                    <MenuSelectBg source={require("../../assets/icons/daedo_bg.png")} resizeMethod={"contain"} />
+                    <MenuSelectCategoryView style={{paddingTop:50}} >
+                        <TouchableWithoutFeedback onPress={()=>{console.log("meat"); dispatch(setSelectedMainCategory("meat"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryIcon source={require('../../assets/icons/meat.png')} resizeMode={"contain"} />
+                                <MenuSelectCategoryText>고기</MenuSelectCategoryText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setSelectedMainCategory("meal"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryIcon source={require('../../assets/icons/meal.png')} resizeMode={"contain"} />
+                                <MenuSelectCategoryText>식사</MenuSelectCategoryText>
+                                <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setSelectedMainCategory("lunch"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryIcon source={require('../../assets/icons/lunch.png')} resizeMode={"contain"} />
+                                <MenuSelectCategoryText>점심 식사</MenuSelectCategoryText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                    </MenuSelectCategoryView>
+                    <MenuSelectCategoryView style={{paddingBottom:50}} >
+                        <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setSelectedMainCategory("extra"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryIcon source={require('../../assets/icons/extra.png')} resizeMode={"contain"} />
+                                <MenuSelectCategoryText>추가메뉴</MenuSelectCategoryText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("liquor");dispatch(setSelectedMainCategory("liquor"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryIcon source={require('../../assets/icons/liquor.png')} resizeMode={"contain"} />
+                                <MenuSelectCategoryText>주류</MenuSelectCategoryText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("drink");dispatch(setSelectedMainCategory("drink"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryIcon source={require('../../assets/icons/drinks.png')} resizeMode={"contain"} />
+                                <MenuSelectCategoryText>음료</MenuSelectCategoryText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                    </MenuSelectCategoryView>
+                </MenuSelectView>
+            </>
+        )
+    }  
+    console.log("displayMenu: ",displayMenu)
 
-    return(
-        <>
-            <SubMenu/>
-            <MenuListWrapper>
-                {displayMenu?.length > 0 &&
-                    <FlatList
-                        ref={listRef}
-                        columnWrapperStyle={{gap:11}}
-                        style={{height:'100%', zIndex: 99 }}
-                        data={displayMenu}
-                        renderItem={({item, index})=>{ return(<MenuItem isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={item} index={index} /> );}}
-                        numColumns={numColumns}
-                        key={numColumns}
-                        keyExtractor={(item,index)=>index}
-                        onTouchStart={(event)=>{
-                            touchStartOffset = event.nativeEvent.pageY;
-                        }}
-                        onTouchEnd={(event)=>{   
-                            // 스크롤 없을 때 호출
-                            touchEndOffset = event.nativeEvent.pageY;
-                            const touchSize = touchStartOffset - touchEndOffset;
-                            
-                            if(touchSize < 0) {
-                                // swipe down
-                                if( (touchSize*-1) > 150 ) {
-                                    // action
-                                    if(scrollDownCnt>=1) {
-                                        toPrevCaterogy();
+    if(selectedMainCategory!= "") {
+        if(selectedMainCategory == "liquor") {
+            return(
+                <>
+                    <SubMenu/>
+                    <MenuListWrapper>
+                        {displayMenu?.length > 0 &&
+                            <FlatList
+                                ref={listRef}
+                                columnWrapperStyle={{gap:11}}
+                                style={{height:'100%', zIndex: 99 }}
+                                data={displayMenu}
+                                renderItem={({item, index})=>{ return(<MenuItem isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={item} index={index} /> );}}
+                                numColumns={numColumns}
+                                key={numColumns}
+                                keyExtractor={(item,index)=>index}
+                                onTouchStart={(event)=>{
+                                    touchStartOffset = event.nativeEvent.pageY;
+                                }}
+                                onTouchEnd={(event)=>{   
+                                    // 스크롤 없을 때 호출
+                                    touchEndOffset = event.nativeEvent.pageY;
+                                    const touchSize = touchStartOffset - touchEndOffset;
+                                    
+                                    if(touchSize < 0) {
+                                        // swipe down
+                                        if( (touchSize*-1) > 150 ) {
+                                            // action
+                                            if(scrollDownCnt>=1) {
+                                                toPrevCaterogy();
+                                            }else {
+                                                scrollDownCnt = scrollDownCnt+1;
+                                            }
+                                        }
                                     }else {
+                                        // swipe up
+                                        if(touchSize>150) {
+                                            //action
+                                            if(scrollUpCnt>=1) {
+                                                toNextCaterogy();
+                                            }else {
+                                                scrollUpCnt = scrollUpCnt+1;
+                                            }
+                                        } 
+                                    }
+                                    
+                                }}
+                                onScroll={(event)=>{
+                                    direction = event.nativeEvent.contentOffset.y > currentOffset ? 'down' : 'up';
+                                    currentOffset = event.nativeEvent.contentOffset.y;
+                                    
+                                    scrollDownReached = false;
+                                    scrollUpReached = false;
+                                    scrollDownCnt = 0;
+                                    scrollUpCnt = 0;
+        
+                                    if (isCloseToBottom(event.nativeEvent)) {
                                         scrollDownCnt = scrollDownCnt+1;
+                                        if(direction == "down") scrollDownReached = true; scrollUpReached = false;
                                     }
-                                }
-                            }else {
-                                // swipe up
-                                if(touchSize>150) {
-                                    //action
-                                    if(scrollUpCnt>=1) {
-                                        toNextCaterogy();
-                                    }else {
+                                    if (isCloseToTop(event.nativeEvent)) {
                                         scrollUpCnt = scrollUpCnt+1;
+                                        if(direction == 'up') scrollUpReached = true; scrollDownReached = false;
                                     }
-                                } 
-                            }
-                            
-                        }}
-                        onScroll={(event)=>{
-                            direction = event.nativeEvent.contentOffset.y > currentOffset ? 'down' : 'up';
-                            currentOffset = event.nativeEvent.contentOffset.y;
-                            
-                            scrollDownReached = false;
-                            scrollUpReached = false;
-                            scrollDownCnt = 0;
-                            scrollUpCnt = 0;
+                                }}
+                                onScrollBeginDrag={(ev)=>{
+                                    // 스크롤 있을떄 호출됨
+                                    isScrolling=true;
+                                }}
+                                onScrollEndDrag={(ev)=>{
+                                    if(scrollDownReached ) {
+                                        if(scrollDownCnt>1) {
+                                            toNextCaterogy();
+                                        }else {
+                                            scrollDownCnt = scrollDownCnt+1;
+                                        }
+        
+                                    }
+                                    if(scrollUpReached) {
+                                        if(scrollUpCnt>1) {
+                                            toPrevCaterogy();
+                                        }else {
+                                            scrollUpCnt = scrollUpCnt+1;
+                                        }
+                                    }
+                                }}
+                            />
+                        }
+                    </MenuListWrapper>
+                    </>
+                );
+        }
+        return(<></>)
+    {/*             <QuickOrderPopup/>
+     */}
+                {/*isDetailShow&&
+                <ItemDetail isDetailShow={isDetailShow} setDetailShow={setDetailShow} language={language}/>
+                    */}
+        
+    }
 
-                            if (isCloseToBottom(event.nativeEvent)) {
-                                scrollDownCnt = scrollDownCnt+1;
-                                if(direction == "down") scrollDownReached = true; scrollUpReached = false;
-                            }
-                            if (isCloseToTop(event.nativeEvent)) {
-                                scrollUpCnt = scrollUpCnt+1;
-                                if(direction == 'up') scrollUpReached = true; scrollDownReached = false;
-                            }
-                        }}
-                        onScrollBeginDrag={(ev)=>{
-                            // 스크롤 있을떄 호출됨
-                            isScrolling=true;
-                        }}
-                        onScrollEndDrag={(ev)=>{
-                            if(scrollDownReached ) {
-                                if(scrollDownCnt>1) {
-                                    toNextCaterogy();
-                                }else {
-                                    scrollDownCnt = scrollDownCnt+1;
-                                }
-
-                            }
-                            if(scrollUpReached) {
-                                if(scrollUpCnt>1) {
-                                    toPrevCaterogy();
-                                }else {
-                                    scrollUpCnt = scrollUpCnt+1;
-                                }
-                            }
-                        }}
-                    />
-                }
-            </MenuListWrapper>
-{/*             <QuickOrderPopup/>
- */}
-            {/*isDetailShow&&
-            <ItemDetail isDetailShow={isDetailShow} setDetailShow={setDetailShow} language={language}/>
-                */}
-        </>
-    );
+    
 }
 
 export default MenuListView;

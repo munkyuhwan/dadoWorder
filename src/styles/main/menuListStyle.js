@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS } from '../values';
-import { colorBlack, colorWhite } from '../../assets/colors/color';
+import { colorBlack, colorRed, colorWhite } from '../../assets/colors/color';
 
 export const MenuListWrapper = styled.View`
     width:100%;
@@ -16,7 +16,7 @@ export const MenuListWrapper = styled.View`
 // menu item style
 export const MenuImageDefaultWrapper = styled.View`
     width:100%;
-    height:183px;
+    height:203px;
     borderRadius:${RADIUS};
     backgroundColor:${colorWhite};
 `
@@ -31,6 +31,7 @@ export const MenuItemTopWrapper = styled.View`
 `
 export const MenuItemWrapper = styled.View`
     width:32.5%;    
+    height:250px;
 `
 
 export const MenuItemImageWrapper = styled.View`
@@ -96,22 +97,30 @@ export const MenuItemBottomWRapper = styled.View`
     width:100%; 
     height:120px;
     flex:1;
-    flexDirection:column;  
+    flexDirection:row;  
     paddingTop:2px;
     alignItems:center;
+    position:absolute;
+    bottom:0;
+    justifyContent:center;
 `
 export const MenuItemName = styled.Text`
     fontSize:26px;
-    color:${colorWhite};
+    color:${colorBlack};
     fontWeight:900;
     height:80px;
     textAlignVertical:center;
+    flex:1;
+    marginLeft:20px;
 `
 export const MenuItemPrice = styled.Text`
     fontSize:26px;
-    color:${colorWhite};
+    color:${colorRed};
     justifyContents:center;
     lineHeight:30px;
+    flex:1;
+    textAlign:right;
+    margin:20px;
 `
 export const SoldOutLayer = styled.View`
     with:300px;

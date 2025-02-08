@@ -35,11 +35,7 @@ export const getAdminCategories = createAsyncThunk("categories/getAdminCategorie
 })
 // 메인 카테고리 선택
 export const setSelectedMainCategory = createAsyncThunk("categories/setSelectedMainCategory", async(index,{getState,dispatc, rejectWithValue}) =>{
-    if(isEmpty(index)) {
-        return rejectWithValue()
-    }else {
-        return index;
-    }
+   return index;    
 })
 // 서브 카테고리
 export const setSubCategories = createAsyncThunk("categories/setSubCategories", async(index,{getState,dispatc, rejectWithValue}) =>{
@@ -98,10 +94,10 @@ export const cagegoriesSlice = createSlice({
         // 메인 카테고리 선택
         builder.addCase(setSelectedMainCategory.fulfilled,(state, action)=>{
             //state.subCategories = MENU_DATA.categories[action.payload].subCategories||[]
-            if(!isEmpty(action.payload)){
+            //if(!isEmpty(action.payload)){
                 state.selectedMainCategory = action.payload;
                 state.selectedSubCategory = "0000";
-            }
+            //}
         })
         builder.addCase(setSelectedMainCategory.pending,(state, action)=>{
         })

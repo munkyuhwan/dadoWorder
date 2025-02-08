@@ -50,8 +50,6 @@ const FloatingBtn = (props) => {
     const {isMonthSelectShow, monthSelected} = useSelector(state=>state.monthSelect)
     const [totalAmt, setTotalAmt] = useState();
 
-    console.log("tablestatus: ",tableStatus);
-
     useEffect(()=>{
         if(quickOrderList.length>0) {
             doPayment();
