@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS } from '../values';
-import { colorWhite, mainTheme } from '../../assets/colors/color';
+import { basicBackground, colorWhite, mainTheme } from '../../assets/colors/color';
 import FastImage from 'react-native-fast-image';
 
 // 전체화면
@@ -16,7 +16,7 @@ export const WholeWrapper = styled.View`
 export const MainWrapper = styled.View`
     width:100%;
     height:100%;
-    backgroundColor:${mainTheme};
+    backgroundColor:${basicBackground};
     display:flex;
     flex:1;
 `

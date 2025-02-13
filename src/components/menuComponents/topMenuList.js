@@ -8,6 +8,8 @@ import { setSelectedMainCategory, setSelectedSubCategory } from '../../store/cat
 import { useFocusEffect } from '@react-navigation/native';
 import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
 import { setCommon } from '../../store/common';
+import { openTransperentPopup } from '../../utils/common';
+import { setCartView } from '../../store/cart';
 
 
 
@@ -22,6 +24,8 @@ const TopMenuList = (props) => {
     ];
     const {tab} = useSelector(state=>state.common);
     const {language} = useSelector(state=>state.languages);
+    const {isOn, isQuickOrder} = useSelector((state)=>state.cartView);
+
     const tabTitle = (el) =>{
         if(language == "korean") {
             return(el.title_kor)
@@ -35,19 +39,34 @@ const TopMenuList = (props) => {
             return(el.title_kor)
         }
     }
+
+    function moveTab(el) {
+        if(el.code!="orderList" && el.code!="cart"){ 
+            dispatch(setSelectedMainCategory("")); 
+            dispatch(setCommon({"tab":el.code})); 
+        }else {
+            if(el.code == "orderList") {
+                openTransperentPopup(dispatch, {innerView:"OrderList", isPopupVisible:true});
+            }
+            else if(el.code == "cart") {
+                dispatch(setCartView(!isOn));
+            }
+        }
+    }
+
     return (
             TOP_MENU.map((el) => {
                 return(
                     <>
                         {tab==el.code &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":el.code})); }}>
+                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{moveTab(el)}}>
                                 <CategorySelected>
                                     <TopMenuText key={"subcatText_"+el?.idx} >{tabTitle(el)}</TopMenuText>
                                 </CategorySelected>
                             </TouchableWithoutFeedback>
                         }
                         {tab!=el.code &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":el.code}));}}>
+                            <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{moveTab(el)}}>
                                 <CategoryDefault>
                                     <TopMenuText key={"subcatText_"+el?.idx} >{tabTitle(el)}</TopMenuText>
                                 </CategoryDefault>

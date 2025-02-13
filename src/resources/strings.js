@@ -42,7 +42,7 @@ export const LANGUAGE = {
         serverPopup:{
             callServer:'직원호출',
             text:"직원호출이 필요하신분은 아래 호출항목을 선택 후 직원호출하기 버튼을 눌러주시면\n담당자가 확인 후 빠른게 조치해드리겠습니다.",
-            callBtnText:'직원 호출하기',
+            callBtnText:'호출하기',
             closeBtnText:'닫기',
         },
         orderListPopup:{

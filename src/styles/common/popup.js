@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
-import { colorBlack, colorRed, colorWhite, mainTheme } from '../../assets/colors/color';
+import { basicBackground, colorBlack, colorRed, colorWhite, mainTheme } from '../../assets/colors/color';
 import { RADIUS, RADIUS_SMALL } from '../values';
 
 export const PopupWrapper = styled.View`
@@ -83,7 +83,9 @@ export const TransparentPopupBottomButtonWraper  = styled.View`
 `
 export const TransparentPopupBottomButtonText = styled.Text`
     color:${colorWhite};
-    fontSize:18px;
+    fontSize:22px;
+    fontWeight:bold;
+    lineHeight:30px;
     paddingRight:12px;
 `
 export const TransparentPopupBottomButtonIcon = styled.Image`

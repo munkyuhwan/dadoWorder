@@ -22,6 +22,7 @@ import FloatingBtn from '../components/popups/floatingButtonPopup'
 import { setQuickShow } from '../store/order'
 import SubMenu from '../components/main/subMenu'
 import LanguageSelectView from '../components/main/languageSelectView'
+import CallHelp from '../components/main/callHelp'
 let timeoutSet = null;
 let quickOrderTimeoutSet = null;
 
@@ -89,7 +90,10 @@ const MainScreen = () =>{
                         {tab == "lang" &&
                             <LanguageSelectView/>
                         }
-                        {/* <CartView/> */}
+                        {tab == "help" &&
+                            <CallHelp/>
+                        }
+                        <CartView/>
                     </MainWrapper>
                 </WholeWrapper> 
             </KeyboardAvoidingView>
