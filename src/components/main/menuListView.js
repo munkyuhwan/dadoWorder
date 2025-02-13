@@ -36,6 +36,7 @@ const MenuListView = () => {
     const {language} = useSelector(state=>state.languages);
 
     const [numColumns, setNumColumns] = useState(3);
+    const [vieweType, setViewType] = useState(3);
     const [isDetailShow, setDetailShow] = useState(false);
 
     // 선택 카테고리
@@ -61,11 +62,18 @@ const MenuListView = () => {
     }
     useEffect(()=>{
         if(isOn) {
-            setNumColumns(2);
+            setNumColumns(vieweType-1);
         }else {
-            setNumColumns(3);
-        }
+            setNumColumns(vieweType);
+        } 
     },[isOn])
+    useEffect(()=>{
+        const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
+        if(catData.length>0) {
+            setNumColumns(Number(catData[0].view_type));
+            setViewType(Number(catData[0].view_type));
+        }
+    },[selectedMainCategory])
 
     useEffect(()=>{
         if(displayMenu.length>0) {
@@ -85,6 +93,8 @@ const MenuListView = () => {
     const isCloseToTop = ({contentOffset}) => {
         return contentOffset.y == 0;
     };
+
+
     //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
     if(selectedMainCategory == "") {
         return(
@@ -136,23 +146,21 @@ const MenuListView = () => {
             </>
         )
     }  
-    console.log("displayMenu: ",displayMenu)
-    console.log("selectedMainCategory: ",selectedMainCategory)
-
+    console.log("displayMenu: ",displayMenu.length);
     if(selectedMainCategory!= "") {
-        if(selectedMainCategory == "liquor") {
+        //if(selectedMainCategory == "liquor") {
             return(
                 <>
                     <SubMenu/>
-                    <MenuListWrapper>
+                    <MenuListWrapper viewType={vieweType} >
                         {displayMenu?.length > 0 &&
                             <FlatList
                                 ref={listRef}
-                                columnWrapperStyle={{gap:11}}
-                                style={{height:'100%', zIndex: 99 }}
+                                columnWrapperStyle={{gap:24}}
+                                style={{height:'100%', width:'100%', zIndex: 99,  }}
                                 data={displayMenu}
-                                renderItem={({item, index})=>{ return(<MenuItem isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={item} index={index} /> );}}
-                                numColumns={numColumns}
+                                renderItem={({item, index})=>{ return(<MenuItem viewType={vieweType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={item} index={index} /> );}}
+                                numColumns={numColumns==4?2:numColumns}
                                 key={numColumns}
                                 keyExtractor={(item,index)=>index}
                                 onTouchStart={(event)=>{
@@ -230,14 +238,6 @@ const MenuListView = () => {
                     </MenuListWrapper>
                     </>
                 );
-        }
-        return(<></>)
-    {/*             <QuickOrderPopup/>
-     */}
-                {/*isDetailShow&&
-                <ItemDetail isDetailShow={isDetailShow} setDetailShow={setDetailShow} language={language}/>
-                    */}
-        
     }
 
     

@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
-import { RADIUS } from '../values';
+import { RADIUS, RADIUS_DOUBLE } from '../values';
 import { colorBlack, colorRed, colorWhite } from '../../assets/colors/color';
 
 export const MenuListWrapper = styled.View`
     width:100%;
     height:100%;
     paddingTop:10px;
-    paddingLeft:31px;
-    paddingRight:36px;
+    paddingLeft:${props=>props?.viewType==4?"102px":"42px"};
+    paddingRight:${props=>props?.viewType==4?"102px":"42px"};
     paddingBottom:80px;
+    backgroundColor:#303030;
+    justifyContent:center;
 `;
 
 
@@ -30,8 +32,14 @@ export const MenuItemTopWrapper = styled.View`
     flex:1;
 `
 export const MenuItemWrapper = styled.View`
-    width:32.5%;    
-    height:250px;
+    width:${props=> props?.viewType==3?"32%":"49%"};    
+    ${props=>{
+        if(props?.viewType == 2) {
+            return "height:560px;marginBottom:60px;";
+        }else {
+            return "height:280px;";
+        }
+    }}
 `
 
 export const MenuItemImageWrapper = styled.View`
@@ -104,6 +112,28 @@ export const MenuItemBottomWRapper = styled.View`
     bottom:0;
     justifyContent:center;
 `
+export const BigMenuItemBottomWrapper = styled.View`
+    width:100%; 
+    height:160px;
+    flex:1;
+    flexDirection:column;  
+    paddingTop:12px;
+    alignItems:center;
+    position:absolute;
+    bottom:0;
+    justifyContent:center;
+    backgroundColor:${colorWhite};
+    borderBottomLeftRadius:${RADIUS_DOUBLE};
+    borderBottomRightRadius:${RADIUS_DOUBLE};
+`
+export const BigMenuItemName = styled.Text`
+    fontSize:32px;
+    color:${colorBlack};
+    fontWeight:900;
+    height:100px;
+    textAlignVertical:center;
+    flex:1;
+`
 export const MenuItemName = styled.Text`
     fontSize:26px;
     color:${colorBlack};
@@ -112,6 +142,16 @@ export const MenuItemName = styled.Text`
     textAlignVertical:center;
     flex:1;
     marginLeft:20px;
+`
+export const BigMenuItemPrice = styled.Text`
+    fontSize:30px;
+    color:${colorRed};
+    justifyContents:center;
+    lineHeight:30px;
+    flex:1;
+    textAlign:right;
+ 
+    fontWeight:bold;
 `
 export const MenuItemPrice = styled.Text`
     fontSize:26px;

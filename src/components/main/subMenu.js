@@ -16,7 +16,8 @@ import TopMenuList from '../menuComponents/topMenuList'
 import VersionCheck from 'react-native-version-check';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AutoScroll from "@homielab/react-native-auto-scroll";
-import SubMenuList from '../menuComponents/subMenuList'
+import SubMenuList from '../menuComponents/subMenuList';
+import isEmpty from 'lodash';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -147,13 +148,14 @@ const SubMenu = () =>{
             setSettingTouch(0);
         }
     }
+
     return(
         <>
-            <TopMenuWrapper>
+            <TopMenuWrapper isShow={subCategories?.length>0} >
                 <SafeAreaView>
                     <CategoryScrollView ref={scrollViewRef} horizontal showsHorizontalScrollIndicator={false} >
                         <CategoryWrapper>
-                            {
+                            {subCategories &&
                                 <SubMenuList
                                     data={subCategories}
                                     onSelectItem={(index)=>{ onPressItem(index); }}

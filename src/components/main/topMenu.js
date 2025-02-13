@@ -160,7 +160,9 @@ const TopMenu = () =>{
     return(
         <>
             <TopMenuWrapper>
-                <FastImage source={require("../../assets/icons/daedo_logo.png")} style={{ marginLeft:40,marginRight:20, flex:0.5}} resizeMode='contain' />
+                <TouchableWithoutFeedback onPress={()=>{countDown(); onSettingPress();}} >
+                    <FastImage source={require("../../assets/icons/daedo_logo.png")} style={{ marginLeft:40,marginRight:20, flex:0.5}} resizeMode='contain' />
+                </TouchableWithoutFeedback>
                 <SafeAreaView>
                     <CategoryScrollView ref={scrollViewRef} horizontal showsHorizontalScrollIndicator={false} >
                         <CategoryWrapper>

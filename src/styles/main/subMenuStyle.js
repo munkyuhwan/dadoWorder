@@ -6,10 +6,11 @@ import { ScrollView } from 'react-native';
 
 export const TopMenuWrapper = styled.View`
     flexDirection:row;
-    height: 80px;
+    height:${props=>props?.isShow?"80px":"50px"};
     display: flex;
     justifyContent: flex-start;
     zIndex:99999;
+    backgroundColor:#303030;
 `
 // 공지사항 텍스트
 export const BulletinWrapper = styled(ScrollView)`

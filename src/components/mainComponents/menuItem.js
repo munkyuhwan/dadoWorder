@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Animated,Dimensions,FlatList,Image,Text,TouchableWithoutFeedback } from 'react-native'
-import { MenuImageDefault, MenuImageDefaultWrapper, MenuItemBottomWRapper, MenuItemButton, MenuItemButtonInnerWrapper, MenuItemButtonInnerWrapperLeft, MenuItemButtonInnerWrapperRight, MenuItemButtonWrapper, MenuItemHotness, MenuItemHotnessWrapper, MenuItemImage, MenuItemImageWrapper, MenuItemInfoWRapper, MenuItemName, MenuItemPrice, MenuItemSpiciness, MenuItemTopWrapper, MenuItemWrapper, SoldOutDimLayer, SoldOutDimLayerAbs, SoldOutLayer, SoldOutText } from '../../styles/main/menuListStyle';
+import { BigMenuItemBottomWrapper, BigMenuItemName, BigMenuItemPrice, MenuImageDefault, MenuImageDefaultWrapper, MenuItemBottomWRapper, MenuItemButton, MenuItemButtonInnerWrapper, MenuItemButtonInnerWrapperLeft, MenuItemButtonInnerWrapperRight, MenuItemButtonWrapper, MenuItemHotness, MenuItemHotnessWrapper, MenuItemImage, MenuItemImageWrapper, MenuItemInfoWRapper, MenuItemName, MenuItemPrice, MenuItemSpiciness, MenuItemTopWrapper, MenuItemWrapper, SoldOutDimLayer, SoldOutDimLayerAbs, SoldOutLayer, SoldOutText } from '../../styles/main/menuListStyle';
 import FastImage from 'react-native-fast-image';
 import { RADIUS, RADIUS_DOUBLE } from '../../styles/values';
 import { setItemDetail } from '../../store/menuDetail';
@@ -24,7 +24,7 @@ const height = Dimensions.get('window').height;
 let timeoutSet = null;
 
 /* 메인메뉴 메뉴 아이템 */
-const MenuItem = ({item,index,setDetailShow}) => {
+const MenuItem = ({item,index,setDetailShow,viewType}) => {
     //<MenuItemImage />    
     // 포스 api ITEM_ID 는 관리자 api에서 pos_code임
     const dispatch = useDispatch();
@@ -91,15 +91,125 @@ const MenuItem = ({item,index,setDetailShow}) => {
 
         //FastImage.preload([{uri:item?.gimg_chg}]);
     },[])
+    console.log("viewType: ",viewType)
+
+    if(viewType == 2) {
+        return(
+            <>
+            {reload &&
+            <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
+                <MenuItemWrapper viewType={viewType} >
+                    <MenuItemTopWrapper>
+                        {imgUrl &&
+                            <>
+                                <FastImage style={{ width:'100%',height: viewType==2?400:height*0.33,borderTopLeftRadius:RADIUS_DOUBLE, borderTopRightRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
+                            </>
+                        }
+                        {!imgUrl &&
+                                <FastImage style={{ width:'100%',height:viewType==2?400:height*0.32, borderTopLeftRadius:RADIUS_DOUBLE, borderTopRightRadius:RADIUS_DOUBLE}} source={require("../../assets/icons/logo.png")} resizeMode={FastImage.resizeMode.cover} />
+                        }
+                        
+                        {viewType!=2 &&
+                            <MenuItemBottomWRapper>
+                                <MenuItemName>{itemTitle()||item.gname_kr}</MenuItemName>
+                                <MenuItemPrice>{numberWithCommas(itemPrice)}원</MenuItemPrice>
+                            </MenuItemBottomWRapper>
+                        }
+                        {viewType==2 &&
+                            <BigMenuItemBottomWrapper>
+                                <BigMenuItemName>{itemTitle()||item.gname_kr}</BigMenuItemName>
+                                <BigMenuItemPrice>{numberWithCommas(itemPrice)}원</BigMenuItemPrice>
+                            </BigMenuItemBottomWrapper>
+                        }
+
+                        <MenuItemImageWrapper>
+                            <MenuItemHotnessWrapper>
+                            {item?.is_new=='Y'&&
+                                <MenuItemHotness source={require('../../assets/icons/new_menu.png')} />
+                            }
+                            {item?.is_best=='Y'&&
+                                <MenuItemHotness source={require('../../assets/icons/best_menu.png')} />
+                            }
+                            {item?.is_on=='Y'&&
+                                <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
+                            }
+                            </MenuItemHotnessWrapper>
+                            <MenuItemButtonWrapper>
+                                {
+                                    item.spicy == "1" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/spicy_1.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                                {
+                                    item.spicy == "1.5" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/spicy_2.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                                {
+                                    item.spicy == "2" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/spicy_3.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                                {
+                                    item.spicy == "2.5" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/spicy_4.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                                {
+                                    item.spicy == "3" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/spicy_5.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                                {
+                                    item.temp == "HOT" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/hot_icon.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                                {
+                                    item.temp == "COLD" &&
+                                    <MenuItemButtonInnerWrapperRight>
+                                        <MenuItemSpiciness source={require('../../assets/icons/cold_icon.png')}/>
+                                    </MenuItemButtonInnerWrapperRight>
+                                }
+                               
+                            </MenuItemButtonWrapper>
+                        </MenuItemImageWrapper>
+                        {item?.sale_status=='3'&&// 1:대기, 2: 판매, 3: 매진
+                            <SoldOutLayer style={{ width:'100%',height:height*0.28, borderRadius:RADIUS_DOUBLE}}>
+                                <SoldOutText>SOLD OUT</SoldOutText>    
+                                <SoldOutDimLayer style={{ width:'100%',height:height*0.28, borderRadius:RADIUS_DOUBLE}}/>
+                            </SoldOutLayer>
+                        }
+                        {(item?.sale_status!='3'&&!isAvailable(item)) &&
+                            <SoldOutLayer style={{ width:'100%',height:height*0.28, borderRadius:RADIUS_DOUBLE}}>
+                                <SoldOutText>준비중</SoldOutText>    
+                                <SoldOutDimLayer style={{ width:'100%',height:height*0.28, borderRadius:RADIUS_DOUBLE}}/>
+                            </SoldOutLayer>
+                        }
+    
+                    </MenuItemTopWrapper>
+                </MenuItemWrapper>
+                </TouchableWithoutFeedback>
+            }
+            </>
+        );
+    }
+
     return(
         <>
         {reload &&
         <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
-            <MenuItemWrapper>
+            <MenuItemWrapper viewType={viewType} >
                 <MenuItemTopWrapper>
                     {imgUrl &&
                         <>
-                                <FastImage style={{ width:'100%',height:height*0.33, borderRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
+                            <FastImage style={{ width:'100%',height: viewType==2?500:height*0.33, borderRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
                         </>
                     }
                     {!imgUrl &&
