@@ -259,7 +259,7 @@ export const postOrderToPos = createAsyncThunk("order/postOrderToPos", async(_,{
     //const {metaOrderData} = getState().order;
     //var orderList = Object.assign({},metaOrderData);
     const { tableStatus } = getState().tableInfo;
-    const {payData,orderData,isQuick, isMultiPay} = _;
+    const {payData,orderData,isQuick, isMultiPay, isHelp} = _;
     var postOrderData = Object.assign({},orderData);
     const {STORE_IDX} = await getStoreID()
     dispatch(setQuickOrder(false));
@@ -374,14 +374,19 @@ export const postOrderToPos = createAsyncThunk("order/postOrderToPos", async(_,{
                     }
                     return true;
                 }else {
-                    openTransperentPopup(dispatch, {innerView:"OrderComplete", isPopupVisible:true,param:{msg:"주문을 완료했습니다."}});
-                    setTimeout(() => {
-                        openTransperentPopup(dispatch, {innerView:"OrderList", isPopupVisible:true, param:{timeOut:10000} });
-                        if(isQuick==false) {
-                            dispatch(setQuickShow(true));
-                        }
-                        
-                    }, 4000);
+                    if(!isHelp){
+                        openTransperentPopup(dispatch, {innerView:"OrderComplete", isPopupVisible:true,param:{msg:"주문을 완료했습니다."}});
+                        setTimeout(() => {
+                            openTransperentPopup(dispatch, {innerView:"OrderList", isPopupVisible:true, param:{timeOut:10000} });
+                            if(isQuick==false) {
+                                dispatch(setQuickShow(true));
+                            }
+                            
+                        }, 4000);
+                    }else {
+                        openTransperentPopup(dispatch, {innerView:"OrderComplete", isPopupVisible:true,param:{msg:"직원을 호출 했습니다."}});
+
+                    }
                     // 더치페이 주문 초기화
                     if(isMultiPay == true) {
                         dispatch(initDutchPayOrder());  

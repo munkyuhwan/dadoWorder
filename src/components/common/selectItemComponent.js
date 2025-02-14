@@ -8,10 +8,9 @@ import { RADIUS_SMALL, RADIUS_SMALL_DOUBLE } from '../../styles/values';
 const SelectItemComponent = (props) =>{
 
     const data = props?.data;
-    const [selectedItems, setSelectedItems] = useState([]);
 
     const onItemPressed = (index) => {
-        let addedItems = selectedItems;
+        let addedItems = props?.selectedService;
         if(addedItems.includes(index)) {
             //addedItems.splice(addedItems.indexOf(index),)
             addedItems = addedItems.filter(el=>el!=index);
@@ -19,20 +18,20 @@ const SelectItemComponent = (props) =>{
             addedItems.push(index);
         }
         props?.onServiceSelected(addedItems);
-        setSelectedItems(addedItems);
+        //setSelectedItems(addedItems);
     }
 
     return(
         <>
             <SelectItemWrapper>
-            <FlatList
-                data={data}
-                renderItem={({item, index})=>{return(<SelectItem selectedItems={selectedItems} onPress={(index)=>{onItemPressed(index)}} key={index} item={item} /> );}}
-                numColumns={4}
-                key={({item, index})=>{return "_"+index}}
-                keyExtractor={(item,index)=>index}
-            />
-               
+                <FlatList
+                    style={{ height:'100%', marginBottom:30}} 
+                    data={data}
+                    renderItem={({item, index})=>{ return(<SelectItem selectedItems={props?.selectedService} onPress={(index)=>{onItemPressed(index)}} key={index} item={item} /> );}}
+                    numColumns={3}
+                    key={({item, index})=>{return "_"+index}}
+                    keyExtractor={(item,index)=>index}
+                />
             </SelectItemWrapper>
 
         </>
@@ -91,7 +90,7 @@ const SelectItem = (props) => {
         borderRadius:RADIUS_SMALL_DOUBLE,
     };
     const onSelectHandleAnimation = async (toValue) => {
-        if(selectedItems.includes(data.idx)){
+        if(selectedItems.includes(data.prod_cd)){
             setItemTextColor(colorBlack);
             setIsItemChecked(false);
             toValue=0;
@@ -112,16 +111,16 @@ const SelectItem = (props) => {
     const languageSelect = () => {
         switch(language){
             case "japanese":
-                return data?.subject_jp;
+                return data?.gname_kr;
                 break;
             case "chinese":
-                return data?.subject_cn;
+                return data?.gname_cn;
                 break;
             case "english":
-                return data?.subject_en;
+                return data?.gname_en;
                 break;
             default:
-                return data?.subject
+                return data?.gname_kr;
                 break;
 
         }
@@ -129,16 +128,14 @@ const SelectItem = (props) => {
 
     return(
         <>
-            <Animated.View  style={[{...popStyle, ...PopStyle.animatedPop,...{zIndex:popupZIndex, width:size, height:size}} ]} >   
-                <TouchableWithoutFeedback onPress={()=>{onSelectHandleAnimation(2); props?.onPress(data?.idx);  } }>
-                    <SelectItemContentWrapper>
-                        <SelectItemText textColor={itemTextColor} >{languageSelect()}</SelectItemText>
+                <TouchableWithoutFeedback onPress={()=>{onSelectHandleAnimation(2); props?.onPress(data?.prod_cd);  } }>
+                    <SelectItemContentWrapper isSelected={isItemChecked}>
+                        <SelectItemText  textColor={isItemChecked?colorWhite:itemTextColor} >{languageSelect()}</SelectItemText>
                         {isItemChecked &&
-                            <SelectItemChecked source={require("../../assets/icons/check_black.png")}/>
+                            <SelectItemChecked source={require("../../assets/icons/help_checked.png")}/>
                         }
                     </SelectItemContentWrapper>
                 </TouchableWithoutFeedback>
-            </Animated.View>
         </>
     )
 }
@@ -159,12 +156,13 @@ const SelectItemWrapper = styled.View`
 
 `
 const SelectItemContentWrapper = styled.View`
-    width:210px;
-    height:60px;
+    width:30%;
+    height:100px;
     justifyContents:center;
     textAlign:center;
     alignItems:center;
     margin:6px;
+    backgroundColor:${props=>props?.isSelected?colorRed:colorWhite};
     borderRadius:${RADIUS_SMALL};
 `
 

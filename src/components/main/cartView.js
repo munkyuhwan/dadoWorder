@@ -144,7 +144,7 @@ const CartView = () =>{
                         setPayProcess(false);
                         const orderFinalData = await metaPostPayFormat(orderList,result, allItems);
                         dispatch(postLog({payData:result,orderData:orderFinalData}))
-                        dispatch(postOrderToPos({isQuick:false, payData:result,orderData:orderFinalData, isMultiPay:false}));
+                        dispatch(postOrderToPos({isHelp:false, isQuick:false, payData:result,orderData:orderFinalData, isMultiPay:false}));
                         dispatch(adminDataPost({payData:result,orderData:orderFinalData, isMultiPay:false}));
                     })
                     .catch((err)=>{
@@ -157,9 +157,10 @@ const CartView = () =>{
                 }
             }else {
                 EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:false, msg:""});
+                console.log("orderList: ",orderList);
                 const orderData = await metaPostPayFormat(orderList,{}, allItems);
                 dispatch(adminDataPost({payData:null,orderData:orderData, isMultiPay:false}));
-                dispatch(postOrderToPos({isQuick:false, payData:null,orderData:orderData, isMultiPay:false}));
+                dispatch(postOrderToPos({isHelp:false, isQuick:false, payData:null,orderData:orderData, isMultiPay:false}));
                 setPayProcess(false);
             }
     }
@@ -433,37 +434,13 @@ const CartView = () =>{
                     </PayWrapper>
                     <PayBtnWrapper>
 
-                        {(isSplit=="N"&&!isPrepay)&&
                             <TouchableWithoutFeedback onPress={()=>{if(isPayProcess == false){setPayProcess(true); doPayment();}}} >
                                 <PayBtn isFull={true} color={colorRed} >
                                     <PayTitle>{LANGUAGE[language]?.cartView.makeOrder}</PayTitle>
                                     <PayIcon source={require("../../assets/icons/order.png")} />
                                 </PayBtn>
                             </TouchableWithoutFeedback>
-                        }
-                        {(isSplit=="N"&&isPrepay)&&
-                            <TouchableWithoutFeedback onPress={()=>{if(isPayProcess == false){setPayProcess(true); doPayment();}}} >
-                                <PayBtn isFull={true} color={colorRed} >
-                                    <PayTitle>{LANGUAGE[language]?.cartView.payOrder}</PayTitle>
-                                    <PayIcon source={require("../../assets/icons/order.png")} />
-                                </PayBtn>
-                            </TouchableWithoutFeedback>
-                        }
-                        {(isSplit=="Y"&&isPrepay)&&
-                            <>
-                            <TouchableWithoutFeedback onPress={()=>{doPayment();}} >
-                                <PayBtn isFull={false} isGap={true} color={colorRed} >    
-                                    <PayTitle>{LANGUAGE[language]?.cartView.payOrder}</PayTitle>
-                                    
-                                </PayBtn>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={()=>{dispatch(setDutchOrderList()); openFullSizePopup(dispatch, {innerFullView:"OrderPay", isFullPopupVisible:true}); }} >
-                                <PayBtn isFull={false}  isGap={true} color={colorRed}  >
-                                        <PayTitle>{LANGUAGE[language]?.cartView.payDutch}</PayTitle>
-                                </PayBtn>
-                            </TouchableWithoutFeedback>
-                            </>
-                        }
+                        
 
                     </PayBtnWrapper>
 

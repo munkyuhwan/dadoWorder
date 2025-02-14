@@ -135,7 +135,7 @@ const FloatingBtn = (props) => {
                         console.log("result: ",result);
                         const orderData = await metaPostPayFormat(quickOrderList,result, allItems);
                         dispatch(postLog({payData:result,orderData:orderData}))
-                        dispatch(postOrderToPos({isQuick:true,payData:result,orderData:orderData, isMultiPay:false}));
+                        dispatch(postOrderToPos({isHelp:false, isQuick:true,payData:result,orderData:orderData, isMultiPay:false}));
                         dispatch(adminDataPost({payData:result,orderData:orderData, isMultiPay:false}));
                         dispatch(initToQuickOrderList([]));
                     })
@@ -151,7 +151,7 @@ const FloatingBtn = (props) => {
                 EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:false, msg:""});
                 const orderData = await metaPostPayFormat(quickOrderList,{}, allItems);
                 dispatch(adminDataPost({payData:null,orderData:orderData, isMultiPay:false}));
-                dispatch(postOrderToPos({isQuick:true,payData:null,orderData:orderData, isMultiPay:false}));
+                dispatch(postOrderToPos({isHelp:false, isQuick:true,payData:null,orderData:orderData, isMultiPay:false}));
                 dispatch(initToQuickOrderList([]));
 
             }

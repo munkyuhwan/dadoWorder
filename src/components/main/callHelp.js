@@ -10,6 +10,11 @@ import { getStoreID, openFullSizePopup, openPopup, openTransperentPopup } from '
 import { getAdminServices } from '../../utils/apis';
 import { posErrorHandler } from '../../utils/errorHandler/ErrorHandler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setSelectedMainCategory, setSelectedSubCategory } from '../../store/categories';
+import { setSelectedItems } from '../../store/menu';
+import { metaPostPayFormat } from '../../utils/payment/metaPosDataFormat';
+import { adminDataPost, postOrderToPos } from '../../store/order';
+import { setCommon } from '../../store/common';
 //import { STORE_ID } from '../../resources/apiResources';
 
 const CallHelp = () => {
@@ -19,18 +24,18 @@ const CallHelp = () => {
     const {callServerItems} = useSelector(state=>state.callServer);
     const {isFullPopupVisible, innerFullView} = useSelector(state=>state.popup);
     const {tableInfo} = useSelector(state=>state.tableInfo);
-    const [selectedService, setSelectedService] = useState();
+    const [selectedService, setSelectedService] = useState([]);
+    const {displayMenu, allItems} = useSelector((state)=>state.menu);
 
     // 세팅 터치
     const [settingTouch, setSettingTouch] = useState(0);
     const [isStartCounting, setIsStartCounting] = useState(true);
 
-    useEffect(()=>{
-        if(isFullPopupVisible==true && innerFullView=="CallServer") {
-            dispatch(getServiceList());
-        }
-    },[isFullPopupVisible, innerFullView])
 
+
+    useEffect(()=>{
+        dispatch(setSelectedMainCategory("help"));
+    },[])
 
     const onServiceSelected = (indexArray) =>{
         setSelectedService(indexArray);
@@ -38,81 +43,38 @@ const CallHelp = () => {
     const callServer = async () =>{
         // dispatch(sendServiceToPos(selectedService));
         // 직원 호출하기
-        let subjectData = [];
-        let indexData = [];
-        if(selectedService) {
-            if(selectedService?.length > 0) {
-                selectedService.map(el=>{
-                    const tmpData = callServerItems.filter(item=>item.idx == el);
-                    if(tmpData.length > 0){
-                        subjectData.push(`${tmpData[0].subject}`);
-                        indexData.push(`"${el}"`);
-                    }
-                })
-                const tableNm = await AsyncStorage.getItem("TABLE_NM").catch(err=>{return ""});
-                const tableInfo =  await AsyncStorage.getItem("TABLE_INFO");   
-                const postCallData = {midx:selectedService, subject:subjectData};
-                dispatch(postService(postCallData));
-                //openFullSizePopup(dispatch, {innerView:"", isPopupVisible:false});
-                //openPopup(dispatch,{innerView:"AutoClose", isPopupVisible:true,param:{msg:"직원호출을 완료했습니다."}});
-             
-            }else {
-                openPopup(dispatch,{innerView:"AutoClose", isPopupVisible:true,param:{msg:"호출항목을 선택 해 주세요."}});
-            }
-        }else {
-            openPopup(dispatch,{innerView:"AutoClose", isPopupVisible:true,param:{msg:"호출항목을 선택 해 주세요."}});
+        // prod_cd: ,qty: ,set_item: 
+        var postData = [];
+        for (const el of selectedService) {
+            const data = {prod_cd:el ,qty:1 ,set_item:[]};
+            postData.push(data);
         }
+        console.log("postData:",postData)
+        const orderData = await metaPostPayFormat(postData,{}, allItems);
+        dispatch(adminDataPost({payData:null,orderData:orderData, isMultiPay:false}));
+        dispatch(postOrderToPos({isHelp:true, isQuick:false, payData:null,orderData:orderData, isMultiPay:false}));
+        setSelectedService();     
+        setTimeout(()=>{
+            dispatch(setSelectedMainCategory("")); 
+            dispatch(setCommon({"tab":"menu"})); 
+        },1000)
        
-    } 
-    let settingCount=null;
-    let countTime = 5;
-    const countDown = () =>{
-        if(isStartCounting) {
-            setIsStartCounting(false);
-            settingCount = setInterval(() => {
-                if(countTime>0) {
-                    countTime = countTime-1;
-                }else {
-                    countTime = 5
-                    clearInterval(settingCount);
-                    settingCount=null;
-                    setIsStartCounting(true);
-                }
-            }, 1000);
-        }
-    }
-    const onSettingPress = () => {
-        if(settingTouch<5) {
-            setSettingTouch(settingTouch+1);
-            if(countTime>0) {
-                if(settingTouch>=4) {
-                    clearInterval(settingCount);
-                    settingCount=null;
-                    setIsStartCounting(true);
-                    setSettingTouch(0);
-                    openFullSizePopup(dispatch,{innerFullView:"Setting", isFullPopupVisible:true});
-                }
-            }
-        }else {
-            setSettingTouch(0);
-        }
     } 
 
     return(
         <TransparentPopupWrapper>
             <TransparentPopupTopWrapper>
-                    <View style={{padding:0}} >
-                        <TransperentPopupTopTitle>{LANGUAGE[language]?.serverPopup.callServer}</TransperentPopupTopTitle>
+                    <View style={{padding:0, alignItems:'center'}} >
                         <TransperentPopupTopSubTitle>{LANGUAGE[language]?.serverPopup.text}</TransperentPopupTopSubTitle>
                     </View>
                 </TransparentPopupTopWrapper>     
             <TransperentPopupMidWrapper>
                 
-            <SelectItemComponent 
-                data={callServerItems}
-                numColumns={4}
-                onServiceSelected={onServiceSelected}
-            />
+                <SelectItemComponent 
+                    data={displayMenu}
+                    selectedService={selectedService}
+                    onServiceSelected={onServiceSelected}
+                />
                 
             </TransperentPopupMidWrapper>   
             <TransparentPopupBottomWrapper>

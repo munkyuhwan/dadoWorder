@@ -91,7 +91,6 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
 
         //FastImage.preload([{uri:item?.gimg_chg}]);
     },[])
-    console.log("viewType: ",viewType)
 
     if(viewType == 2) {
         return(

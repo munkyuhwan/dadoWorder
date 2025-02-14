@@ -35,7 +35,7 @@ export const TransparentPopupWrapper = styled.View`
     marginTop:58px;
     marginRight:96px;
     marginLeft:96px;
-    marginBottom:64px;
+    marginBottom:34px;
 `
 // 투명배경 상단 텍스트
 export const TransparentPopupTopWrapper = styled.View`
@@ -47,9 +47,10 @@ export const TransperentPopupTopTitle = styled.Text`
 `
 export const TransperentPopupTopSubTitle = styled.Text`
     paddingTop:40px;
-    color:${colorBlack};
+    color:${colorWhite};
     lineHeight:31px;
     fontSize:24px;
+    textAlign:center;
 `
 // 투명배경 팝업 중간 뷰
 export const TransperentPopupMidWrapper = styled.View`
@@ -57,6 +58,7 @@ export const TransperentPopupMidWrapper = styled.View`
     width:100%;
     justifyContents:center;
     alignItems:center;
+    paddingTop:50px;
 `   
 // 하단 버튼 선택
 export const TransparentPopupBottomWrapper = styled.View`
@@ -67,7 +69,7 @@ export const TransparentPopupBottomWrapper = styled.View`
 `
 export const TransparentPopupBottomInnerWrapper = styled.View`
     flexDirection:row;
-    justifyContents:space-between;
+    justifyContents:space-between;    
 `
 export const TransparentPopupBottomButtonWraper  = styled.View`
     backgroundColor:${(props)=>props.bgColor};

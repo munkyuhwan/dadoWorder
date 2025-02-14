@@ -31,7 +31,7 @@ const MenuListView = () => {
     const dispatch = useDispatch();
     const listRef = useRef();
 
-    const {displayMenu,menu, allSets} = useSelector((state)=>state.menu);
+    const {displayMenu} = useSelector((state)=>state.menu);
     const {isOn} = useSelector((state)=>state.cartView);
     const {language} = useSelector(state=>state.languages);
 
@@ -62,7 +62,8 @@ const MenuListView = () => {
     }
     useEffect(()=>{
         if(isOn) {
-            setNumColumns(vieweType-1);
+            //setNumColumns(vieweType-1);
+            setNumColumns(vieweType);
         }else {
             setNumColumns(vieweType);
         } 
@@ -146,7 +147,7 @@ const MenuListView = () => {
             </>
         )
     }  
-    console.log("displayMenu: ",displayMenu.length);
+
     if(selectedMainCategory!= "") {
         //if(selectedMainCategory == "liquor") {
             return(
