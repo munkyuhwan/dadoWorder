@@ -249,7 +249,7 @@ export const DutchPayItemAmtTextCollored = styled.Text`
 `
 // 수량 조절 메뉴 상세
 export const DetailItemAmtWrapper = styled.View`
-    width:171px;
+    width:191px;
     height: 40px;
     backgroundColor:${colorGrey};
     borderRadius:${RADIUS};
@@ -278,7 +278,7 @@ export const DetailItemAmtText = styled.Text`
     fontWeight:bold;
     flex:1;
     textAlign:center;
-    lineHeight:42px;
+    lineHeight:33px;
 `
 export const DetailOperandorText = styled.Text`
     fontSize:48px;
@@ -286,7 +286,7 @@ export const DetailOperandorText = styled.Text`
     width:100%;
     textAlign:center;
     justifyContent:center;
-    lineHeight:45px;
+    lineHeight:30px;
 
 `
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
-import { colorBlack, colorBrown, colorCardEnd, colorCardStart, colorGrey, colorRed, colorWhite } from '../../assets/colors/color';
+import { colorBlack, colorBrown, colorCardEnd, colorCardStart, colorGrey, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 import { RADIUS, RADIUS_SMALL } from '../values';
 import { ScrollView } from 'react-native';
 
@@ -35,12 +35,12 @@ export const OrdrListTopWrapper = styled.View`
 `
 export const OrderListTopTitle = styled.Text`
     fontSize:30px;
-    color:${colorRed};
+    color:${colorBlack};
     fontWeight:bold;
 `
 export const OrderListTopSubtitle = styled.Text`
     fontSize:17px;
-    color:${colorBlack}; 
+    color:${colorLightBrown}; 
     paddingLeft:14px;
     marginTop:auto;
 `
@@ -49,7 +49,7 @@ export const OrderListTopSubtitle = styled.Text`
 export const OrderListWrapper = styled.View`
     flex:1;
     paddingBottom:10px;
-    paddingTop:20px;
+    paddingTop:60px;
 `
 export const OrderListTableWrapper = styled.View`
     width:100%;
@@ -61,6 +61,8 @@ export const OrderListTableColumnNameWrapper = styled.View`
     width:100%;
     flexDirection:row;
     backgroundColor:${colorBlack};
+    borderTopLeftRadius:10px;
+    borderTopRightRadius:10px;
 `
 export const OrderListTableColumnName = styled.Text`
     color:${colorWhite};
@@ -152,9 +154,9 @@ export const OrderListTableItemImage=styled.Image`
 `
 export const OrderListTableItemName = styled.Text`
     color:${colorBlack};
-    fontSize:34px;
+    fontSize:24px;
     fontWeight:bold;
-    marginTop:auto;
+    marginTop:12px;
     marginBottom:auto;
     marginLeft:18px;
 `
@@ -169,7 +171,7 @@ export const OrderListOptionTitle = styled.Text`
 export const OrderListTableItemAmt = styled.Text`
     color:${colorBlack};
     flex:${props=>props?.flex};
-    fontSize:34px;
+    fontSize:24px;
     fontWeight:bold;
     marginTop:auto;
     marginBottom:auto;
@@ -180,7 +182,7 @@ export const OrderListTableItemAmt = styled.Text`
 export const OrderListTableItemPrice = styled.Text`
     color:${colorBlack};
     flex:${props=>props?.flex};
-    fontSize:34px;
+    fontSize:24px;
     fontWeight:bold;
     marginTop:auto;
     marginBottom:auto;
@@ -201,7 +203,7 @@ export const OrderListTableItemOperander = styled.Text`
 export const OrderListTableItemTotal = styled.Text`
     color:${colorRed};
     flex:${props=>props?.flex};
-    fontSize:34px;
+    fontSize:24px;
     fontWeight:bold;
     marginTop:auto;
     marginBottom:auto;
@@ -226,14 +228,14 @@ export const OrderListTalbleGrandTotalWrapper = styled.View`
 `
 export const OrderListTotalTitle = styled.Text`
     flex:1;
-    fontSize:34px;
+    fontSize:28px;
     color:${colorBlack};
     fontWeight:bold;
     textAlign:center;
 `
 export const OrderListTotalAmount = styled.Text`
     flex:1;
-    fontSize:34px;
+    fontSize:28px;
     color:${colorRed};
     fontWeight:bold;
     textAlign:right;

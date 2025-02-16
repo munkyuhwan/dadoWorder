@@ -5,7 +5,7 @@ import { colorBlack, colorRed, colorWhite } from '../../assets/colors/color';
 
 export const MenuListWrapper = styled.View`
     width:100%;
-    height:100%;
+    height:90%;
     paddingTop:10px;
     paddingLeft:${props=>props?.viewType==4?"102px":"42px"};
     paddingRight:${props=>props?.viewType==4?"102px":"42px"};
@@ -169,11 +169,24 @@ export const SoldOutLayer = styled.View`
     z-index:99999;
     flex:1;
 `
+export const SoldOutLayerBig = styled.View`
+    width:100%;
+    height:420px;
+    position:absolute;
+    z-index:99999;
+    flex:1;
+`
 export const SoldOutDimLayer = styled.View`
     background:${colorBlack};
     opacity:0.5;
     width:300px;
     height:183px;
+`
+export const SoldOutDimLayerBig = styled.View`
+    background:${colorBlack};
+    opacity:0.5;
+    width:100%;
+    height:420px;
 `
 export const SoldOutDimLayerAbs = styled.View`
     background:${colorBlack};

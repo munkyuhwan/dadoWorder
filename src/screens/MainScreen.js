@@ -23,6 +23,7 @@ import { setQuickShow } from '../store/order'
 import SubMenu from '../components/main/subMenu'
 import LanguageSelectView from '../components/main/languageSelectView'
 import CallHelp from '../components/main/callHelp'
+import ItemDetailBig from '../components/detailComponents/itemDetailBig'
 let timeoutSet = null;
 let quickOrderTimeoutSet = null;
 
@@ -33,7 +34,15 @@ const MainScreen = () =>{
     const {menuDetailID} = useSelector((state)=>state.menuDetail);
     const {isShow, adList} = useSelector((state)=>state.ads);
     const {quickOrderList, isQuickShow} = useSelector(state=>state.order);
+    const {selectedMainCategory, allCategories} = useSelector((state)=>state.categories);
     const {tab} = useSelector(state=>state.common);
+    const [vieweType, setViewType] = useState(3);
+    useEffect(()=>{
+        const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
+        if(catData.length>0) {
+            setViewType(Number(catData[0].view_type));
+        }
+    },[selectedMainCategory])
 
     useEffect(()=>{
         dispatch(setLanguage("korean"));  
@@ -97,8 +106,11 @@ const MainScreen = () =>{
                     </MainWrapper>
                 </WholeWrapper> 
             </KeyboardAvoidingView>
-            {menuDetailID!=null &&
+            {(vieweType!=2 && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
+            }
+            {(vieweType==2 && menuDetailID!=null) &&
+                <ItemDetailBig onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
             <FloatingBtn/>
         </>

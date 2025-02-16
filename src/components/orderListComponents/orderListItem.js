@@ -74,10 +74,10 @@ const OrderListItem = (props) => {
                         </OrderListOptionTitle>
                     </OrderListOptionWrapper>
                 </OrderListTableItemImageNameWrapper>
-                <OrderListTableItemAmt flex={0.1}>{item?.ITEM_QTY}</OrderListTableItemAmt>
-                <OrderListTableItemOperander flex={0.03} >X</OrderListTableItemOperander>
+                <OrderListTableItemAmt flex={0.1}>{item?.ITEM_QTY}개</OrderListTableItemAmt>
+                <OrderListTableItemOperander flex={0.03} ></OrderListTableItemOperander>
                 <OrderListTableItemPrice flex={0.25} >{numberWithCommas(individualItem()/item?.ITEM_QTY)}원</OrderListTableItemPrice>
-                <OrderListTableItemOperander flex={0.03} >=</OrderListTableItemOperander>
+                <OrderListTableItemOperander flex={0.03} ></OrderListTableItemOperander>
                 <OrderListTableItemTotal flex={0.25} >{numberWithCommas(individualItem())}원</OrderListTableItemTotal>
             </OrderListTableItemWrapper>
         </>

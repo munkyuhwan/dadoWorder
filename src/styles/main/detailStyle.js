@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
-import { colorBlack, colorRed, colorWhite, colorYellow, mainTheme } from '../../assets/colors/color';
+import { colorBlack, colorLightBrown, colorLightRed, colorRed, colorWhite, colorYellow, mainTheme } from '../../assets/colors/color';
 import { RADIUS, RADIUS_SMALL } from '../values';
 import FastImage from 'react-native-fast-image';
 
@@ -17,19 +17,64 @@ export const DetailWhiteWrapper = styled.View`
     height:100%;
     borderRadius:${RADIUS};
     backgroundColor:${colorWhite};
-    paddingTop:20px;
-    paddingBottom:20px;
-    paddingRight:20px;
-    paddingLeft:20px;
+    paddingTop:60px;
+    paddingBottom:30px;
+    paddingRight:40px;
+    paddingLeft:40px;
     elevation: 100;
 `
-
 export const DetailInfoWrapper = styled.View`
     width:100%;
     height:135px;
     flexDirection:row;
     backgroundColor:transparent;
 `
+export const DetailInfoWrapperBig = styled.View`
+    width:100%;
+    height:135px;
+    flexDirection:column;
+    backgroundColor:transparent;
+`
+
+export const DetailWrapperBig=styled.View`
+    width:100%;
+    height:100%;
+    paddingRight:0px;
+    paddingBottom:0px;
+    paddingLeft:0px;
+    backgroundColor:rgba(0,0,0,0.7);
+    justifyContent:center;
+    alignItems:center;
+`
+export const DetailWhiteWrapperBig = styled.View`
+    width:50%;
+    height:80%;
+    borderRadius:${RADIUS};
+    backgroundColor:${colorWhite};
+    elevation: 100;
+`
+export const DetailItemInfoFastImageBig = styled(FastImage)`
+    width:100%;
+    height:400px;
+    resizeMode:cover;
+    borderTopRightRadius:${RADIUS};
+    borderTopLeftRadius:${RADIUS};
+`
+export const MenuImageDefaultBig = styled.Image`
+    margin:auto;
+    width:100%;
+    height:400px;
+    resizeMode:contain;
+    borderTopRightRadius:${RADIUS};
+    borderTopLeftRadius:${RADIUS};
+`
+export const DetailItemInfoImageWrapperBig = styled.ImageBackground`
+    width:100%;
+    height:400px;
+    borderRadius:${RADIUS};
+    backgroundColor:black;
+`
+
 // 상단 
 export const DetailItemInfoWrapper = styled.View`
     flexDirection:column;
@@ -56,10 +101,19 @@ export const DetailItemInfoFastImage = styled(FastImage)`
     resizeMode:cover;
     borderRadius:${RADIUS};
 `
-export const DetailItemInfoTitleWrapper = styled.View`
-    flexDirection:row;
+export const DetailItemInfoTitleWrapperBig = styled.View`
+    flexDirection:column;
+    height:500px;
 `
 export const DetailItemInfoTitle = styled.Text`
+    fontSize:38px;
+    fontWeight:bold;
+    marginRight:11px;
+    color:${colorBlack}
+`
+export const DetailItemInfoTitleBig = styled.Text`
+    width:100%;
+    textAlign:center;
     fontSize:38px;
     fontWeight:bold;
     marginRight:11px;
@@ -84,9 +138,10 @@ export const DetailPriceMoreWrapper = styled.View`
 export const DetailItemInfoPriceWrapper = styled.View`
     flexDirection:row;
     flex:1;
+    paddingBottom:43px;
 `
 export const DetailItemInfoPrice = styled.Text`
-    fontSize:50px;
+    fontSize:40px;
     color:${colorRed};
     ${(props)=>props.isBold?"fontWeight:bold;":""}
     marginTop:auto;
@@ -96,6 +151,32 @@ export const DetailItemInfoMore = styled.Text`
     fontSize:22px;
     color:${colorBlack};
     flex:1;
+`
+export const DetailItemInfoMoreBig = styled.Text`
+    fontSize:22px;
+    color:${colorLightRed};
+    flex:1;
+    fontWeight:bold;
+    width:100%;
+    textAlign:center;
+    marginTop:10px;
+`
+export const CloseBtnWrapper = styled.View`
+    position:absolute;
+    top:150px;
+    width:100%;
+    alignItems:center;
+`
+export const CloseBtnView = styled.View`
+    backgroundColor:${colorLightBrown};
+    height:50px;
+    width:370px;
+    borderRadius:50px;
+`
+export const CloseBtnText = styled.Text`
+    color:${colorWhite};
+    textAlign:center;
+    fontSize:27px;
 `
 
 // 옵션 & 추천메뉴
@@ -115,12 +196,12 @@ export const OptTitleText = styled.Text`
 `
 export const OptList = styled.ScrollView`
     width:100%;
-    height:145px;
+    height:165px;
 `
 // 옵션선택 아이템
 export const OptItemWrapper= styled.View`
-    width:170px;
-    height:100px;
+    width:190px;
+    height:120px;
     borderRadius:${RADIUS_SMALL};
     marginRight:9px;
 `
@@ -146,25 +227,25 @@ export const OptItemInfoWrapper = styled.View`
     paddingLeft:12px;
 `
 export const OptItemInfoTitle = styled.Text`
-    fontSize:28px;
+    fontSize:24px;
     color:${colorWhite};
     fontWeight:bold;
 `
 export const OptItemInfoPrice = styled.Text`
-    fontSize:27px;
-    color:${colorYellow};
+    fontSize:24px;
+    color:${colorLightRed};
     fontWeight:bold;
     position:absolute;
-    bottom:2px;
+    bottom:10px;
     left:12px;
 `
 export const OptItemInfoChecked = styled.Image`
-    width:22px;
-    height:22px;
+    width:27px;
+    height:27px;
     resizeMode:contain;
     position:absolute;
-    right:8px;
-    bottom:8px;
+    right:10px;
+    bottom:10px;
     display:${(props)=>{return(props.isSelected==true?"flex":"none")} };
 `
 export const OptItemDim = styled.View`
@@ -242,9 +323,12 @@ export const BottomButton = styled.View`
 `
 export const BottomButtonText = styled.Text`
     fontSize:27px;
+    width:100%;
     color:${colorWhite};
     fontWeight:bold;
-    marginTop:auto;
+    margin:auto;
+    lineHeight:42px;
+    textAlign:center;
     marginBottom:auto;
     flex:1;
 `

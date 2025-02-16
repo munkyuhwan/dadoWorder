@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { BottomButton, BottomButtonIcon, BottomButtonText, BottomButtonWrapper, ButtonWrapper, DetailInfoWrapper, DetailItemInfoFastImage, DetailItemInfoImage, DetailItemInfoImageWrapper, DetailItemInfoMore, DetailItemInfoPrice, DetailItemInfoPriceWrapper, DetailItemInfoSource, DetailItemInfoTitle, DetailItemInfoTitleEtc, DetailItemInfoTitleWrapper, DetailItemInfoWrapper, DetailPriceMoreWrapper, DetailWhiteWrapper, DetailWrapper, OptList, OptListWrapper, OptRecommendWrapper, OptTitleText } from '../../styles/main/detailStyle';
+import { BottomButton, BottomButtonIcon, BottomButtonText, BottomButtonWrapper, ButtonWrapper, CloseBtnText, CloseBtnView, CloseBtnWrapper, DetailInfoWrapper, DetailInfoWrapperBig, DetailItemInfoFastImage, DetailItemInfoFastImageBig, DetailItemInfoImage, DetailItemInfoImageWrapper, DetailItemInfoImageWrapperBig, DetailItemInfoMore, DetailItemInfoMoreBig, DetailItemInfoPrice, DetailItemInfoPriceWrapper, DetailItemInfoSource, DetailItemInfoTitle, DetailItemInfoTitleBig, DetailItemInfoTitleEtc, DetailItemInfoTitleWrapper, DetailItemInfoTitleWrapperBig, DetailItemInfoWrapper, DetailPriceMoreWrapper, DetailWhiteWrapper, DetailWhiteWrapperBig, DetailWrapper, DetailWrapperBig, MenuImageDefaultBig, OptList, OptListWrapper, OptRecommendWrapper, OptTitleText } from '../../styles/main/detailStyle';
 import { ActivityIndicator, Animated, Dimensions, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { colorBlack, colorLightRed, colorRed } from '../../assets/colors/color';
 import { LANGUAGE } from '../../resources/strings';
@@ -12,7 +12,7 @@ import { initMenuDetail } from '../../store/menuDetail';
 import { isAvailable, numberWithCommas, openPopup } from '../../utils/common';
 import { MENU_DATA } from '../../resources/menuData';
 import { addToOrderList } from '../../store/order';
-import { MenuImageDefault, MenuItemButtonInnerWrapperRight, MenuItemDetailSpicenessWrapper, MenuItemSpiciness, SoldOutDimLayer, SoldOutLayer, SoldOutText } from '../../styles/main/menuListStyle';
+import { MenuImageDefault, MenuItemButtonInnerWrapperRight, MenuItemDetailSpicenessWrapper, MenuItemSpiciness, SoldOutDimLayer, SoldOutDimLayerBig, SoldOutLayer, SoldOutLayerBig, SoldOutText } from '../../styles/main/menuListStyle';
 import { useFocusEffect } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import { RADIUS, RADIUS_DOUBLE, RADIUS_SMALL_DOUBLE } from '../../styles/values';
@@ -21,7 +21,7 @@ import { posErrorHandler } from '../../utils/errorHandler/ErrorHandler';
 const height = Dimensions.get('window').height;
 
 /* 메뉴 상세 */
-const ItemDetail = (props) => {
+const ItemDetailBig = (props) => {
     const language = props.language;
     const isDetailShow = props.isDetailShow;
     const dispatch = useDispatch();
@@ -264,50 +264,58 @@ const ItemDetail = (props) => {
     return(
         <>
             <Animated.View  style={[{...PopStyle.animatedPop, ...boxWidthStyle,...{zIndex:detailZIndex} } ]} >
-                    <DetailWrapper onTouchStart={()=>{ props?.onDetailTouchStart(); }}>
-                        <DetailWhiteWrapper>
+                    <DetailWrapperBig onTouchStart={()=>{ props?.onDetailTouchStart(); }}>
+                        <DetailWhiteWrapperBig>
                             {menuDetailID==null &&
                                 <WaitIndicator/>
                             }
                             {menuDetailID!=null &&
                             <>
                             {menuDetailID!=null &&
-                                <DetailInfoWrapper>
-                                    <DetailItemInfoImageWrapper>
+                                <DetailInfoWrapperBig>
+                                    <DetailItemInfoImageWrapperBig>
                                         {menuDetail&& 
-                                        menuDetail?.gimg_chg &&
-                                            <DetailItemInfoFastImage source={ {uri:(`${menuDetail?.gimg_chg}`),priority: FastImage.priority.high } } />
+                                            menuDetail?.gimg_chg &&
+                                            <DetailItemInfoFastImageBig source={ {uri:(`${menuDetail?.gimg_chg}`),priority: FastImage.priority.high } } />
                                         }
                                         {menuDetail&&
-                                        !menuDetail?.gimg_chg &&
-                                            <MenuImageDefault source={require("../../assets/icons/logo.png")} />
+                                            !menuDetail?.gimg_chg &&
+                                            <MenuImageDefaultBig source={require("../../assets/icons/logo.png")} />
                                         }   
                                         {menuDetail?.sale_status=='3'&&// 1:대기, 2: 판매, 3: 매진
-                                            <SoldOutLayer style={{ width:'100%',height:height*0.332, borderRadius:RADIUS_DOUBLE}}>
+                                            <SoldOutLayerBig style={{ borderRadius:RADIUS_DOUBLE}}>
                                                 <SoldOutText>SOLD OUT</SoldOutText>    
-                                                <SoldOutDimLayer style={{ width:'100%',height:height*0.332, borderRadius:RADIUS_DOUBLE}}/>
-                                            </SoldOutLayer>
+                                                <SoldOutDimLayerBig style={{ borderTopRightRadius:RADIUS_DOUBLE,borderTopLeftRadius:RADIUS_DOUBLE}}/>
+                                            </SoldOutLayerBig>
                                         }
                                         {(menuDetail?.sale_status!='3'&&!isAvailable(menuDetail)) &&
-                                            <SoldOutLayer style={{ width:'100%',height:height*0.332, borderRadius:RADIUS_DOUBLE}}>
+                                            <SoldOutLayerBig style={{ borderTopRightRadius:RADIUS_DOUBLE,borderTopLeftRadius:RADIUS_DOUBLE}}>
                                                 <SoldOutText>준비중</SoldOutText>    
-                                                <SoldOutDimLayer style={{ width:'100%',height:height*0.332, borderRadius:RADIUS_DOUBLE}}/>
-                                            </SoldOutLayer>
+                                                <SoldOutDimLayerBig style={{ borderRadius:RADIUS_DOUBLE}}/>
+                                            </SoldOutLayerBig>
                                         }
-                                    </DetailItemInfoImageWrapper>
+                                    </DetailItemInfoImageWrapperBig>
                                     <DetailItemInfoWrapper>
-                                        <DetailItemInfoTitleWrapper>
-                                            <DetailItemInfoTitle>{ItemTitle()||menuDetail?.gname_kr}</DetailItemInfoTitle>
+                                        <DetailItemInfoTitleWrapperBig>
+                                            <DetailItemInfoTitleBig>{ItemTitle()||menuDetail?.gname_kr}</DetailItemInfoTitleBig>
+                                            <DetailItemInfoMoreBig>{ItemInfo()}</DetailItemInfoMoreBig>
+                                            <CloseBtnWrapper>
+                                                <TouchableWithoutFeedback onPress={()=>{closeDetail();}} >
+                                                    <CloseBtnView>
+                                                        <CloseBtnText>클릭하면 창이 사라집니다.</CloseBtnText>
+                                                    </CloseBtnView>
+                                                </TouchableWithoutFeedback>
+                                            </CloseBtnWrapper>
                                             {menuDetail&&
                                                 menuDetail?.is_new=='Y'&&
                                                  <DetailItemInfoTitleEtc source={require("../../assets/icons/new_menu.png")}/>
                                             }
                                             {menuDetail&&
-                                        menuDetail?.is_best=='Y'&&
+                                                menuDetail?.is_best=='Y'&&
                                                 <DetailItemInfoTitleEtc source={require("../../assets/icons/best_menu.png")}/>
                                             }
                                             {menuDetail&&
-                                        menuDetail?.is_on=='Y'&&
+                                                menuDetail?.is_on=='Y'&&
                                                 <DetailItemInfoTitleEtc source={require("../../assets/icons/hot_menu.png")}/>
                                             }
                                             {
@@ -352,74 +360,14 @@ const ItemDetail = (props) => {
                                                     <MenuItemSpiciness source={require('../../assets/icons/hot_icon.png')}/>
                                                 </MenuItemDetailSpicenessWrapper>
                                             }
-                                        </DetailItemInfoTitleWrapper>
-                                        {/* <DetailItemInfoSource>{ItemWonsanji()}</DetailItemInfoSource> */}
-                                        <DetailItemInfoMore>{ItemInfo()}</DetailItemInfoMore>
-                                        <DetailPriceMoreWrapper>
-                                            <DetailItemInfoPriceWrapper>
-                                                <DetailItemInfoPrice isBold={true} >{ menuDetail?.sal_tot_amt?numberWithCommas(menuDetail?.sal_tot_amt):""}</DetailItemInfoPrice><DetailItemInfoPrice isBold={false}> 원</DetailItemInfoPrice>
-                                            </DetailItemInfoPriceWrapper>
-                                        </DetailPriceMoreWrapper>
-                                    </DetailItemInfoWrapper>
-                                </DetailInfoWrapper>
-                            }
-                            {menuDetailID!=null &&
-                            <ScrollView style={{marginTop:83}} showsVerticalScrollIndicator={false} >
-
-                                <OptRecommendWrapper>
-                                    <OptListWrapper>
-                                        {
-                                        menuDetail?.option &&
-                                        menuDetail?.option.map((el,index)=>{
-                                            return (
-                                                <>
-                                                    <OptTitleText>{el.op_name} {el.limit_count>0?`(필수 수량 ${el.limit_count}개 선택)`:''}</OptTitleText>
-                                                    <OptList horizontal showsHorizontalScrollIndicator={false} >
-                                                    {
-                                                        el?.prod_i_cd &&
-                                                        el?.prod_i_cd?.map((itemEl,index)=>{
-                                                            const optSel = optSelected.filter(optEl=>optEl.optGroup==el.idx && optEl.optItem==itemEl);
-                                                            return(
-                                                                <OptItem key={"optItem_"+index} maxQty={el.limit_count} isSelected={optSel.length>0 } selectedCnt={optSel.length<=0?0:optSel[0].qty} optionProdCD={itemEl} menuData={menuDetail} onPress={(isAdd, itemSel)=>{ onOptionSelect(isAdd, el, itemSel); } } />    
-                                                            );
-                                                            
-                                                        })
-                                                    }
-                                                    </OptList> 
-                                                </>
-                                            )
-                                        })
-                                        }
+                                        </DetailItemInfoTitleWrapperBig>
                                         
-                                    </OptListWrapper>
-                                    {menuDetail&&
-                                            menuDetail?.related &&
-                                            menuDetail?.related.length > 0 &&
-                                            menuDetail?.related[0]!="" &&
-                                            <>
-                                                <OptListWrapper>
-                                                    <OptTitleText>{LANGUAGE[language]?.detailView.recommendMenu}</OptTitleText>
-                                                    <OptList horizontal showsHorizontalScrollIndicator={false} >
-                                                        {
-                                                            menuDetail?.related.map((el,index)=>{
-                                                               /*  if(isEmpty(el)) {
-                                                                    return (<></>)
-                                                                }else { */
-                                                                    return(
-                                                                        <RecommendItem key={"recoItem_"+index}   recommendData={el} menuData={menuDetail}  />    
-                                                                    );
-                                                                //}
-                                                            })
-                                                        }
-                                                    </OptList>
-                                                </OptListWrapper>
-                                            </>
-                                        }
-                                </OptRecommendWrapper>
-                            </ScrollView>
-
-                            }   
-                            {(menuDetail?.sale_status!='3'&&isAvailable(menuDetail) ) &&
+                                    </DetailItemInfoWrapper>
+                                </DetailInfoWrapperBig>
+                            }
+                            
+                            
+                            {/*(menuDetail?.sale_status!='3'&&isAvailable(menuDetail) ) &&
                             <BottomButtonWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{addToCart()}}>
                                     <BottomButton backgroundColor={colorLightRed} >
@@ -437,11 +385,11 @@ const ItemDetail = (props) => {
                                 
 
                             </BottomButtonWrapper>
-                            }
+                            */}
                             </>
                             }
-                        </DetailWhiteWrapper>
-                    </DetailWrapper>
+                        </DetailWhiteWrapperBig>
+                    </DetailWrapperBig>
             </Animated.View>
         </>
     )  
@@ -460,4 +408,4 @@ const PopStyle = StyleSheet.create({
 
 })
 
-export default ItemDetail;
+export default ItemDetailBig;

@@ -155,7 +155,7 @@ const OptItem = (props)=>{
                         <OptItemInfoWrapper>
                             <OptItemInfoTitle>{ItemTitle()||itemDetail[0]?.gname_kr }</OptItemInfoTitle>
                             <OptItemInfoPrice>{(itemDetail[0]?.sal_amt)?"+"+(Number(itemDetail[0]?.sal_amt)+Number(itemDetail[0]?.sal_vat))*Number(qty).toLocaleString(undefined,{maximumFractionDigits:0})+"원":""}</OptItemInfoPrice>
-                            {/* <OptItemInfoChecked isSelected={props.isSelected} source={require("../../assets/icons/check_red.png")}/> */}
+                            <OptItemInfoChecked isSelected={props.isSelected} source={require("../../assets/icons/optChecked.png")}/>
                         </OptItemInfoWrapper>
                     </OptItemWrapper>
                     {/* 옵션 수량 조절 */}
@@ -163,7 +163,7 @@ const OptItem = (props)=>{
                         <DetailItemAmtWrapper>
                             <TouchableWithoutFeedback  onPress={()=>{ props.onPress(false, itemDetail[0]); }} >
                                 <DetailItemAmtController>
-                                <DetailOperandorText>-</DetailOperandorText>
+                                    <DetailOperandorText>-</DetailOperandorText>
                                 </DetailItemAmtController>
                             </TouchableWithoutFeedback>
                             <DetailItemAmtText>{selectedCnt}</DetailItemAmtText>

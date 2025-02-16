@@ -92,13 +92,16 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
         //FastImage.preload([{uri:item?.gimg_chg}]);
     },[])
 
-    if(viewType == 2) {
+    if(viewType == 2 ) {
         return(
             <>
             {reload &&
-            <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
+            <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
                 <MenuItemWrapper viewType={viewType} >
                     <MenuItemTopWrapper>
+                        <TouchableWithoutFeedback onPress={()=>{ setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                            <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:80, height:80, position:'absolute', zIndex:999999, right:20, top:30 }} />
+                        </TouchableWithoutFeedback>
                         {imgUrl &&
                             <>
                                 <FastImage style={{ width:'100%',height: viewType==2?400:height*0.33,borderTopLeftRadius:RADIUS_DOUBLE, borderTopRightRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
@@ -203,9 +206,12 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
     return(
         <>
         {reload &&
-        <TouchableWithoutFeedback onPress={()=>{setDetailShow(true); dispatch(setItemDetail({itemID})); }} >
+        <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
             <MenuItemWrapper viewType={viewType} >
                 <MenuItemTopWrapper>
+                    <TouchableWithoutFeedback onPress={()=>{ setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                        <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:20, top:10 }} />
+                    </TouchableWithoutFeedback>
                     {imgUrl &&
                         <>
                             <FastImage style={{ width:'100%',height: viewType==2?500:height*0.33, borderRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />

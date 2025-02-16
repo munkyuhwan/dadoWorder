@@ -168,7 +168,7 @@ const MenuListView = () => {
                                     touchStartOffset = event.nativeEvent.pageY;
                                 }}
                                 onTouchEnd={(event)=>{   
-                                    // 스크롤 없을 때 호출
+                                    /* // 스크롤 없을 때 호출
                                     touchEndOffset = event.nativeEvent.pageY;
                                     const touchSize = touchStartOffset - touchEndOffset;
                                     
@@ -192,11 +192,11 @@ const MenuListView = () => {
                                                 scrollUpCnt = scrollUpCnt+1;
                                             }
                                         } 
-                                    }
+                                    } */
                                     
                                 }}
                                 onScroll={(event)=>{
-                                    direction = event.nativeEvent.contentOffset.y > currentOffset ? 'down' : 'up';
+                                    /* direction = event.nativeEvent.contentOffset.y > currentOffset ? 'down' : 'up';
                                     currentOffset = event.nativeEvent.contentOffset.y;
                                     
                                     scrollDownReached = false;
@@ -211,14 +211,14 @@ const MenuListView = () => {
                                     if (isCloseToTop(event.nativeEvent)) {
                                         scrollUpCnt = scrollUpCnt+1;
                                         if(direction == 'up') scrollUpReached = true; scrollDownReached = false;
-                                    }
+                                    } */
                                 }}
                                 onScrollBeginDrag={(ev)=>{
                                     // 스크롤 있을떄 호출됨
-                                    isScrolling=true;
+                                    /* isScrolling=true; */
                                 }}
                                 onScrollEndDrag={(ev)=>{
-                                    if(scrollDownReached ) {
+                                    /* if(scrollDownReached ) {
                                         if(scrollDownCnt>1) {
                                             toNextCaterogy();
                                         }else {
@@ -232,7 +232,7 @@ const MenuListView = () => {
                                         }else {
                                             scrollUpCnt = scrollUpCnt+1;
                                         }
-                                    }
+                                    } */
                                 }}
                             />
                         }
