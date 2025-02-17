@@ -398,7 +398,7 @@ const CartView = () =>{
             <CartViewWrapper style={[{...boxStyle}]} >
                 <TopTitleWrapper>
                     <TopTitleView>
-                        <TopTitleText>주문내역</TopTitleText>
+                        <TopTitleText>{LANGUAGE[language]?.cartView?.orderListTitle}</TopTitleText>
                     </TopTitleView>
                     <TopTableView>
                         <TopTableText>{tableNoText}</TopTableText>

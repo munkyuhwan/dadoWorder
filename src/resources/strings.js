@@ -92,7 +92,7 @@ export const LANGUAGE = {
         },
         cartView:{
             orderAmt:"注文数量",
-            orderAmtUnit:'犬',
+            orderAmtUnit:'',
             totalAmt:"注文金額",
             totalAmtUnit:'円',
             makeOrder:"注文する",
@@ -162,7 +162,7 @@ export const LANGUAGE = {
         },
         cartView:{
             orderAmt:"订单数量",
-            orderAmtUnit:'狗',
+            orderAmtUnit:'',
             totalAmt:"订单金额",
             totalAmtUnit:'赢',
             makeOrder:"下订单",
@@ -231,7 +231,7 @@ export const LANGUAGE = {
         },
         cartView:{
             orderAmt:"order quantity",
-            orderAmtUnit:'dog',
+            orderAmtUnit:'ea',
             totalAmt:"Order Amount",
             totalAmtUnit:'won',
             makeOrder:"Make Order",
