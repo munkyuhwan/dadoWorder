@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Animated,FlatList,Text,TouchableWithoutFeedback, View } from 'react-native'
+import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View } from 'react-native'
 import { MenuListWrapper } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
 import ItemDetail from '../detailComponents/itemDetail';
@@ -41,29 +41,11 @@ const MenuListView = () => {
 
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
-    const toNextCaterogy = () =>{
-        const selectedCat = allCategories.filter(e => e.cate_code1==selectedMainCategory);
-        const selectedIndex = allCategories.indexOf(selectedCat[0]);
-        var nextPage = 0;
-        nextPage = selectedIndex+1;
-        if(nextPage>allCategories.length-1) nextPage=allCategories.length-1;
-        dispatch(setSelectedMainCategory(allCategories[nextPage].cate_code1)); 
-        dispatch(setSelectedSubCategory("0000"))
-    }
-    const toPrevCaterogy = () =>{
-        const selectedCat = allCategories.filter(e => e.cate_code1==selectedMainCategory);
-        const selectedIndex = allCategories.indexOf(selectedCat[0]);
-        var nextPage = 0;
-        nextPage = selectedIndex-1;
-        if(nextPage<0) nextPage=0;
-        if(nextPage>allCategories.length-1) nextPage=allCategories.length-1;
-        dispatch(setSelectedMainCategory(allCategories[nextPage].cate_code1)); 
-        dispatch(setSelectedSubCategory("0000"))        
-    }
+   
     useEffect(()=>{
         if(isOn) {
-            //setNumColumns(vieweType-1);
-            setNumColumns(vieweType);
+            setNumColumns(vieweType-1);
+            //setNumColumns(vieweType);
         }else {
             setNumColumns(vieweType);
         } 
@@ -85,16 +67,8 @@ const MenuListView = () => {
             }
         }
     },[displayMenu])
-    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-        const paddingToBottom = 2;
-        return layoutMeasurement.height + contentOffset.y >=
-          contentSize.height - paddingToBottom;
-    };
 
-    const isCloseToTop = ({contentOffset}) => {
-        return contentOffset.y == 0;
-    };
-
+    var index=0;
 
     //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
     if(selectedMainCategory == "") {
@@ -147,14 +121,13 @@ const MenuListView = () => {
             </>
         )
     }  
-
     if(selectedMainCategory!= "") {
         //if(selectedMainCategory == "liquor") {
             return(
                 <>
                     <SubMenu/>
                     <MenuListWrapper viewType={vieweType} >
-                        {displayMenu?.length > 0 &&
+                        {(displayMenu?.length > 0 && !isOn && numColumns>=2)&&
                             <FlatList
                                 ref={listRef}
                                 columnWrapperStyle={{gap:24}}
@@ -167,74 +140,26 @@ const MenuListView = () => {
                                 onTouchStart={(event)=>{
                                     touchStartOffset = event.nativeEvent.pageY;
                                 }}
-                                onTouchEnd={(event)=>{   
-                                    /* // 스크롤 없을 때 호출
-                                    touchEndOffset = event.nativeEvent.pageY;
-                                    const touchSize = touchStartOffset - touchEndOffset;
-                                    
-                                    if(touchSize < 0) {
-                                        // swipe down
-                                        if( (touchSize*-1) > 150 ) {
-                                            // action
-                                            if(scrollDownCnt>=1) {
-                                                toPrevCaterogy();
-                                            }else {
-                                                scrollDownCnt = scrollDownCnt+1;
-                                            }
-                                        }
-                                    }else {
-                                        // swipe up
-                                        if(touchSize>150) {
-                                            //action
-                                            if(scrollUpCnt>=1) {
-                                                toNextCaterogy();
-                                            }else {
-                                                scrollUpCnt = scrollUpCnt+1;
-                                            }
-                                        } 
-                                    } */
-                                    
-                                }}
-                                onScroll={(event)=>{
-                                    /* direction = event.nativeEvent.contentOffset.y > currentOffset ? 'down' : 'up';
-                                    currentOffset = event.nativeEvent.contentOffset.y;
-                                    
-                                    scrollDownReached = false;
-                                    scrollUpReached = false;
-                                    scrollDownCnt = 0;
-                                    scrollUpCnt = 0;
-        
-                                    if (isCloseToBottom(event.nativeEvent)) {
-                                        scrollDownCnt = scrollDownCnt+1;
-                                        if(direction == "down") scrollDownReached = true; scrollUpReached = false;
-                                    }
-                                    if (isCloseToTop(event.nativeEvent)) {
-                                        scrollUpCnt = scrollUpCnt+1;
-                                        if(direction == 'up') scrollUpReached = true; scrollDownReached = false;
-                                    } */
-                                }}
-                                onScrollBeginDrag={(ev)=>{
-                                    // 스크롤 있을떄 호출됨
-                                    /* isScrolling=true; */
-                                }}
-                                onScrollEndDrag={(ev)=>{
-                                    /* if(scrollDownReached ) {
-                                        if(scrollDownCnt>1) {
-                                            toNextCaterogy();
-                                        }else {
-                                            scrollDownCnt = scrollDownCnt+1;
-                                        }
-        
-                                    }
-                                    if(scrollUpReached) {
-                                        if(scrollUpCnt>1) {
-                                            toPrevCaterogy();
-                                        }else {
-                                            scrollUpCnt = scrollUpCnt+1;
-                                        }
-                                    } */
-                                }}
                             />
+                        }
+                        {(displayMenu?.length > 0 && isOn && numColumns<2 ) &&
+                            <ScrollView style={{width:'100%'}}>
+                                <View>
+                                    {
+                                    displayMenu.map((el)=>{
+                                        console.log("el: ",el);
+                                        index++;
+                                        return(
+                                            <>
+                                                <MenuItem viewType={vieweType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={el} index={index} />
+                                            
+                                            </>
+                                        )
+                                    })
+                                    }
+                                </View>
+                            </ScrollView>
+                            
                         }
                     </MenuListWrapper>
                     </>

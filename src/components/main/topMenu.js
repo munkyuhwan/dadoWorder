@@ -178,12 +178,11 @@ const TopMenu = () =>{
                         </AutoScroll>
                     */}
                 </SafeAreaView>
-                {/* <TouchableWithoutFeedback onPress={()=>{ countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
-                <TableName>
-                    <TableNameSmall>테이블</TableNameSmall>
-                    <TableNameBig>{tableNoText}</TableNameBig>
-                </TableName>
-                </TouchableWithoutFeedback> */}
+                <TouchableWithoutFeedback onPress={()=>{ countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
+                    <TableName>
+                        <TableNameBig>{tableNoText}</TableNameBig>
+                    </TableName>
+                </TouchableWithoutFeedback>
 
                 
             </TopMenuWrapper>

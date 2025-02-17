@@ -321,7 +321,7 @@ export const CartItemCancelBtn = styled.Image`
 export const OrderWrapper = styled.View`
     backgroundColor:#D9D9D9;
     width:100%;
-    height:30%;
+    height:24%;
     paddingRight:23px;
     paddingLeft:23px;
     paddingBottom:23px;

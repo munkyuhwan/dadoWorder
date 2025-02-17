@@ -95,7 +95,7 @@ export const TableName = styled.View`
     backgroundColor: ${colorRed};
     width:163px;
     height:80px;
-    paddingTop:4%;
+    paddingTop:20px;
     paddingBottom:8px;
     borderBottomRightRadius:${RADIUS};
     borderBottomLeftRadius:${RADIUS};
@@ -103,7 +103,7 @@ export const TableName = styled.View`
     flexDirection:column;
     marginLeft:4px;
     position:absolute;
-    left:64%;
+    right:20px;
 `
 // talbe name smallTitle
 export const TableNameSmall = styled.Text`
