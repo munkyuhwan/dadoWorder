@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
-import { ArrowImage, CartFlatList, CartScrollView, CartViewWrapper, Handle, OrderWrapper, PayAmtNumber, PayAmtTitle, PayAmtUnit, PayAmtWrapper, PayBtn, PayBtnWrapper, PayIcon, PayTitle, PayWrapper } from '../../styles/main/cartStyle';
+import { ArrowImage, CartFlatList, CartScrollView, CartViewWrapper, Handle, OrderWrapper, PayAmtNumber, PayAmtTitle, PayAmtUnit, PayAmtWrapper, PayBtn, PayBtnWrapper, PayIcon, PayTitle, PayWrapper, TopTableText, TopTableView, TopTitleText, TopTitleView, TopTitleWrapper } from '../../styles/main/cartStyle';
 import CartListItem from '../cartComponents/cartListItem';
 import { LANGUAGE } from '../../resources/strings';
 import { setCartView, setIconClick } from '../../store/cart';
@@ -53,14 +53,13 @@ const CartView = () =>{
     //console.log("orderList: ",orderList);
     const [totalAmt, setTotalAmt] = useState();
     const [totalCnt, setTotalCnt] = useState(0);
-    const [cartCnt, setCartCnt] = useState(0);
-    const [prevOrderList, setPrevOrderList] = useState();
     const [isPayProcess, setPayProcess] = useState(false);
+    const [tableNoText, setTableNoText] = useState("");
 
     const [slideAnimation, setSlideAnimation] = useState(new Animated.Value(0));
     const slideInterpolate = slideAnimation.interpolate({
         inputRange:[0,1],
-        outputRange:[(windowWidth > 1200 ? windowWidth*0.274:windowWidth*0.266),(windowWidth*0.004)]
+        outputRange:[(windowWidth > 1200 ? windowWidth*0.43:windowWidth*0.266),(windowWidth*0.004)]
         //outputRange:[314,5]
     })
     const boxStyle = {
@@ -384,17 +383,27 @@ const CartView = () =>{
             if(isPayProcess == false){setPayProcess(true); doPayment();}
         }
     },[isQuickOrder])
+    useEffect(()=>[
+        AsyncStorage.getItem("TABLE_NM")
+        .then((TABLE_NM)=>{
+            if(TABLE_NM) {
+                setTableNoText(TABLE_NM)
+            }else {
+            }
+        })
+    ],[])
 
     return(
         <>  
-            <IconWrapper>
-                {tableStatus?.now_later != "선불" &&
-                    <TopButton cntNum={cartCnt} onPress={()=>{ openTransperentPopup(dispatch, {innerView:"OrderList", isPopupVisible:true}); /* openTransperentPopup(dispatch, {innerView:"CameraView", isPopupVisible:true}); */ }} isSlideMenu={false} lr={"left"} onSource={require("../../assets/icons/orderlist_trans.png")} offSource={require("../../assets/icons/orderlist_grey.png")} />
-                }
-                <TopButton cntNum={totalCnt} onPress={()=>{  dispatch(setCartView(!isOn));  }} isSlideMenu={true} lr={"right"} onSource={require("../../assets/icons/cart_trans.png")} offSource={require("../../assets/icons/cart_grey.png")} />
-            </IconWrapper>
             <CartViewWrapper style={[{...boxStyle}]} >
-                
+                <TopTitleWrapper>
+                    <TopTitleView>
+                        <TopTitleText>주문내역</TopTitleText>
+                    </TopTitleView>
+                    <TopTableView>
+                        <TopTableText>{tableNoText}</TopTableText>
+                    </TopTableView>
+                </TopTitleWrapper>
                 <TouchableWithoutFeedback onPress={()=>{   dispatch(setCartView(!isOn));  }}>
                     <Handle>
                         {isOn&&

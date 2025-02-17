@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE, RADIUS_SMALL, RADIUS_SMALL_DOUBLE } from '../values';
 import { Animated, TouchableWithoutFeedback } from 'react-native';
-import { colorBlack, colorGrey, colorRed, colorWhite, mainTheme, textColorWhite } from '../../assets/colors/color';
+import { colorBlack, colorBrown, colorGrey, colorLightBrown, colorRed, colorWhite, mainTheme, textColorWhite } from '../../assets/colors/color';
 import FastImage from 'react-native-fast-image';
 
 export const CartViewWrapper = styled(Animated.View)`
     backgroundColor:#ffffff; 
     height:100%; 
-    width:33%;
-    paddingTop:94px;
+    width:43%;
     position:absolute;
-    zIndex:99;
+    zIndex:999999;
     right:0;
     flexDirection:column;
 `
@@ -41,8 +40,8 @@ export const ArrowImage = styled.Image`
 
 // cart list item
 export const CartItemWrapper = styled.View`
-    width:100%;
-    height:210px;
+    width:92%;
+    height:130px;
     paddingBottom:17px;
     paddingTop:17px; 
     paddingLeft:13px;
@@ -50,6 +49,7 @@ export const CartItemWrapper = styled.View`
     borderBottomWidth:1px;
     borderColor:${colorGrey};
     flexDirection:row;
+    flex:1;
 `
 export const DutchItemWrapper = styled.View`
     width:220px;
@@ -70,7 +70,8 @@ export const DutchItemWrapper = styled.View`
 `
 // cart 이미지 포장하기 
 export const CartItemImageTogoWrapper = styled.View`
-    flexDirection:column;
+    width:140px;
+    flex:1;
 `
 export const DutchItemImageTogoWrapper = styled.View`
     flexDirection:row;
@@ -80,9 +81,15 @@ export const DutchItemTitleWrapper = styled.View`
     height:70px;
     paddingLeft:4px;
 `
+export const ShadowView = styled.View`
+    elevation: 10;
+    shadowOpacity:1;
+    shadowColor:rgba(0,0,0);
+    borderRadius:${RADIUS};
+`
 export const CartItemImage = styled(FastImage)`
-    width:120px;
-    height:106px;
+    width:100%;
+    height:96px;
     borderRadius:${RADIUS};
 `
 export const PaidItemImage = styled(FastImage)`
@@ -102,7 +109,7 @@ export const OperandorText = styled.Text`
     width:100%;
     textAlign:center;
     justifyContent:center;
-    lineHeight:58px;
+    lineHeight:48px;
 
 `
 export const CartItemTogoWrapper = styled.View`
@@ -133,11 +140,11 @@ export const CartItemTogoIcon = styled.Image`
 `
 // cart 이름, 가격, 수량
 export const CartItemTitlePriceWrapper = styled.View`
-    width:46%;
     paddingLeft:8px;
     paddingRight:2px;
     paddingTop:2px;
     flexDirection:column;
+    flex:1;
 `
 export const DutchCompleteItemTitlePriceWrapper = styled.View`
     width:100%;
@@ -148,11 +155,10 @@ export const DutchCompleteItemTitlePriceWrapper = styled.View`
     marginTop:25px;
 `
 export const CartItemTitle = styled.Text`
-    fontSize:16px;
+    fontSize:28px;
     fontWeight:bold;
     color:${mainTheme};
-    flex:1;
-    maxWidth:110px;
+    flex:1.8;
 `
 export const DutchItemTitle = styled.Text`
     fontSize:24px;
@@ -174,28 +180,29 @@ export const DutchItemOpts = styled.Text`
     height:20px;
 `
 export const CartItemPrice = styled.Text`
-    fontSize:34px;
+    fontSize:28px;
     fontWeight:normal;
     color:${colorRed};
     minHeight:17px;
     textAlignVertical:bottom;
-    width:110%;
-    
+    width:100%;
+    flex:1;
 `
 // 수량 조절 
 export const CartItemAmtWrapper = styled.View`
-    width:130%;
     height: 60px;
-    backgroundColor:${colorGrey};
     borderRadius:${RADIUS};
     flexDirection:row;
     padding:3px;
     marginTop:17px;
+    gap:3px;
+    flex:1;
 `
 export const CartItemAmtController = styled.View`
     width:52px;
     height:52px;
     backgroundColor:${colorWhite};
+    borderWidth:1px;
     borderRadius:${RADIUS};
     marginTop:auto;
     marginBottom:auto;
@@ -210,11 +217,13 @@ export const CartItemAmtControllerImage = styled.Image`
  `
 export const CartItemAmtText = styled.Text`
     fontSize:30px;
+    width:90px;
     fontWeight:bold;
-    flex:1;
     textAlign:center;
-    lineHeight:58px;
+    lineHeight:53px;
     color:${colorBlack};
+    borderWidth:1px;
+    borderRadius:${RADIUS};
 `
 export const DutchItemAmtText = styled.Text`
     fontSize:30px;
@@ -389,4 +398,36 @@ export const PayIcon = styled.Image`
     marginLeft:7px;
     width:25px;
     resizeMode:contain;
+`
+
+export const TopTitleWrapper = styled.View`
+    width:100%;
+    height:80px;
+    flexDirection:row;
+`
+export const TopTitleView = styled.View`
+    flex:1;
+    backgroundColor:${colorLightBrown};
+    justifyContent:center;
+`
+export const TopTitleText = styled.Text`
+    width:100%;
+    fontSize:30px;
+    color:${colorWhite};
+    fontWeight:bold;
+    textAlign:center;
+    lineHeight:42px;
+`
+export const TopTableView = styled.View`
+    flex:0.7;
+    backgroundColor:${colorRed};
+    justifyContent:center;
+`
+export const TopTableText = styled.Text`
+    width:100%;
+    fontSize:30px;
+    color:${colorWhite};
+    fontWeight:bold;
+    textAlign:center;
+    lineHeight:42px;
 `
