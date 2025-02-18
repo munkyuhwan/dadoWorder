@@ -52,7 +52,7 @@ const MenuListView = () => {
             if(viewType == 2) {
                 setListWidth("82%");
             }if(viewType == 3) {
-                setListWidth("70%");
+                setListWidth("60%");
             }if(viewType == 4) {
                 setListWidth("50%");
             }
@@ -171,7 +171,7 @@ const MenuListView = () => {
                             </ScrollView>
                             
                         }
-                        <TransparentPopupBottomWrapper style={{paddingBottom:30, paddingTop:10}} >
+                        <TransparentPopupBottomWrapper style={{paddingBottom:20, paddingTop:10}} >
                             <TransparentPopupBottomInnerWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory(""));}}>
                                     <TransparentPopupBottomButtonWraper bgColor={colorRed} >
