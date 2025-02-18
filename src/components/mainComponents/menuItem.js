@@ -126,15 +126,15 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
 
                         <MenuItemImageWrapper>
                             <MenuItemHotnessWrapper>
-                            {item?.is_new=='Y'&&
-                                <MenuItemHotness source={require('../../assets/icons/new_menu.png')} />
-                            }
-                            {item?.is_best=='Y'&&
-                                <MenuItemHotness source={require('../../assets/icons/best_menu.png')} />
-                            }
-                            {item?.is_on=='Y'&&
-                                <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
-                            }
+                                {item?.is_new=='Y'&&
+                                    <MenuItemHotness source={require('../../assets/icons/new_menu.png')} />
+                                }
+                                {item?.is_best=='Y'&&
+                                    <MenuItemHotness source={require('../../assets/icons/best_menu.png')} />
+                                }
+                                {item?.is_on=='Y'&&
+                                    <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
+                                }
                             </MenuItemHotnessWrapper>
                             <MenuItemButtonWrapper>
                                 {

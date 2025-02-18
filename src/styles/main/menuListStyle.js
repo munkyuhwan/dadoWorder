@@ -32,7 +32,7 @@ export const MenuItemTopWrapper = styled.View`
     flex:1;
 `
 export const MenuItemWrapper = styled.View`
-    width:${props=> props?.viewType==3?"32%":"49%"};    
+    width:${props=> props?.viewType==3?"385px":(props?.viewType==2?"588px":"528")};    
     ${props=>{
         if(props?.viewType == 2) {
             return "height:560px;marginBottom:60px;";
@@ -59,6 +59,9 @@ export const MenuItemImage = styled.Image`
 `
 export const MenuItemButtonWrapper = styled.View`
     flexDirection:row;
+    flex:1;
+    position:absolute;
+    paddingLeft:70px;
 `
 export const MenuItemButtonInnerWrapperRight = styled.View`
     width:100%;

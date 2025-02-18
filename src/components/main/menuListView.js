@@ -14,6 +14,9 @@ import FloatingBtn from '../popups/floatingButtonPopup';
 import { QuickOrderPopup } from '../popups/quickOrderPopup';
 import { MenuSelectBg, MenuSelectCategory, MenuSelectCategoryIcon, MenuSelectCategorySubText, MenuSelectCategoryText, MenuSelectCategoryView, MenuSelectView } from '../../styles/main/mainStyle';
 import SubMenu from './subMenu';
+import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, TransparentPopupBottomButtonWraper, TransparentPopupBottomInnerWrapper, TransparentPopupBottomWrapper } from '../../styles/common/popup';
+import { LANGUAGE } from '../../resources/strings';
+import { colorDarkGrey, colorLightBrown, colorRed } from '../../assets/colors/color';
 
 // 스크롤링 관련
 var touchStartOffset = 0;
@@ -36,18 +39,27 @@ const MenuListView = () => {
     const {language} = useSelector(state=>state.languages);
 
     const [numColumns, setNumColumns] = useState(3);
-    const [vieweType, setViewType] = useState(3);
+    const [viewType, setViewType] = useState(3);
     const [isDetailShow, setDetailShow] = useState(false);
+    const [listWidth,setListWidth] = useState("100%");
 
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
    
     useEffect(()=>{
         if(isOn) {
-            setNumColumns(vieweType-1);
+            setNumColumns(viewType-1);
+            if(viewType == 2) {
+                setListWidth("82%");
+            }if(viewType == 3) {
+                setListWidth("70%");
+            }if(viewType == 4) {
+                setListWidth("50%");
+            }
             //setNumColumns(vieweType);
         }else {
-            setNumColumns(vieweType);
+            setListWidth("100%");
+            setNumColumns(viewType);
         } 
     },[isOn])
     useEffect(()=>{
@@ -126,8 +138,8 @@ const MenuListView = () => {
             return(
                 <>
                     <SubMenu/>
-                    <MenuListWrapper viewType={vieweType} >
-                        {(displayMenu?.length > 0 && !isOn && numColumns>=2)&&
+                    <MenuListWrapper viewType={viewType} >
+                        {/*(displayMenu?.length > 0 && !isOn )&&
                             <FlatList
                                 ref={listRef}
                                 columnWrapperStyle={{gap:24}}
@@ -141,18 +153,16 @@ const MenuListView = () => {
                                     touchStartOffset = event.nativeEvent.pageY;
                                 }}
                             />
-                        }
-                        {(displayMenu?.length > 0 && isOn && numColumns<2 ) &&
+                        */}
+                        {//(displayMenu?.length > 0 && isOn ) &&
                             <ScrollView style={{width:'100%'}}>
-                                <View>
+                                <View style={{ width:listWidth, flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:20}} >
                                     {
                                     displayMenu.map((el)=>{
-                                        console.log("el: ",el);
                                         index++;
                                         return(
                                             <>
-                                                <MenuItem viewType={vieweType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={el} index={index} />
-                                            
+                                                <MenuItem viewType={viewType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={el} index={index} />
                                             </>
                                         )
                                     })
@@ -161,6 +171,22 @@ const MenuListView = () => {
                             </ScrollView>
                             
                         }
+                        <TransparentPopupBottomWrapper style={{paddingBottom:30, paddingTop:10}} >
+                            <TransparentPopupBottomInnerWrapper>
+                                <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory(""));}}>
+                                    <TransparentPopupBottomButtonWraper bgColor={colorRed} >
+                                        <TransparentPopupBottomButtonIcon source={require("../../assets/icons/back.png")} />
+                                        <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.etc.back}</TransparentPopupBottomButtonText>
+                                    </TransparentPopupBottomButtonWraper>
+                                </TouchableWithoutFeedback>
+                                {/* <TouchableWithoutFeedback onPress={()=>{openFullSizePopup(dispatch, {innerView:"", isFullPopupVisible:false});}}>
+                                    <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
+                                        <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
+                                        <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
+                                    </TransparentPopupBottomButtonWraper>
+                                </TouchableWithoutFeedback> */}
+                            </TransparentPopupBottomInnerWrapper>
+                        </TransparentPopupBottomWrapper>   
                     </MenuListWrapper>
                     </>
                 );
