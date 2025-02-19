@@ -17,7 +17,7 @@ const ADScreenPopup = () =>{
     const {adList,adImgs} = useSelector(state=>state.ads);
     const {tableInfo} = useSelector(state=>state.tableInfo);
     // 영상 플레이, 스톱
-    const [adIndex, setAdIndex] = useState();
+    const [adIndex, setAdIndex] = useState(0);
     const [displayUrl, setDisplayUrl] = useState("");
 
     useEffect(()=>{
@@ -29,7 +29,7 @@ const ADScreenPopup = () =>{
         if( adList?.length > 0) {
             //const imgToSet = adImgs.filter(el=>el.name ==adList[0]?.img_chg );
             //setDisplayUrl(imgToSet[0]?.imgData)
-            setDisplayUrl(ADMIN_API_BANNER_DIR+[0]?.img_chg)
+            setDisplayUrl(ADMIN_API_BANNER_DIR+adList[0]?.img_chg)
             setAdIndex(0)
         }else {
             clearTimeout(swipeTimeOut); 
@@ -39,6 +39,7 @@ const ADScreenPopup = () =>{
     
     useEffect(()=>{
         swipeTimeOut=setTimeout(()=>{
+            console.log("adIndex: ",adIndex);
             let tmpIndex = adIndex;
             if(!tmpIndex) tmpIndex=0;
             let indexToSet = tmpIndex +1;
@@ -60,7 +61,7 @@ const ADScreenPopup = () =>{
             <></>
         )
     }
-
+console.log("displayUrl: ",displayUrl)
     return(
         <>
             <TouchableWithoutFeedback onPress={()=>{ clearTimeout(swipeTimeOut); swipeTimeOut=null; dispatch(setAdScreen({isShow:false,isMain:false})) /* navigation.navigate("main") */}}>
