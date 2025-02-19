@@ -6,6 +6,9 @@ import { TableName, TableNameBig, TableNameSmall } from '../../styles/main/topMe
 import { getAD, setAdScreen } from '../../store/ad';
 import { SettingWrapper } from '../../styles/common/settingStyle';
 import { StatusText } from '../../styles/status/statusScreenStyle';
+import { ADMIN_API_BANNER_DIR } from '../../resources/newApiResource';
+import {VideoRef} from "react-native-video";
+
 let swipeTimeOut;
 const ADScreenPopup = () =>{
     let adInterval;
@@ -24,8 +27,9 @@ const ADScreenPopup = () =>{
     
     useEffect(()=>{
         if( adList?.length > 0) {
-            const imgToSet = adImgs.filter(el=>el.name ==adList[0]?.img_chg );
-            setDisplayUrl(imgToSet[0]?.imgData)
+            //const imgToSet = adImgs.filter(el=>el.name ==adList[0]?.img_chg );
+            //setDisplayUrl(imgToSet[0]?.imgData)
+            setDisplayUrl(ADMIN_API_BANNER_DIR+[0]?.img_chg)
             setAdIndex(0)
         }else {
             clearTimeout(swipeTimeOut); 
@@ -43,8 +47,8 @@ const ADScreenPopup = () =>{
             }
             setAdIndex(indexToSet);
             if(adList[tmpIndex]?.img_chg){
-                const imgToSet = adImgs.filter(el=>el.name ==adList[tmpIndex]?.img_chg );
-                setDisplayUrl(imgToSet[0]?.imgData)
+                //const imgToSet = adImgs.filter(el=>el.name ==adList[tmpIndex]?.img_chg );
+                setDisplayUrl(ADMIN_API_BANNER_DIR+adList[tmpIndex]?.img_chg)    
             }
             //clearTimeout(swipeTimeOut); 
             //swipeTimeOut=null;
@@ -67,7 +71,7 @@ const ADScreenPopup = () =>{
                         </TableName>
                     </View> */}
                     
-                    {displayUrl?.split(";")[0]?.split("/")[1]?.includes('mp4') &&
+                    {displayUrl?.includes('mp4') &&
                         <SwiperVideo
                             key={"aa"}
                             source={{uri: displayUrl}} 
@@ -75,7 +79,7 @@ const ADScreenPopup = () =>{
                             repeat={true}
                         />
                     }
-                    {!displayUrl?.split(";")[0]?.split("/")[1]?.includes('mp4') &&
+                    {!displayUrl?.includes('mp4') &&
                         <>
                             <SwiperImage
                                 key={"imageswipe"}

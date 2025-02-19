@@ -79,9 +79,6 @@ export default function Navigation() {
     const navigate = useRef();
     const {images} = useSelector(state=>state.imageStorage);
     
-    useEffect(()=>{
-        console.log("tmpPopup: ",tmpPopup)
-    },[tmpPopup])
     const handleEventListener = () => {
         //리스너 중복방지를 위해 한번 삭제
         DeviceEventEmitter.removeAllListeners("onPending");
