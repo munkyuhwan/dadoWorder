@@ -208,7 +208,6 @@ const OrderPayPopup = () =>{
         if(dutchOrderDividePaidList.length>0) {
             var loopCnt = Number(numPpl);
             if(dutchOrderDividePaidList.length >=loopCnt ) {
-                console.log("결제 끝");
                 dispatch(completeDutchPayment());
             }            
         }

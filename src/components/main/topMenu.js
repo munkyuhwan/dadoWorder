@@ -167,7 +167,7 @@ const TopMenu = () =>{
                     <CategoryScrollView ref={scrollViewRef} horizontal showsHorizontalScrollIndicator={false} >
                         <CategoryWrapper>
                             <TopMenuList
-                                onSelectItem={(data)=>{ console.log("data: ",data);  /* onPressItem(index); */ }}
+                                onSelectItem={(data)=>{  /* onPressItem(index); */ }}
                                 initSelect={0}
                             />
                        </CategoryWrapper>

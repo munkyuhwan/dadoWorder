@@ -151,7 +151,6 @@ const CartView = () =>{
                 }
             }else {
                 EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:false, msg:""});
-                console.log("orderList: ",orderList);
                 const orderData = await metaPostPayFormat(orderList,{}, allItems);
                 dispatch(adminDataPost({payData:null,orderData:orderData, isMultiPay:false}));
                 dispatch(postOrderToPos({isHelp:false, isQuick:false, payData:null,orderData:orderData, isMultiPay:false}));
@@ -177,7 +176,6 @@ const CartView = () =>{
     }
 
     const doPayment = async () =>{
-        console.log("do payment")
         EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:true, msg:"주문 중 입니다."});
         const isPostable = await isNetworkAvailable()
         .catch(()=>{

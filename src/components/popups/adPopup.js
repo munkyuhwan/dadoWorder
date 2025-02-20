@@ -21,7 +21,6 @@ const ADScreenPopup = () =>{
     const [displayUrl, setDisplayUrl] = useState("");
 
     useEffect(()=>{
-        console.log("광고 받기");
         dispatch(getAD()); 
     },[])
     
@@ -39,7 +38,6 @@ const ADScreenPopup = () =>{
     
     useEffect(()=>{
         swipeTimeOut=setTimeout(()=>{
-            console.log("adIndex: ",adIndex);
             let tmpIndex = adIndex;
             if(!tmpIndex) tmpIndex=0;
             let indexToSet = tmpIndex +1;
@@ -61,7 +59,6 @@ const ADScreenPopup = () =>{
             <></>
         )
     }
-console.log("displayUrl: ",displayUrl)
     return(
         <>
             <TouchableWithoutFeedback onPress={()=>{ clearTimeout(swipeTimeOut); swipeTimeOut=null; dispatch(setAdScreen({isShow:false,isMain:false})) /* navigation.navigate("main") */}}>

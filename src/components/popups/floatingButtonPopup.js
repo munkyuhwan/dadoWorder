@@ -72,8 +72,6 @@ const FloatingBtn = (props) => {
     },[isMonthSelectShow,monthSelected])
 
     async function makeLastOrder(item) {
-        console.log("makeLastOrder =========================");
-        console.log("item?.prod_gb: ",item?.prod_gb);
         setTotalAmt(item?.sal_tot_amt);
         if(item?.prod_gb=="09"||item?.prod_gb=="02"){
             //props?.setDetailShow(true);  
@@ -110,7 +108,6 @@ const FloatingBtn = (props) => {
                     return;
                 }
                 const orderData = await metaPostPayFormat(quickOrderList,{}, allItems);
-                console.log("order data: ",orderData);
                 if(orderData) {
                     var payAmt = 0;
                     var vatAmt = 0;
@@ -123,7 +120,6 @@ const FloatingBtn = (props) => {
                             vatAmt = vatAmt + Number(orderData.ITEM_INFO[i].SETITEM_INFO[j].VAT)
                         }                        
                     }
-                    console.log("payAmt: ",payAmt);
                     const amtData = {amt:payAmt, taxAmt:vatAmt, months:monthSelected, bsnNo:bsnNo,termID:tidNo }
                     //console.log("amtData: ",amtData);
                     var kocessAppPay = new KocesAppPay();
@@ -132,7 +128,6 @@ const FloatingBtn = (props) => {
                         
                         // 결제 진행끝이다.
                         
-                        console.log("result: ",result);
                         const orderData = await metaPostPayFormat(quickOrderList,result, allItems);
                         dispatch(postLog({payData:result,orderData:orderData}))
                         dispatch(postOrderToPos({isHelp:false, isQuick:true,payData:result,orderData:orderData, isMultiPay:false}));
@@ -157,7 +152,6 @@ const FloatingBtn = (props) => {
             }
     }
     const doPayment = async () =>{
-        console.log("do payment")
         EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:true, msg:"주문 중 입니다."});
         const isPostable = await isNetworkAvailable()
         .catch(()=>{

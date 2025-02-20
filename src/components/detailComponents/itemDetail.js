@@ -256,7 +256,7 @@ const ItemDetail = (props) => {
        
         return selWonsanjiLanguage;
     }
-
+    console.log("menuDetail:",menuDetail);
     if(isEmpty(menuDetail)) {
         return(<></>)
     }
@@ -271,9 +271,9 @@ const ItemDetail = (props) => {
                             }
                             {menuDetailID!=null &&
                             <>
-                            {menuDetailID!=null &&
+                            { menuDetailID!=null &&
                                 <DetailInfoWrapper>
-                                    <DetailItemInfoImageWrapper>
+                                    <DetailItemInfoImageWrapper>            
                                         {menuDetail&& 
                                         menuDetail?.gimg_chg &&
                                             <DetailItemInfoFastImage source={ {uri:(`${menuDetail?.gimg_chg}`),priority: FastImage.priority.high } } />
@@ -303,11 +303,11 @@ const ItemDetail = (props) => {
                                                  <DetailItemInfoTitleEtc source={require("../../assets/icons/new_menu.png")}/>
                                             }
                                             {menuDetail&&
-                                        menuDetail?.is_best=='Y'&&
+                                                menuDetail?.is_best=='Y'&&
                                                 <DetailItemInfoTitleEtc source={require("../../assets/icons/best_menu.png")}/>
                                             }
                                             {menuDetail&&
-                                        menuDetail?.is_on=='Y'&&
+                                                menuDetail?.is_on=='Y'&&
                                                 <DetailItemInfoTitleEtc source={require("../../assets/icons/hot_menu.png")}/>
                                             }
                                             {
@@ -353,6 +353,7 @@ const ItemDetail = (props) => {
                                                 </MenuItemDetailSpicenessWrapper>
                                             }
                                         </DetailItemInfoTitleWrapper>
+                                        
                                         {/* <DetailItemInfoSource>{ItemWonsanji()}</DetailItemInfoSource> */}
                                         <DetailItemInfoMore>{ItemInfo()}</DetailItemInfoMore>
                                         <DetailPriceMoreWrapper>
@@ -363,6 +364,7 @@ const ItemDetail = (props) => {
                                     </DetailItemInfoWrapper>
                                 </DetailInfoWrapper>
                             }
+                
                             {menuDetailID!=null &&
                             <ScrollView style={{marginTop:83}} showsVerticalScrollIndicator={false} >
 
