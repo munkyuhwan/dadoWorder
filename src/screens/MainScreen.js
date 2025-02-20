@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {View, NativeModules, DeviceEventEmitter, KeyboardAvoidingView} from 'react-native'
+import {View, NativeModules, DeviceEventEmitter, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native'
 import SideMenu from '../components/main/sideMenu'
 import TopMenu from '../components/main/topMenu'
 import { MainWrapper, WholeWrapper } from '../styles/main/mainStyle'
@@ -24,6 +24,8 @@ import SubMenu from '../components/main/subMenu'
 import LanguageSelectView from '../components/main/languageSelectView'
 import CallHelp from '../components/main/callHelp'
 import ItemDetailBig from '../components/detailComponents/itemDetailBig'
+import { TableName, TableNameBig, TableNameSmall } from '../styles/main/topMenuStyle'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 let timeoutSet = null;
 let quickOrderTimeoutSet = null;
 
@@ -37,8 +39,13 @@ const MainScreen = () =>{
     const {selectedMainCategory, allCategories} = useSelector((state)=>state.categories);
     const {allItems} = useSelector((state)=>state.menu);
     const {tab} = useSelector(state=>state.common);
+    const {tableInfo,cctv,tableStatus} = useSelector(state => state.tableInfo);
+
     const [vieweType, setViewType] = useState(3);
     const [menuDetail, setMenuDetail] = useState(null);
+
+    const [tableNoText, setTableNoText] = useState("");
+    const [tableInfoText, setTableInfoText] = useState("");
 
     useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
@@ -46,6 +53,25 @@ const MainScreen = () =>{
             setViewType(Number(catData[0].view_type));
         }
     },[selectedMainCategory])
+    useEffect(()=>{
+        if(tableInfo) {
+            //setTableNoText(tableInfo.tableNo)
+            AsyncStorage.getItem("TABLE_INFO")
+            .then((TABLE_INFO)=>{
+                if(TABLE_INFO) {
+                    setTableInfoText(TABLE_INFO)
+                }
+            })
+
+            AsyncStorage.getItem("TABLE_NM")
+            .then((TABLE_NM)=>{
+                if(TABLE_NM) {
+                    setTableNoText(TABLE_NM)
+                }else {
+                }
+            })
+        }
+    },[tableInfo])
 
     useEffect(()=>{
         dispatch(setLanguage("korean"));  
@@ -117,6 +143,13 @@ const MainScreen = () =>{
                         <CartView/>
                     </MainWrapper>
                 </WholeWrapper> 
+                <TouchableWithoutFeedback onPress={()=>{ /* countDown(); onSettingPress(); */ } } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
+                    <TableName>
+                        <TableNameSmall>{tableInfoText}</TableNameSmall>
+                        <TableNameBig>{tableNoText}</TableNameBig>
+                    </TableName>
+                </TouchableWithoutFeedback>
+                
             </KeyboardAvoidingView>
             {(vieweType!=2 && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>

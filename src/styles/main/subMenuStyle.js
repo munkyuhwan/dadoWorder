@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native';
 
 export const TopMenuWrapper = styled.View`
     flexDirection:row;
-    height:${props=>props?.isShow?"80px":"50px"};
+    height:${props=>props?.isShow?"80px":"20px"};
     display: flex;
     justifyContent: flex-start;
     zIndex:99999;

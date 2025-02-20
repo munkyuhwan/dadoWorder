@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE } from '../values';
-import { colorBlack, colorRed, colorWhite } from '../../assets/colors/color';
+import { colorBlack, colorGrey, colorRed, colorWhite } from '../../assets/colors/color';
 
 export const MenuListWrapper = styled.View`
     width:100%;
@@ -9,7 +9,7 @@ export const MenuListWrapper = styled.View`
     paddingTop:10px;
     paddingLeft:${props=>props?.viewType==4?"102px":"42px"};
     paddingRight:${props=>props?.viewType==4?"102px":"42px"};
-    paddingBottom:80px;
+    paddingBottom:${props=>props?.viewType==3?"110px":"50px"};
     backgroundColor:#303030;
     justifyContent:center;
 `;
@@ -32,10 +32,12 @@ export const MenuItemTopWrapper = styled.View`
     flex:1;
 `
 export const MenuItemWrapper = styled.View`
-    width:${props=> props?.viewType==3?"385px":(props?.viewType==2?"588px":"528")};    
+    width:${props=> props?.viewType==3?"375px":(props?.viewType==2?"578px":"518")};    
     ${props=>{
         if(props?.viewType == 2) {
-            return "height:560px;marginBottom:60px;";
+            return "height:540px;marginBottom:60px;";
+        }else if(props?.viewType == 3) {
+            return "height:250px;marginBottom:0px;";
         }else {
             return "height:280px;";
         }
@@ -106,7 +108,7 @@ export const MenuItemHotness = styled.Image`
 `
 export const MenuItemBottomWRapper = styled.View`
     width:100%; 
-    height:120px;
+    height:70px;
     flex:1;
     flexDirection:row;  
     paddingTop:2px;
@@ -114,6 +116,9 @@ export const MenuItemBottomWRapper = styled.View`
     position:absolute;
     bottom:0;
     justifyContent:center;
+    backgroundColor:${colorGrey};
+    borderBottomLeftRadius:20px;
+    borderBottomRightRadius:20px;
 `
 export const BigMenuItemBottomWrapper = styled.View`
     width:100%; 
@@ -141,9 +146,9 @@ export const MenuItemName = styled.Text`
     fontSize:26px;
     color:${colorBlack};
     fontWeight:900;
-    height:80px;
+    height:70px;
     textAlignVertical:center;
-    flex:1;
+    flex:1.9;
     marginLeft:20px;
 `
 export const BigMenuItemPrice = styled.Text`

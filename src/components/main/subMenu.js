@@ -148,8 +148,7 @@ const SubMenu = () =>{
             setSettingTouch(0);
         }
     }
-
-
+ 
     return(
         <>
             <TopMenuWrapper isShow={subCategories?.length>0} >

@@ -58,31 +58,6 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
     }
     const itemPrice= Number(item.sal_tot_amt);
 
-/* 
-    const isAvailable = (item) => {
-
-        if(item?.use_timea == "" || item?.use_timeaa == "" || item?.use_timeb == "" || item?.use_timebb == "") {
-            return true;
-        }
-        if(item?.use_time1a == "" || item?.use_time1aa == "" || item?.use_time1b == "" || item?.use_time1bb == "") {
-            return true;
-        }
-        const startTimeAm = Number(`${item?.use_timea}${item?.use_timeaa}`);
-        const endTimeAm = Number(`${item?.use_timeb}${item?.use_timebb}`);
-    
-        const startTimePm = Number(`${item?.use_time1a}${item?.use_time1aa}`);
-        const endTimePm = Number(`${item?.use_time1b}${item?.use_time1bb}`);
-        
-        const currentTime = Number(moment().format("HHmm"));
-        const hourNow = Number(moment().format("HH"));
-
-        if(hourNow<12) {
-            return currentTime>startTimeAm && currentTime<endTimeAm
-        }else {
-            return currentTime>startTimePm && currentTime<endTimePm
-        }
-    }
-     */
     const [reload, setReload] = useState("0");
     useEffect(()=>{
         timeoutSet = setInterval(() => {
@@ -214,11 +189,11 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                     </TouchableWithoutFeedback>
                     {imgUrl &&
                         <>
-                            <FastImage style={{ width:'100%',height: viewType==2?500:height*0.33, borderRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
+                            <FastImage style={{ width:'100%',height: viewType==2?500:(viewType==3?230:210), borderTopLeftRadius:RADIUS_DOUBLE,borderTopRightRadius:RADIUS_DOUBLE,}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
                         </>
                     }
                     {!imgUrl &&
-                            <FastImage style={{ width:'100%',height:height*0.32, borderRadius:RADIUS_DOUBLE}} source={require("../../assets/icons/logo.png")} resizeMode={FastImage.resizeMode.cover} />
+                            <FastImage style={{ width:'100%',height:viewType==2?500:(viewType==3?230:280), borderRadius:RADIUS_DOUBLE}} source={require("../../assets/icons/logo.png")} resizeMode={FastImage.resizeMode.cover} />
                     }
                     
                     <MenuItemBottomWRapper>

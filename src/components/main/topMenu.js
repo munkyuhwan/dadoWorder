@@ -35,9 +35,6 @@ const TopMenu = () =>{
     const dispatch = useDispatch();
     const scrollViewRef = useRef();
     const {selectedMainCategory,subCategories, allCategories} = useSelector(state => state.categories);
-    const [tableNoText, setTableNoText] = useState("");
-    const [tableInfoText, setTableInfoText] = useState("");
-    const {tableInfo,cctv,tableStatus} = useSelector(state => state.tableInfo);
     
     const {bulletin} = useSelector(state=>state.menuExtra);
 
@@ -83,26 +80,7 @@ const TopMenu = () =>{
         }
     },[selectedMainCategory])
 
-    useEffect(()=>{
-        if(tableInfo) {
-            //setTableNoText(tableInfo.tableNo)
-            AsyncStorage.getItem("TABLE_INFO")
-            .then((TABLE_INFO)=>{
-                if(TABLE_INFO) {
-                    setTableInfoText(TABLE_INFO)
-                }
-            })
-
-            AsyncStorage.getItem("TABLE_NM")
-            .then((TABLE_NM)=>{
-                if(TABLE_NM) {
-                    setTableNoText(TABLE_NM)
-                }else {
-                }
-            })
-        }
-    },[tableInfo])
-
+   
     useEffect(()=>{ 
         
         setCurrentVersion(VersionCheck.getCurrentVersion());
@@ -160,6 +138,7 @@ const TopMenu = () =>{
     return(
         <>
             <TopMenuWrapper>
+               
                 <TouchableWithoutFeedback onPress={()=>{countDown(); onSettingPress();}} >
                     <FastImage source={require("../../assets/icons/daedo_logo.png")} style={{ marginLeft:40,marginRight:20, flex:0.5}} resizeMode='contain' />
                 </TouchableWithoutFeedback>
@@ -178,14 +157,8 @@ const TopMenu = () =>{
                         </AutoScroll>
                     */}
                 </SafeAreaView>
-                <TouchableWithoutFeedback onPress={()=>{ countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
-                    <TableName>
-                        <TableNameSmall>{tableInfoText}</TableNameSmall>
-                        <TableNameBig>{tableNoText}</TableNameBig>
-                    </TableName>
-                </TouchableWithoutFeedback>
-
                 
+               
             </TopMenuWrapper>
         </>
     )

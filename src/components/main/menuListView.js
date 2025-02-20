@@ -42,6 +42,7 @@ const MenuListView = () => {
     const [viewType, setViewType] = useState(3);
     const [isDetailShow, setDetailShow] = useState(false);
     const [listWidth,setListWidth] = useState("100%");
+    const [gap,setGap] = useState(20);
 
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
@@ -58,6 +59,16 @@ const MenuListView = () => {
             }
             //setNumColumns(vieweType);
         }else {
+            if(viewType == 2) {
+                setListWidth("82%");
+                setGap(40);
+            }if(viewType == 3) {
+                setListWidth("60%");
+                setGap(30);
+            }if(viewType == 4) {
+                setListWidth("50%");
+                setGap(20);
+            }
             setListWidth("100%");
             setNumColumns(viewType);
         } 
@@ -162,7 +173,7 @@ const MenuListView = () => {
                         */}
                         {//(displayMenu?.length > 0 && isOn ) &&
                             <ScrollView style={{width:'100%'}}>
-                                <View style={{ width:listWidth, flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:20}} >
+                                <View style={{ width:listWidth, flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}} >
                                     {
                                     displayMenu.map((el)=>{
                                         index++;
@@ -175,9 +186,8 @@ const MenuListView = () => {
                                     }
                                 </View>
                             </ScrollView>
-                            
                         }
-                        <TransparentPopupBottomWrapper style={{paddingBottom:20, paddingTop:10}} >
+                        <TransparentPopupBottomWrapper style={{paddingTop:10}} >
                             <TransparentPopupBottomInnerWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory(""));}}>
                                     <TransparentPopupBottomButtonWraper bgColor={colorRed} >

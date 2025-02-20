@@ -100,9 +100,9 @@ export const TableName = styled.View`
     borderBottomRightRadius:10px;
     borderBottomLeftRadius:10px;
     zIndex:99999;
+    position:absolute;
     flexDirection:column;
     marginLeft:4px;
-    position:absolute;
     right:35px;
 `
 // talbe name smallTitle
