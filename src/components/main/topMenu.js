@@ -180,6 +180,7 @@ const TopMenu = () =>{
                 </SafeAreaView>
                 <TouchableWithoutFeedback onPress={()=>{ countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
                     <TableName>
+                        <TableNameSmall>{tableInfoText}</TableNameSmall>
                         <TableNameBig>{tableNoText}</TableNameBig>
                     </TableName>
                 </TouchableWithoutFeedback>

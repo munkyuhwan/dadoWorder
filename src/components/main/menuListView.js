@@ -12,7 +12,7 @@ import { numberPad, openFullSizePopup, openPopup } from '../../utils/common';
 import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
 import FloatingBtn from '../popups/floatingButtonPopup';
 import { QuickOrderPopup } from '../popups/quickOrderPopup';
-import { MenuSelectBg, MenuSelectCategory, MenuSelectCategoryIcon, MenuSelectCategorySubText, MenuSelectCategoryText, MenuSelectCategoryView, MenuSelectView } from '../../styles/main/mainStyle';
+import { MenuSelectBg, MenuSelectCategory, MenuSelectCategoryDim, MenuSelectCategoryIcon, MenuSelectCategorySubText, MenuSelectCategoryText, MenuSelectCategoryView, MenuSelectView } from '../../styles/main/mainStyle';
 import SubMenu from './subMenu';
 import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, TransparentPopupBottomButtonWraper, TransparentPopupBottomInnerWrapper, TransparentPopupBottomWrapper } from '../../styles/common/popup';
 import { LANGUAGE } from '../../resources/strings';
@@ -91,12 +91,14 @@ const MenuListView = () => {
                     <MenuSelectCategoryView style={{paddingTop:50}} >
                         <TouchableWithoutFeedback onPress={()=>{console.log("meat"); dispatch(setSelectedMainCategory("meat"));}}>
                             <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryIcon source={require('../../assets/icons/meat.png')} resizeMode={"contain"} />
                                 <MenuSelectCategoryText>고기</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setSelectedMainCategory("meal"));}}>
                             <MenuSelectCategory>
+                            <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryIcon source={require('../../assets/icons/meal.png')} resizeMode={"contain"} />
                                 <MenuSelectCategoryText>식사</MenuSelectCategoryText>
                                 <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
@@ -104,6 +106,7 @@ const MenuListView = () => {
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setSelectedMainCategory("lunch"));}}>
                             <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryIcon source={require('../../assets/icons/lunch.png')} resizeMode={"contain"} />
                                 <MenuSelectCategoryText>점심 식사</MenuSelectCategoryText>
                             </MenuSelectCategory>
@@ -112,18 +115,21 @@ const MenuListView = () => {
                     <MenuSelectCategoryView style={{paddingBottom:50}} >
                         <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setSelectedMainCategory("extra"));}}>
                             <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryIcon source={require('../../assets/icons/extra.png')} resizeMode={"contain"} />
                                 <MenuSelectCategoryText>추가메뉴</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("liquor");dispatch(setSelectedMainCategory("liquor"));}}>
                             <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryIcon source={require('../../assets/icons/liquor.png')} resizeMode={"contain"} />
                                 <MenuSelectCategoryText>주류</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("drink");dispatch(setSelectedMainCategory("drink"));}}>
                             <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryIcon source={require('../../assets/icons/drinks.png')} resizeMode={"contain"} />
                                 <MenuSelectCategoryText>음료</MenuSelectCategoryText>
                             </MenuSelectCategory>

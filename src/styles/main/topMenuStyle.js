@@ -41,7 +41,7 @@ export const CategoryDefault = styled.View`
     height:90%;
     marginRight:7px;
     justifyContent: flex-end;
-    marginTop:24px;
+    marginTop:14px;
     borderTopLeftRadius:${RADIUS_DOUBLE}px;
     borderTopRightRadius:${RADIUS_DOUBLE}px;
 `
@@ -51,7 +51,7 @@ export const CategorySelected = styled.View`
     height:90%;
     marginRight:7px;
     justifyContent: flex-end;
-    marginTop:24px;
+    marginTop:14px;
     borderTopLeftRadius:${RADIUS_DOUBLE}px;
     borderTopRightRadius:${RADIUS_DOUBLE}px;
 `
@@ -93,17 +93,17 @@ export const FloatingTopMenuText = styled.Text`
 // talbe name
 export const TableName = styled.View`
     backgroundColor: ${colorRed};
-    width:163px;
-    height:80px;
-    paddingTop:20px;
-    paddingBottom:8px;
-    borderBottomRightRadius:${RADIUS};
-    borderBottomLeftRadius:${RADIUS};
+    width:183px;
+    height:100px;
+    paddingTop:12px;
+    paddingBottom:16px;
+    borderBottomRightRadius:10px;
+    borderBottomLeftRadius:10px;
     zIndex:99999;
     flexDirection:column;
     marginLeft:4px;
     position:absolute;
-    right:20px;
+    right:35px;
 `
 // talbe name smallTitle
 export const TableNameSmall = styled.Text`
@@ -112,15 +112,13 @@ export const TableNameSmall = styled.Text`
     justifyContent:center;
     display:flex;
     alignItems:center;
-    fontSize:18px;
-    fontWeight:bold;
+    fontSize:22px;
     color: ${textColorWhite};
 `
 // talbe name bigTitle
 export const TableNameBig = styled.Text`
     textAlign:center;
-    justifyContent:center;
-    display:flex;
+    justifyContent:center; 
     alignItems:center;
     fontSize:31px;
     fontWeight:bold;

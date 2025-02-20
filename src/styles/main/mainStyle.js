@@ -43,17 +43,25 @@ export const MenuSelectCategoryView = styled.View`
 export const MenuSelectCategory = styled.View`
     width:280px;
     height:240px;
-    backgroundColor:${colorWhite};
+    backgroundColor:transparent;
     borderRadius:20px;
     justifyContent:center;
     alignItems:center;
 `
+export const MenuSelectCategoryDim = styled.View`
+    width:100%;
+    height:100%;
+    backgroundColor:rgba(225,225,225,0.7);
+    position:absolute;
+    borderRadius:20px;
+
+`
 export const MenuSelectCategoryIcon = styled(FastImage)`
-    width:100px;
-    height:100px;
+    width:70px;
+    height:70px;
 `
 export const MenuSelectCategoryText = styled.Text`
-    fontSize:50px;
+    fontSize:30px;
     fontWeight:bold;
     marginTop:13px;
 `
