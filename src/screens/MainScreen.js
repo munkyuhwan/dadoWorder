@@ -35,8 +35,11 @@ const MainScreen = () =>{
     const {isShow, adList} = useSelector((state)=>state.ads);
     const {quickOrderList, isQuickShow} = useSelector(state=>state.order);
     const {selectedMainCategory, allCategories} = useSelector((state)=>state.categories);
+    const {allItems} = useSelector((state)=>state.menu);
     const {tab} = useSelector(state=>state.common);
     const [vieweType, setViewType] = useState(3);
+    const [menuDetail, setMenuDetail] = useState(null);
+
     useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
         if(catData.length>0) {
@@ -85,6 +88,15 @@ const MainScreen = () =>{
         } 
           
     },[isQuickShow])
+    useEffect(()=>{
+        console.log("menuDetailID: ",menuDetailID);
+        const filteredItem = allItems.filter(data => data.prod_cd == menuDetailID);
+        if(filteredItem.length > 0) {
+            setMenuDetail(filteredItem[0]);
+        }
+    },[menuDetailID])
+
+    console.log("menu detail: ",( (menuDetail?.prod_gb=="09"||menuDetail?.prod_gb=="02"))  )
 
     return(
         <>
@@ -109,7 +121,10 @@ const MainScreen = () =>{
             {(vieweType!=2 && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
-            {(vieweType==2 && menuDetailID!=null) &&
+            {(vieweType==2 && menuDetailID!=null && (menuDetail?.prod_gb=="09"||menuDetail?.prod_gb=="02")) &&
+                <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
+            }
+            {(vieweType==2 && menuDetailID!=null && (menuDetail?.prod_gb!="09"&&menuDetail?.prod_gb!="02")) &&
                 <ItemDetailBig onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
             <FloatingBtn/>

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { BottomButton, BottomButtonIcon, BottomButtonText, BottomButtonWrapper, ButtonWrapper, DetailInfoWrapper, DetailItemInfoFastImage, DetailItemInfoImage, DetailItemInfoImageWrapper, DetailItemInfoMore, DetailItemInfoPrice, DetailItemInfoPriceWrapper, DetailItemInfoSource, DetailItemInfoTitle, DetailItemInfoTitleEtc, DetailItemInfoTitleWrapper, DetailItemInfoWrapper, DetailPriceMoreWrapper, DetailWhiteWrapper, DetailWrapper, OptList, OptListWrapper, OptRecommendWrapper, OptTitleText } from '../../styles/main/detailStyle';
+import { BottomButton, BottomButtonIcon, BottomButtonText, BottomButtonWrapper, ButtonWrapper, DetailInfoWrapper, DetailItemInfoFastImage, DetailItemInfoImage, DetailItemInfoImageWrapper, DetailItemInfoMore, DetailItemInfoPrice, DetailItemInfoPriceWrapper, DetailItemInfoSource, DetailItemInfoTitle, DetailItemInfoTitleEtc, DetailItemInfoTitleWrapperBig, DetailItemInfoWrapper, DetailPriceMoreWrapper, DetailWhiteWrapper, DetailWrapper, OptList, OptListWrapper, OptRecommendWrapper, OptTitleText } from '../../styles/main/detailStyle';
 import { ActivityIndicator, Animated, Dimensions, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { colorBlack, colorLightRed, colorRed } from '../../assets/colors/color';
 import { LANGUAGE } from '../../resources/strings';
@@ -296,7 +296,7 @@ const ItemDetail = (props) => {
                                         }
                                     </DetailItemInfoImageWrapper>
                                     <DetailItemInfoWrapper>
-                                        <DetailItemInfoTitleWrapper>
+                                        <DetailItemInfoTitleWrapperBig>
                                             <DetailItemInfoTitle>{ItemTitle()||menuDetail?.gname_kr}</DetailItemInfoTitle>
                                             {menuDetail&&
                                                 menuDetail?.is_new=='Y'&&
@@ -352,7 +352,7 @@ const ItemDetail = (props) => {
                                                     <MenuItemSpiciness source={require('../../assets/icons/hot_icon.png')}/>
                                                 </MenuItemDetailSpicenessWrapper>
                                             }
-                                        </DetailItemInfoTitleWrapper>
+                                        </DetailItemInfoTitleWrapperBig>
                                         
                                         {/* <DetailItemInfoSource>{ItemWonsanji()}</DetailItemInfoSource> */}
                                         <DetailItemInfoMore>{ItemInfo()}</DetailItemInfoMore>
