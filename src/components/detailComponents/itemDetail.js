@@ -366,7 +366,7 @@ const ItemDetail = (props) => {
                             }
                 
                             {menuDetailID!=null &&
-                            <ScrollView style={{marginTop:83}} showsVerticalScrollIndicator={false} >
+                            <ScrollView style={{marginTop:103}} showsVerticalScrollIndicator={false} >
 
                                 <OptRecommendWrapper>
                                     <OptListWrapper>
@@ -432,8 +432,8 @@ const ItemDetail = (props) => {
 
                                 <TouchableWithoutFeedback onPress={()=>{closeDetail(); }}>
                                     <BottomButton backgroundColor={colorBlack} >
-                                        <BottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
                                         <BottomButtonText>{LANGUAGE[language]?.detailView.toMenu}</BottomButtonText>
+                                        <BottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
                                     </BottomButton>
                                 </TouchableWithoutFeedback>
                                 

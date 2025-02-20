@@ -40,6 +40,7 @@ const MainScreen = () =>{
     const {allItems} = useSelector((state)=>state.menu);
     const {tab} = useSelector(state=>state.common);
     const {tableInfo,cctv,tableStatus} = useSelector(state => state.tableInfo);
+    const {isOn} = useSelector((state)=>state.cartView);
 
     const [vieweType, setViewType] = useState(3);
     const [menuDetail, setMenuDetail] = useState(null);
@@ -143,13 +144,14 @@ const MainScreen = () =>{
                         <CartView/>
                     </MainWrapper>
                 </WholeWrapper> 
-                <TouchableWithoutFeedback onPress={()=>{ /* countDown(); onSettingPress(); */ } } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
-                    <TableName>
-                        <TableNameSmall>{tableInfoText}</TableNameSmall>
-                        <TableNameBig>{tableNoText}</TableNameBig>
-                    </TableName>
-                </TouchableWithoutFeedback>
-                
+                {!isOn &&
+                    <TouchableWithoutFeedback onPress={()=>{ /* countDown(); onSettingPress(); */ } } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
+                        <TableName>
+                            <TableNameSmall>{tableInfoText}</TableNameSmall>
+                            <TableNameBig>{tableNoText}</TableNameBig>
+                        </TableName>
+                    </TouchableWithoutFeedback>
+                }
             </KeyboardAvoidingView>
             {(vieweType!=2 && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>

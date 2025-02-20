@@ -188,7 +188,7 @@ export const OptListWrapper = styled.View`
     flexDirection:column;
 `
 export const OptTitleText = styled.Text`
-    fontSize:28px;   
+    fontSize:20px;   
     color:${colorBlack};
     fontWeight:bold;
     paddingTop:5px;
@@ -200,8 +200,8 @@ export const OptList = styled.ScrollView`
 `
 // 옵션선택 아이템
 export const OptItemWrapper= styled.View`
-    width:190px;
-    height:120px;
+    width:160px;
+    height:110px;
     borderRadius:${RADIUS_SMALL};
     marginRight:9px;
 `
@@ -227,12 +227,12 @@ export const OptItemInfoWrapper = styled.View`
     paddingLeft:12px;
 `
 export const OptItemInfoTitle = styled.Text`
-    fontSize:24px;
+    fontSize:20px;
     color:${colorWhite};
     fontWeight:bold;
 `
 export const OptItemInfoPrice = styled.Text`
-    fontSize:24px;
+    fontSize:20px;
     color:${colorLightRed};
     fontWeight:bold;
     position:absolute;
@@ -257,10 +257,10 @@ export const OptItemDim = styled.View`
 `
 // 추천선택 아이템
 export const RecommendItemWrapper= styled.View`
-
+    height:110px;
 `
 export const RecommendItemImageWrapper = styled.View`
-    width:170px;
+    width:160px;
     height:110px;
     borderRadius:${RADIUS_SMALL};
     marginRight:9px;
@@ -272,21 +272,28 @@ export const RecommendItemImage = styled.Image`
 `
 export const RecommendItemInfoWrapper = styled.View`
     width:100%;
+    height:100%;
     flexDirection:column;
     paddingTop:10px;
     paddingRight:12px;
-    justifyContents:center;
+    justifyContents:left;
+    position:absolute;
+    paddingLeft:10px;
 `
 export const RecommendItemInfoTitle = styled.Text`
     fontSize:20px;
-    color:${colorBlack};
+    color:${colorWhite};
     fontWeight:bold;
-    textAlign:center;
+    textAlign:left;
 `
 export const RecommendItemInfoPrice = styled.Text`
     fontSize:18px;
-    color:${colorRed};
-    textAlign:center;
+    color:${colorLightRed};
+    textAlign:left;
+    fontWeight:bold;
+    position:absolute;
+    bottom:12px;
+    left:12px;  
 `
 export const RecommendItemInfoChecked = styled.Image`
     width:18px;
@@ -302,7 +309,7 @@ export const RecommendItemDim = styled.View`
     width:100%;
     height:100%;
     borderRadius:${RADIUS_SMALL};
-    backgroundColor:rgba(0,0,0,${(props)=>{return props?.isSelected==true?'0.7':'0.2' }});
+    backgroundColor:rgba(0,0,0,0.7);
 `
 // 하단 버튼
 export const BottomButtonWrapper = styled.View`
