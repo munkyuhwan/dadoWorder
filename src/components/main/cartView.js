@@ -34,7 +34,7 @@ import FloatingBtn from '../popups/floatingButtonPopup';
 import { getAdminCategories } from '../../store/categories';
 import { getAD } from '../../store/ad';
 import { getAdminBulletin } from '../../store/menuExtra';
-import { colorRed } from '../../assets/colors/color';
+import { colorBlack, colorRed } from '../../assets/colors/color';
 
 const windowWidth = Dimensions.get('window').width;
 const CartView = () =>{
@@ -391,7 +391,7 @@ const CartView = () =>{
             <CartViewWrapper style={[{...boxStyle}]} >
                 <TopTitleWrapper>
                     <TopTitleView>
-                        <TopTitleText>{LANGUAGE[language]?.cartView?.orderListTitle}</TopTitleText>
+                        <TopTitleText>{LANGUAGE[language]?.orderListPopup?.orderListTitle}</TopTitleText>
                     </TopTitleView>
                     <TopTableView>
                         <TopTableText>{tableNoText}</TopTableText>
@@ -435,15 +435,12 @@ const CartView = () =>{
                         </PayAmtWrapper>
                     </PayWrapper>
                     <PayBtnWrapper>
-
-                            <TouchableWithoutFeedback onPress={()=>{if(isPayProcess == false){setPayProcess(true); doPayment();}}} >
-                                <PayBtn isFull={true} color={colorRed} >
-                                    <PayTitle>{LANGUAGE[language]?.cartView.makeOrder}</PayTitle>
-                                    <PayIcon source={require("../../assets/icons/order.png")} />
-                                </PayBtn>
-                            </TouchableWithoutFeedback>
-                        
-
+                        <TouchableWithoutFeedback onPress={()=>{if(isPayProcess == false){setPayProcess(true); doPayment();}}} >
+                            <PayBtn isFull={true} color={colorBlack} >
+                                <PayTitle>{LANGUAGE[language]?.cartView.makeOrder}</PayTitle>
+                                <PayIcon source={require("../../assets/icons/card.png")} />
+                            </PayBtn>
+                        </TouchableWithoutFeedback>
                     </PayBtnWrapper>
 
                 </OrderWrapper>

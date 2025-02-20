@@ -7,7 +7,7 @@ import {
 import { CartItemAmtController, CartItemAmtControllerImage, CartItemAmtControllerText, CartItemAmtText, CartItemAmtWrapper, CartItemCancelBtn, CartItemCancelWrapper, CartItemFastImage, CartItemImage, CartItemImageTogoWrapper, CartItemOpts, CartItemPrice, CartItemTitle, CartItemTitlePriceWrapper, CartItemTogoBtn, CartItemTogoIcon, CartItemTogoText, CartItemTogoWrapper, CartItemWrapper, OperandorText, ShadowView } from '../../styles/main/cartStyle';
 import { setPopupContent, setPopupVisibility } from '../../store/popup';
 import { useDispatch, useSelector } from 'react-redux';
-import { numberWithCommas, openPopup } from '../../utils/common';
+import { numberPad, numberWithCommas, openPopup } from '../../utils/common';
 import { MENU_DATA } from '../../resources/menuData';
 import { LANGUAGE } from '../../resources/strings';
 import { addToOrderList, resetAmtOrderList, setOrderList } from '../../store/order';
@@ -115,6 +115,11 @@ const CartListItem = (props) => {
             <CartItemWrapper>
                 <CartItemImageTogoWrapper>
                     <ShadowView>
+                        <TouchableWithoutFeedback onPress={()=>{ dispatch(addToOrderList({isAdd:false, isDelete: true, item:itemDetail[0],menuOptionSelected:order?.set_item})); }}>
+                            <CartItemCancelWrapper>
+                                <CartItemCancelBtn source={require("../../assets/icons/close_grey.png")} />
+                            </CartItemCancelWrapper>
+                        </TouchableWithoutFeedback>
                         <CartItemImage source={ {uri:itemDetail[0]?.gimg_chg, priority: FastImage.priority.high } } />
                     </ShadowView>
                 </CartItemImageTogoWrapper>
@@ -135,22 +140,18 @@ const CartListItem = (props) => {
                 <CartItemAmtWrapper>
                     <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:true, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
                         <CartItemAmtController>
-                            <OperandorText>+</OperandorText>
+                            <OperandorText fontSize={"32"} >+</OperandorText>
                         </CartItemAmtController>
                     </TouchableWithoutFeedback>
-                    <CartItemAmtText>{order?.qty}</CartItemAmtText>
+                    <CartItemAmtText>{numberPad(order?.qty,2)}</CartItemAmtText>
                     <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:false, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
                         <CartItemAmtController>
-                        <OperandorText>-</OperandorText>
+                            <OperandorText fontSize={"52"} >-</OperandorText>
                         </CartItemAmtController>
                     </TouchableWithoutFeedback>
                 </CartItemAmtWrapper>
 
-               {/*  <TouchableWithoutFeedback onPress={()=>{ dispatch(addToOrderList({isAdd:false, isDelete: true, item:itemDetail[0],menuOptionSelected:order?.set_item})); }}>
-                    <CartItemCancelWrapper>
-                        <CartItemCancelBtn source={require("../../assets/icons/close_grey.png")} />
-                    </CartItemCancelWrapper>
-                </TouchableWithoutFeedback> */}
+                
 
             </CartItemWrapper>
         </>

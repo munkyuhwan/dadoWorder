@@ -46,7 +46,6 @@ export const CartItemWrapper = styled.View`
     paddingTop:17px; 
     paddingLeft:13px;
     paddingRight:13px;
-    borderBottomWidth:1px;
     borderColor:${colorGrey};
     flexDirection:row;
     flex:1;
@@ -71,6 +70,7 @@ export const DutchItemWrapper = styled.View`
 // cart 이미지 포장하기 
 export const CartItemImageTogoWrapper = styled.View`
     width:140px;
+    marginLeft:20px;
     flex:1;
 `
 export const DutchItemImageTogoWrapper = styled.View`
@@ -84,12 +84,14 @@ export const DutchItemTitleWrapper = styled.View`
 export const ShadowView = styled.View`
     elevation: 10;
     shadowOpacity:1;
+    width:140px;
+    height:100px;
     shadowColor:rgba(0,0,0);
     borderRadius:${RADIUS};
 `
 export const CartItemImage = styled(FastImage)`
-    width:100%;
-    height:96px;
+    width:130px;
+    height:90px;
     borderRadius:${RADIUS};
 `
 export const PaidItemImage = styled(FastImage)`
@@ -104,12 +106,12 @@ export const CartItemFastImage = styled(FastImage)`
     borderRadius:${RADIUS};
 `
 export const OperandorText = styled.Text`
-    fontSize:48px;
+    fontSize:${props=>props?.fontSize}px;
     color:${colorBlack};
     width:100%;
     textAlign:center;
     justifyContent:center;
-    lineHeight:48px;
+    lineHeight:38px;
 
 `
 export const CartItemTogoWrapper = styled.View`
@@ -140,7 +142,6 @@ export const CartItemTogoIcon = styled.Image`
 `
 // cart 이름, 가격, 수량
 export const CartItemTitlePriceWrapper = styled.View`
-    paddingLeft:8px;
     paddingRight:2px;
     paddingTop:2px;
     flexDirection:column;
@@ -155,7 +156,7 @@ export const DutchCompleteItemTitlePriceWrapper = styled.View`
     marginTop:25px;
 `
 export const CartItemTitle = styled.Text`
-    fontSize:28px;
+    fontSize:24px;
     fontWeight:bold;
     color:${mainTheme};
     flex:1.8;
@@ -180,7 +181,7 @@ export const DutchItemOpts = styled.Text`
     height:20px;
 `
 export const CartItemPrice = styled.Text`
-    fontSize:28px;
+    fontSize:24px;
     fontWeight:normal;
     color:${colorRed};
     minHeight:17px;
@@ -196,14 +197,14 @@ export const CartItemAmtWrapper = styled.View`
     padding:3px;
     marginTop:17px;
     gap:3px;
-    flex:1;
+    flex:0.7;
 `
 export const CartItemAmtController = styled.View`
-    width:52px;
-    height:52px;
+    width:42px;
+    height:42px;
     backgroundColor:${colorWhite};
     borderWidth:1px;
-    borderRadius:${RADIUS};
+    borderRadius:10px;
     marginTop:auto;
     marginBottom:auto;
     flexDirection:row;
@@ -216,14 +217,16 @@ export const CartItemAmtControllerImage = styled.Image`
     resizeMode:contain;
  `
 export const CartItemAmtText = styled.Text`
-    fontSize:30px;
-    width:90px;
+    fontSize:26px;
+    width:60px;
+    height:44px;
     fontWeight:bold;
     textAlign:center;
-    lineHeight:53px;
+    lineHeight:40px;
     color:${colorBlack};
     borderWidth:1px;
-    borderRadius:${RADIUS};
+    borderRadius:10px;
+    marginTop:5px;
 `
 export const DutchItemAmtText = styled.Text`
     fontSize:30px;
@@ -308,9 +311,13 @@ export const DutchItemCancelWrapper = styled.View`
     backgroundColor:yellow;
 `
 export const CartItemCancelWrapper = styled.View`
-    width:30%;
-    height:24%;
+    width:30px;
+    height:30px;
+    zIndex:9999;
     flex:1;
+    position:absolute;
+    top:-10px;
+    left:-10px;
 `
 export const CartItemCancelBtn = styled.Image`
     width:100%;
@@ -319,7 +326,7 @@ export const CartItemCancelBtn = styled.Image`
 `
 // 주문하기
 export const OrderWrapper = styled.View`
-    backgroundColor:#D9D9D9;
+    backgroundColor:${colorLightBrown};
     width:100%;
     height:24%;
     paddingRight:23px;
@@ -339,7 +346,7 @@ export const PayAmtWrapper = styled.View`
         if(props.isBordered) {
             return (
                 "borderBottomWidth:1px;"+
-                `borderColor:${colorBlack}`
+                `borderColor:${colorWhite}`
             )
         }
     }}
@@ -347,16 +354,16 @@ export const PayAmtWrapper = styled.View`
 export const PayAmtTitle = styled.Text`
     flex:1;
     fontSize:20px;
-    color:${colorBlack}
+    color:${colorWhite}
 `
 export const PayAmtNumber = styled.Text`
     fontSize:20px;
-    color:${colorBlack};
+    color:${colorWhite};
     fontWeight:bold;
 `
 export const PayAmtUnit = styled.Text`
     fontSize:20px;
-    color:${colorBlack};
+    color:${colorWhite};
 `
 export const PayBtnWrapper = styled.View`
     flexDirection:row;
@@ -370,8 +377,8 @@ export const PayBtn = styled.View`
     justifyContent:center;
     borderRadius:${RADIUS};
     marginTop:10px;
-    paddingTop:7px;
-    paddingBottom:7px;
+    paddingTop:12px;
+    paddingBottom:14px;
 `
 export const DutchPayBtn = styled.View`
     width: ${(props)=>{ return props?.isFull? "93%" :  "48%" }};
@@ -387,7 +394,7 @@ export const DutchPayBtn = styled.View`
 `
 export const PayTitle = styled.Text`
     color:${colorWhite};
-    fontSize:32px;
+    fontSize:28px;
     fontWeight:bold;
     marginTop:auto;
     marginBottom:auto;
