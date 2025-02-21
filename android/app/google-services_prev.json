@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "536275517742",
-    "project_id": "worderdaedo",
-    "storage_bucket": "worderdaedo.firebasestorage.app"
+    "project_number": "501442516745",
+    "project_id": "wooriorderforadminapi",
+    "storage_bucket": "wooriorderforadminapi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:536275517742:android:94cd83278fdd0ec6417abf",
+        "mobilesdk_app_id": "1:501442516745:android:6a9b36224180fdfc9525d8",
         "android_client_info": {
-          "package_name": "com.metacitydaedo"
+          "package_name": "com.metacity"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDE7_s2GDhlH2KlReOQQn7YbXCsLTv8qGo"
+          "current_key": "AIzaSyB4f3vZf80itK42HJPqF_-x9LAn1MmilI4"
         }
       ],
       "services": {

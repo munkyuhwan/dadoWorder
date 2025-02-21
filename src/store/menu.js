@@ -78,6 +78,7 @@ export const getAdminItems = createAsyncThunk("menu/getAdminItems", async(_,{dis
                 //console.log("menu length: ",menuData.length);
                 if(menuData.length > 0) {
                     menuData?.map(async (el)=>{
+                        FastImage.preload(el.gimg_chg);
                         //await fileDownloader(dispatch, `${el.prod_cd}`,`${el.gimg_chg}`).catch("");
                     });
                     return menuData;

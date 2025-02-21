@@ -390,11 +390,11 @@ const CartView = () =>{
         <>  
             <CartViewWrapper style={[{...boxStyle}]} >
                 <TopTitleWrapper>
-                    <TopTitleView>
-                        <TopTitleText>{LANGUAGE[language]?.orderListPopup?.orderListTitle}</TopTitleText>
+                    <TopTitleView align={"center"} >
+                        <TopTitleText textAlign={"left"} >{LANGUAGE[language]?.orderListPopup?.orderListTitle}</TopTitleText>
                     </TopTitleView>
-                    <TopTableView>
-                        <TopTableText>{tableNoText}</TopTableText>
+                    <TopTableView align={"center"} >
+                        <TopTableText textAlign={"center"} >{tableNoText}</TopTableText>
                     </TopTableView>
                 </TopTitleWrapper>
                 <TouchableWithoutFeedback onPress={()=>{   dispatch(setCartView(!isOn));  }}>

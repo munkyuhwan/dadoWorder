@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
-import { colorBlack, colorLightBrown, colorLightRed, colorRed, colorWhite, colorYellow, mainTheme } from '../../assets/colors/color';
+import { colorBlack, colorDarkGrey, colorGrey, colorLightBrown, colorLightRed, colorRed, colorWhite, colorYellow, mainTheme } from '../../assets/colors/color';
 import { RADIUS, RADIUS_SMALL } from '../values';
 import FastImage from 'react-native-fast-image';
 
@@ -80,7 +80,7 @@ export const DetailItemInfoWrapper = styled.View`
     flexDirection:column;
     height:250px;
     paddingLeft:19px;
-    paddingTop:0px;
+    paddingTop:${props=>props.paddingTop?"80":""}px;
     flex:1;
 `
 export const DetailItemInfoImageWrapper = styled.ImageBackground`
@@ -103,8 +103,7 @@ export const DetailItemInfoFastImage = styled(FastImage)`
 `
 export const DetailItemInfoTitleWrapperBig = styled.View`
     flexDirection:column;
-    height:240px;
-    marginTop:80px;
+    height:70px;
 `
 export const DetailItemInfoTitle = styled.Text`
     fontSize:38px;
@@ -135,7 +134,8 @@ export const DetailItemInfoSource = styled.Text`
 `
 export const DetailPriceMoreWrapper = styled.View`
     flexDirection:column;
-    flex:1;
+    width:100%;
+    height:100px;    
 `
 export const DetailItemInfoPriceWrapper = styled.View`
     flexDirection:row;
@@ -151,8 +151,8 @@ export const DetailItemInfoPrice = styled.Text`
 `
 export const DetailItemInfoMore = styled.Text`
     fontSize:22px;
-    color:${colorBlack};
-    flex:1;
+    color:${colorDarkGrey};
+    height:90px;
 `
 export const DetailItemInfoMoreBig = styled.Text`
     fontSize:18px;

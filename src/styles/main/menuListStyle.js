@@ -9,7 +9,7 @@ export const MenuListWrapper = styled.View`
     paddingTop:10px;
     paddingLeft:${props=>props?.viewType==4?"102px":"42px"};
     paddingRight:${props=>props?.viewType==4?"102px":"42px"};
-    paddingBottom:${props=>props?.viewType==3?"110px":"50px"};
+    paddingBottom:${props=>props?.viewType==3?(props?.isSub?"110px":"50px"):"50px"};
     backgroundColor:#252525;
     justifyContent:center;
 `;
@@ -143,7 +143,7 @@ export const BigMenuItemName = styled.Text`
     flex:1;
 `
 export const MenuItemName = styled.Text`
-    fontSize:26px;
+    fontSize:23px;
     color:${colorBlack};
     fontWeight:900;
     height:70px;
@@ -165,7 +165,7 @@ export const MenuItemPrice = styled.Text`
     fontSize:26px;
     color:${colorRed};
     justifyContents:center;
-    lineHeight:30px;
+    lineHeight:27px;
     flex:1;
     textAlign:right;
     margin:20px;

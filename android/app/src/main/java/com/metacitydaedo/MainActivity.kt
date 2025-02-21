@@ -1,4 +1,4 @@
-package com.metacity
+package com.metacitydaedo
 
 import android.os.Bundle
 import android.os.Handler

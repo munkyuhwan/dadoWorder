@@ -352,7 +352,7 @@ const ItemDetailBig = (props) => {
                                         </View>
 
                                     </DetailItemInfoImageWrapperBig>
-                                    <DetailItemInfoWrapper>
+                                    <DetailItemInfoWrapper paddingTop={"80"} >
                                         <DetailItemInfoTitleWrapperBig>
                                             <DetailItemInfoTitleBig>{ItemTitle()||menuDetail?.gname_kr}</DetailItemInfoTitleBig>
                                             <DetailItemInfoMoreBig>{ItemInfo()}</DetailItemInfoMoreBig>

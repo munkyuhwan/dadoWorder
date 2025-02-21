@@ -75,7 +75,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                 <MenuItemWrapper viewType={viewType} >
                     <MenuItemTopWrapper>
                         <TouchableWithoutFeedback onPress={()=>{ setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
-                            <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:80, height:80, position:'absolute', zIndex:999999, right:20, top:30 }} />
+                            <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:80, height:80, position:'absolute', zIndex:999999, right:10, top:10 }} />
                         </TouchableWithoutFeedback>
                         {imgUrl &&
                             <>
@@ -183,7 +183,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
             <MenuItemWrapper viewType={viewType} >
                 <MenuItemTopWrapper>
                     <TouchableWithoutFeedback onPress={()=>{ setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
-                        <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:20, top:10 }} />
+                        <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />
                     </TouchableWithoutFeedback>
                     {imgUrl &&
                         <>

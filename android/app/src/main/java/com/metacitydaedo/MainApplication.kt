@@ -1,4 +1,4 @@
-package com.metacity
+package com.metacitydaedo
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -11,7 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
-import com.metacity.modules.koces.KocesPayPackage
+import com.metacitydaedo.modules.koces.KocesPayPackage
 
 class MainApplication : Application(), ReactApplication {
 

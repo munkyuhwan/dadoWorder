@@ -1,6 +1,4 @@
-package com.metacity.modules.koces;
-
-import android.content.Context;
+package com.metacitydaedo.modules.koces;
 
 import androidx.annotation.NonNull;
 

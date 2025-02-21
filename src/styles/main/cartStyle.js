@@ -404,9 +404,8 @@ export const PayTitle = styled.Text`
 `
 export const PayIcon = styled.Image`
     marginTop:auto;
-    marginBottom:auto;
     marginLeft:7px;
-    width:25px;
+    width:30px;
     resizeMode:contain;
 `
 
@@ -418,15 +417,17 @@ export const TopTitleWrapper = styled.View`
 export const TopTitleView = styled.View`
     flex:1;
     backgroundColor:${colorLightBrown};
-    justifyContent:center;
+    justifyContent:${props=>props?.align};
 `
 export const TopTitleText = styled.Text`
     width:100%;
     fontSize:30px;
     color:${colorWhite};
     fontWeight:bold;
-    textAlign:center;
+    textAlign:${props=>props?.textAlign};
     lineHeight:42px;
+    marginLeft:30px;
+    marginRight:30px;
 `
 export const TopTableView = styled.View`
     flex:0.7;

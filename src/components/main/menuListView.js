@@ -45,7 +45,7 @@ const MenuListView = () => {
     const [gap,setGap] = useState(20);
 
     // 선택 카테고리
-    const {mainCategories, selectedMainCategory, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
+    const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
    
     useEffect(()=>{
         if(isOn) {
@@ -155,7 +155,7 @@ const MenuListView = () => {
             return(
                 <>
                     <SubMenu/>
-                    <MenuListWrapper viewType={viewType} >
+                    <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
                         {/*(displayMenu?.length > 0 && !isOn )&&
                             <FlatList
                                 ref={listRef}
@@ -187,7 +187,7 @@ const MenuListView = () => {
                                 </View>
                             </ScrollView>
                         }
-                        <TransparentPopupBottomWrapper style={{paddingTop:10}} >
+                        <TransparentPopupBottomWrapper style={{paddingTop:10,}} >
                             <TransparentPopupBottomInnerWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory(""));}}>
                                     <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >

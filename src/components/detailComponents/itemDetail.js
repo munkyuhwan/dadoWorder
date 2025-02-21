@@ -235,7 +235,6 @@ const ItemDetail = (props) => {
             else if(language=="english") {
                 selInfoLanguage = menuDetail?.gmemo_en||menuDetail?.gmemo;
             }
-       
         return selInfoLanguage;
     }
     const ItemWonsanji = () => {
@@ -352,9 +351,7 @@ const ItemDetail = (props) => {
                                                     <MenuItemSpiciness source={require('../../assets/icons/hot_icon.png')}/>
                                                 </MenuItemDetailSpicenessWrapper>
                                             }
-                                        </DetailItemInfoTitleWrapperBig>
-                                        
-                                        {/* <DetailItemInfoSource>{ItemWonsanji()}</DetailItemInfoSource> */}
+                                        </DetailItemInfoTitleWrapperBig>                                        
                                         <DetailItemInfoMore>{ItemInfo()}</DetailItemInfoMore>
                                         <DetailPriceMoreWrapper>
                                             <DetailItemInfoPriceWrapper>

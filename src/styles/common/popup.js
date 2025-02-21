@@ -69,7 +69,7 @@ export const TransparentPopupBottomWrapper = styled.View`
 `
 export const TransparentPopupBottomInnerWrapper = styled.View`
     flexDirection:row;
-    justifyContents:space-between;    
+    justifyContents:space-between;
 `
 export const TransparentPopupBottomButtonWraper  = styled.View`
     backgroundColor:${(props)=>props.bgColor};
