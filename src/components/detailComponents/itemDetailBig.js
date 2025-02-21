@@ -294,19 +294,8 @@ const ItemDetailBig = (props) => {
                                                 <SoldOutDimLayerBig style={{ borderRadius:RADIUS_DOUBLE}}/>
                                             </SoldOutLayerBig>
                                         }
-                                    </DetailItemInfoImageWrapperBig>
-                                    <DetailItemInfoWrapper>
-                                        <DetailItemInfoTitleWrapperBig>
-                                            <DetailItemInfoTitleBig>{ItemTitle()||menuDetail?.gname_kr}</DetailItemInfoTitleBig>
-                                            <DetailItemInfoMoreBig>{ItemInfo()}</DetailItemInfoMoreBig>
-                                            <CloseBtnWrapper>
-                                                <TouchableWithoutFeedback onPress={()=>{closeDetail();}} >
-                                                    <CloseBtnView>
-                                                        <CloseBtnText>클릭하면 창이 사라집니다.</CloseBtnText>
-                                                    </CloseBtnView>
-                                                </TouchableWithoutFeedback>
-                                            </CloseBtnWrapper>
-                                            {menuDetail&&
+                                        <View style={{width:'100%', position:'absolute', flexDirection:'row',top:20,left:10}}>
+                                        {menuDetail&&
                                                 menuDetail?.is_new=='Y'&&
                                                  <DetailItemInfoTitleEtc source={require("../../assets/icons/new_menu.png")}/>
                                             }
@@ -360,6 +349,21 @@ const ItemDetailBig = (props) => {
                                                     <MenuItemSpiciness source={require('../../assets/icons/hot_icon.png')}/>
                                                 </MenuItemDetailSpicenessWrapper>
                                             }
+                                        </View>
+
+                                    </DetailItemInfoImageWrapperBig>
+                                    <DetailItemInfoWrapper>
+                                        <DetailItemInfoTitleWrapperBig>
+                                            <DetailItemInfoTitleBig>{ItemTitle()||menuDetail?.gname_kr}</DetailItemInfoTitleBig>
+                                            <DetailItemInfoMoreBig>{ItemInfo()}</DetailItemInfoMoreBig>
+                                            <CloseBtnWrapper>
+                                                <TouchableWithoutFeedback onPress={()=>{closeDetail();}} >
+                                                    <CloseBtnView>
+                                                        <CloseBtnText>클릭하면 창이 사라집니다.</CloseBtnText>
+                                                    </CloseBtnView>
+                                                </TouchableWithoutFeedback>
+                                            </CloseBtnWrapper>
+                                            
                                         </DetailItemInfoTitleWrapperBig>
                                         
                                     </DetailItemInfoWrapper>

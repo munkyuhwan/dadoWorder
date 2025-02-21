@@ -91,8 +91,8 @@ export const TransparentPopupBottomButtonText = styled.Text`
     paddingRight:12px;
 `
 export const TransparentPopupBottomButtonIcon = styled.Image`
-    width:15px;
-    height:15px;
+    width:17px;
+    height:17px;
     resizeMode:contain;
 `
 

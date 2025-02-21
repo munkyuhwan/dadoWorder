@@ -100,7 +100,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                         }
 
                         <MenuItemImageWrapper>
-                            <MenuItemHotnessWrapper>
+                            <MenuItemButtonWrapper>
                                 {item?.is_new=='Y'&&
                                     <MenuItemHotness source={require('../../assets/icons/new_menu.png')} />
                                 }
@@ -110,8 +110,6 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                                 {item?.is_on=='Y'&&
                                     <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
                                 }
-                            </MenuItemHotnessWrapper>
-                            <MenuItemButtonWrapper>
                                 {
                                     item.spicy == "1" &&
                                     <MenuItemButtonInnerWrapperRight>
@@ -154,7 +152,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                                         <MenuItemSpiciness source={require('../../assets/icons/cold_icon.png')}/>
                                     </MenuItemButtonInnerWrapperRight>
                                 }
-                               
+                                
                             </MenuItemButtonWrapper>
                         </MenuItemImageWrapper>
                         {item?.sale_status=='3'&&// 1:대기, 2: 판매, 3: 매진
@@ -202,15 +200,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                     </MenuItemBottomWRapper>
                     <MenuItemImageWrapper>
                         <MenuItemHotnessWrapper>
-                        {item?.is_new=='Y'&&
-                            <MenuItemHotness source={require('../../assets/icons/new_menu.png')} />
-                        }
-                        {item?.is_best=='Y'&&
-                            <MenuItemHotness source={require('../../assets/icons/best_menu.png')} />
-                        }
-                        {item?.is_on=='Y'&&
-                            <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
-                        }
+                        
                         </MenuItemHotnessWrapper>
                         <MenuItemButtonWrapper>
                             {
@@ -254,6 +244,15 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                                 <MenuItemButtonInnerWrapperRight>
                                     <MenuItemSpiciness source={require('../../assets/icons/cold_icon.png')}/>
                                 </MenuItemButtonInnerWrapperRight>
+                            }
+                            {item?.is_new=='Y'&&
+                                <MenuItemHotness source={require('../../assets/icons/new_menu.png')} />
+                            }
+                            {item?.is_best=='Y'&&
+                                <MenuItemHotness source={require('../../assets/icons/best_menu.png')} />
+                            }
+                            {item?.is_on=='Y'&&
+                                <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
                             }
                             {/* <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} }} >
                                 <MenuItemButtonInnerWrapperLeft>

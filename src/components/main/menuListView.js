@@ -190,9 +190,9 @@ const MenuListView = () => {
                         <TransparentPopupBottomWrapper style={{paddingTop:10}} >
                             <TransparentPopupBottomInnerWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory(""));}}>
-                                    <TransparentPopupBottomButtonWraper bgColor={colorRed} >
-                                        <TransparentPopupBottomButtonIcon source={require("../../assets/icons/back.png")} />
-                                        <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.etc.back}</TransparentPopupBottomButtonText>
+                                    <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
+                                        <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
+                                        <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
                                     </TransparentPopupBottomButtonWraper>
                                 </TouchableWithoutFeedback>
                                 {/* <TouchableWithoutFeedback onPress={()=>{openFullSizePopup(dispatch, {innerView:"", isFullPopupVisible:false});}}>

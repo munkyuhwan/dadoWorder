@@ -17,10 +17,10 @@ const LanguageSelectView = () => {
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("korean")); }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
-                            <LanguageInnerWrapper style={{flex:1, paddingTop:50}} >
+                            <LanguageInnerWrapper style={{flex:1, paddingTop:100}} >
                                 <LanguageSelectIcon source={require("../../assets/icons/korean.png")} resizeMode={"contain"} />
                             </LanguageInnerWrapper>
-                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:60}}>
+                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:30}}>
                                 <LanguageSelectTitle>한국어</LanguageSelectTitle>
                             </LanguageInnerWrapper>
                         </NewLanguageWrapper>

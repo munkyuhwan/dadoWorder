@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
-import { colorDarkGrey, colorGrey, colorRed, colorWhite } from '../../assets/colors/color';
+import { colorDarkGrey, colorGrey, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, TransparentPopupBottomButtonWraper, TransparentPopupBottomInnerWrapper, TransparentPopupBottomWrapper, TransparentPopupTopWrapper, TransparentPopupWrapper, TransperentPopupMidWrapper, TransperentPopupTopSubTitle, TransperentPopupTopTitle } from '../../styles/common/popup';
 import { LANGUAGE } from '../../resources/strings';
 import SelectItemComponent from '../common/selectItemComponent';
@@ -85,10 +85,10 @@ const CallHelp = () => {
                             <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.serverPopup.callBtnText}</TransparentPopupBottomButtonText>
                         </TransparentPopupBottomButtonWraper>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={()=>{openFullSizePopup(dispatch, {innerView:"", isFullPopupVisible:false});}}>
-                        <TransparentPopupBottomButtonWraper bgColor={colorDarkGrey} >
-                            <TransparentPopupBottomButtonIcon source={require("../../assets/icons/cancel.png")} />
+                    <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":"menu"})); }}>
+                        <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
                             <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
+                            <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
                         </TransparentPopupBottomButtonWraper>
                     </TouchableWithoutFeedback>
                 </TransparentPopupBottomInnerWrapper>

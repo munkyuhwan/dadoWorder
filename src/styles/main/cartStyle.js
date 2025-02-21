@@ -20,17 +20,17 @@ export const CartFlatList = styled.FlatList`
 `
 export const Handle = styled.View`
     backgroundColor:${colorWhite};
-    height:81px;
-    width:28px;
+    height:101px;
+    width:50px;
     marginTop:320px;
     position:absolute;
-    left:-27px;
+    left:-42px;
     zIndex:999999;
     borderTopLeftRadius:23px;
     borderBottomLeftRadius:22px;
     alignIten:center;
     justfyContent:center;
-    paddingLeft:8px;
+    paddingLeft:15px;
 `
 export const ArrowImage = styled.Image`
     resizeMode:contain;
@@ -41,9 +41,9 @@ export const ArrowImage = styled.Image`
 // cart list item
 export const CartItemWrapper = styled.View`
     width:92%;
-    height:130px;
-    paddingBottom:17px;
-    paddingTop:17px; 
+    height:160px;
+    paddingBottom:45px;
+    paddingTop:30px; 
     paddingLeft:13px;
     paddingRight:13px;
     borderColor:${colorGrey};
@@ -198,6 +198,7 @@ export const CartItemAmtWrapper = styled.View`
     marginTop:17px;
     gap:3px;
     flex:0.7;
+    paddingRight:10px;
 `
 export const CartItemAmtController = styled.View`
     width:42px;
@@ -318,6 +319,8 @@ export const CartItemCancelWrapper = styled.View`
     position:absolute;
     top:-10px;
     left:-10px;
+    backgroundColor:${colorWhite};
+    borderRadius:100px;
 `
 export const CartItemCancelBtn = styled.Image`
     width:100%;

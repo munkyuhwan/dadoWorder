@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE } from '../values';
-import { colorBlack, colorGrey, colorRed, colorWhite } from '../../assets/colors/color';
+import { colorBlack, colorGrey, colorListItemTitle, colorRed, colorWhite, listItemTitle } from '../../assets/colors/color';
 
 export const MenuListWrapper = styled.View`
     width:100%;
@@ -10,7 +10,7 @@ export const MenuListWrapper = styled.View`
     paddingLeft:${props=>props?.viewType==4?"102px":"42px"};
     paddingRight:${props=>props?.viewType==4?"102px":"42px"};
     paddingBottom:${props=>props?.viewType==3?"110px":"50px"};
-    backgroundColor:#303030;
+    backgroundColor:#252525;
     justifyContent:center;
 `;
 
@@ -63,7 +63,7 @@ export const MenuItemButtonWrapper = styled.View`
     flexDirection:row;
     flex:1;
     position:absolute;
-    paddingLeft:70px;
+    paddingLeft:10px;
 `
 export const MenuItemButtonInnerWrapperRight = styled.View`
     width:100%;
@@ -116,7 +116,7 @@ export const MenuItemBottomWRapper = styled.View`
     position:absolute;
     bottom:0;
     justifyContent:center;
-    backgroundColor:${colorGrey};
+    backgroundColor:${colorListItemTitle};
     borderBottomLeftRadius:20px;
     borderBottomRightRadius:20px;
 `

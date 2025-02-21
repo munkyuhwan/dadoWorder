@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { 
     Animated,
     Text,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    View
 } from 'react-native'
 import { CartItemAmtController, CartItemAmtControllerImage, CartItemAmtControllerText, CartItemAmtText, CartItemAmtWrapper, CartItemCancelBtn, CartItemCancelWrapper, CartItemFastImage, CartItemImage, CartItemImageTogoWrapper, CartItemOpts, CartItemPrice, CartItemTitle, CartItemTitlePriceWrapper, CartItemTogoBtn, CartItemTogoIcon, CartItemTogoText, CartItemTogoWrapper, CartItemWrapper, OperandorText, ShadowView } from '../../styles/main/cartStyle';
 import { setPopupContent, setPopupVisibility } from '../../store/popup';
@@ -13,7 +14,7 @@ import { LANGUAGE } from '../../resources/strings';
 import { addToOrderList, resetAmtOrderList, setOrderList } from '../../store/order';
 import FastImage from 'react-native-fast-image';
 import { META_SET_MENU_SEPARATE_CODE_LIST } from '../../resources/defaults';
-import { View } from 'react-native-reanimated/lib/typescript/Animated';
+import { colorGrey } from '../../assets/colors/color';
 
 const CartListItem = (props) => {
     const dispatch = useDispatch();
@@ -117,7 +118,7 @@ const CartListItem = (props) => {
                     <ShadowView>
                         <TouchableWithoutFeedback onPress={()=>{ dispatch(addToOrderList({isAdd:false, isDelete: true, item:itemDetail[0],menuOptionSelected:order?.set_item})); }}>
                             <CartItemCancelWrapper>
-                                <CartItemCancelBtn source={require("../../assets/icons/close_grey.png")} />
+                                <CartItemCancelBtn source={require("../../assets/icons/close_red.png")} />
                             </CartItemCancelWrapper>
                         </TouchableWithoutFeedback>
                         <CartItemImage source={ {uri:itemDetail[0]?.gimg_chg, priority: FastImage.priority.high } } />
@@ -149,10 +150,12 @@ const CartListItem = (props) => {
                             <OperandorText fontSize={"52"} >-</OperandorText>
                         </CartItemAmtController>
                     </TouchableWithoutFeedback>
+                    
                 </CartItemAmtWrapper>
 
-                
+                <View style={{borderBottomWidth:1,borderBottomColor:colorGrey, position:'absolute',width:'100%',left:30}}>
 
+                </View>
             </CartItemWrapper>
         </>
     )

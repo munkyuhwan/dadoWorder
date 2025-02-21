@@ -14,8 +14,8 @@ export const NewLanguageSelectWrapper = styled.View`
 `
 export const NewLanguageWrapper = styled.View`
     flexDirection:column;
-    height:320px;
-    width:200px;
+    height:450px;
+    width:270px;
     justifyContent:center;
     alignItems:center;
     borderRadius:20px;
@@ -33,8 +33,8 @@ export const NewLanguageDimWrapper = styled.View`
     borderRadius:20px;
 `
 export const LanguageSelectIcon = styled(FastImage)`
-    width:100px;
-    height:100px;
+    width:130px;
+    height:130px;
 `
 export const LanguageSelectTitle = styled.Text`
     color:${colorBlack};

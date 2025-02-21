@@ -48,14 +48,14 @@ export const DetailWrapperBig=styled.View`
 `
 export const DetailWhiteWrapperBig = styled.View`
     width:50%;
-    height:80%;
+    height:90%;
     borderRadius:${RADIUS};
     backgroundColor:${colorWhite};
     elevation: 100;
 `
 export const DetailItemInfoFastImageBig = styled(FastImage)`
     width:100%;
-    height:400px;
+    height:480px;
     resizeMode:cover;
     borderTopRightRadius:${RADIUS};
     borderTopLeftRadius:${RADIUS};
@@ -63,7 +63,7 @@ export const DetailItemInfoFastImageBig = styled(FastImage)`
 export const MenuImageDefaultBig = styled.Image`
     margin:auto;
     width:100%;
-    height:400px;
+    height:480px;
     resizeMode:contain;
     borderTopRightRadius:${RADIUS};
     borderTopLeftRadius:${RADIUS};
@@ -103,7 +103,8 @@ export const DetailItemInfoFastImage = styled(FastImage)`
 `
 export const DetailItemInfoTitleWrapperBig = styled.View`
     flexDirection:column;
-    height:500px;
+    height:240px;
+    marginTop:80px;
 `
 export const DetailItemInfoTitle = styled.Text`
     fontSize:38px;
@@ -114,7 +115,8 @@ export const DetailItemInfoTitle = styled.Text`
 export const DetailItemInfoTitleBig = styled.Text`
     width:100%;
     textAlign:center;
-    fontSize:38px;
+    fontSize:34px;
+    marginTop:20px;
     fontWeight:bold;
     marginRight:11px;
     color:${colorBlack}
@@ -153,7 +155,7 @@ export const DetailItemInfoMore = styled.Text`
     flex:1;
 `
 export const DetailItemInfoMoreBig = styled.Text`
-    fontSize:22px;
+    fontSize:18px;
     color:${colorLightRed};
     flex:1;
     fontWeight:bold;
@@ -163,7 +165,7 @@ export const DetailItemInfoMoreBig = styled.Text`
 `
 export const CloseBtnWrapper = styled.View`
     position:absolute;
-    top:150px;
+    top:170px;
     width:100%;
     alignItems:center;
 `
@@ -176,7 +178,8 @@ export const CloseBtnView = styled.View`
 export const CloseBtnText = styled.Text`
     color:${colorWhite};
     textAlign:center;
-    fontSize:27px;
+    fontSize:20px;
+    marginTop:8px;
 `
 
 // 옵션 & 추천메뉴

@@ -41,6 +41,8 @@ const TopMenuList = (props) => {
     }
 
     function moveTab(el) {
+        // 카트 닫기
+        dispatch(setCartView(false)); 
         if(el.code!="orderList" && el.code!="cart"){ 
             dispatch(setSelectedMainCategory("")); 
             dispatch(setCommon({"tab":el.code})); 
