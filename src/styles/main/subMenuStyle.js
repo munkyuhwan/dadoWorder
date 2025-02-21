@@ -11,6 +11,7 @@ export const TopMenuWrapper = styled.View`
     justifyContent: flex-start;
     zIndex:99999;
     backgroundColor:#252525;
+    paddingLeft:12px;
 `
 // 공지사항 텍스트
 export const BulletinWrapper = styled(ScrollView)`

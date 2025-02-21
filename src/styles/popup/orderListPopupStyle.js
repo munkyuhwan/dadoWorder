@@ -5,16 +5,17 @@ import { RADIUS, RADIUS_SMALL } from '../values';
 import { ScrollView } from 'react-native';
 
 export const OrderListPopupWrapper = styled.View`
-    width:90%;
-    height:90%;
-    backgroundColor:${colorWhite};
+    width:100%;
+    height:100%;
+    backgroundColor:${colorGrey};
     margin:auto;
-    paddingTop:25px;
+    
+`
+/* 
+paddingTop:25px;
     paddingLeft:50px;
     paddingRight:50px;
-    paddingBottom:15px;
-    borderRadius:${RADIUS};
-`
+    paddingBottom:15px; */
 
 export const OrderPayPopupWrapper = styled.View`
     width:90%;
@@ -32,6 +33,15 @@ export const OrderPayPopupWrapper = styled.View`
 export const OrdrListTopWrapper = styled.View`
     flexDirection:row;
     textAlign:base-line;
+    marginBottom:20px;
+    backgroundColor:${colorWhite};
+    width:100%;
+    height:80px;
+    paddingTop:20px;
+    elevation: 30;
+    shadowOpacity:1;
+    shadowColor:rgba(0,0,0);
+    paddingLeft:20px;
 `
 export const OrderListTopTitle = styled.Text`
     fontSize:30px;
@@ -43,13 +53,17 @@ export const OrderListTopSubtitle = styled.Text`
     color:${colorLightBrown}; 
     paddingLeft:14px;
     marginTop:auto;
+    marginBottom:auto;
 `
 
 // 메뉴 리스트 뤠퍼
 export const OrderListWrapper = styled.View`
     flex:1;
     paddingBottom:10px;
-    paddingTop:60px;
+    paddingTop:50px;
+    paddingLeft:20px;
+    paddingRight:20px;
+    backgroundColor:${colorWhite};
 `
 export const OrderListTableWrapper = styled.View`
     width:100%;

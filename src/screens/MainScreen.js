@@ -11,7 +11,7 @@ import PopUp from '../components/common/popup'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import LogWriter from '../utils/logWriter'
-import { openPopup } from '../utils/common'
+import { openFullSizePopup, openPopup } from '../utils/common'
 import { setLanguage } from '../store/languages'
 import { DEFAULT_TABLE_STATUS_UPDATE_TIME } from '../resources/defaults'
 import {isEmpty} from 'lodash';
@@ -123,8 +123,44 @@ const MainScreen = () =>{
         }
     },[menuDetailID])
 
-    console.log("menu detail: ",( (menuDetail?.prod_gb=="09"||menuDetail?.prod_gb=="02"))  )
-
+  
+    // 세팅 터치
+    const [settingTouch, setSettingTouch] = useState(0);
+    const [isStartCounting, setIsStartCounting] = useState(true);
+    let settingCount=null;
+    let countTime = 5;
+    const countDown = () =>{
+        if(isStartCounting) {
+            setIsStartCounting(false);
+            settingCount = setInterval(() => {
+                if(countTime>0) {
+                    countTime = countTime-1;
+                }else {
+                    countTime = 5
+                    clearInterval(settingCount);
+                    settingCount=null;
+                    setIsStartCounting(true);
+                }
+            }, 1000);
+        }
+    }
+    const onSettingPress = () => {
+        console.log("touch touch");
+        if(settingTouch<5) {
+            setSettingTouch(settingTouch+1);
+            if(countTime>0) {
+                if(settingTouch>=4) {
+                    clearInterval(settingCount);
+                    settingCount=null;
+                    setIsStartCounting(true);
+                    setSettingTouch(0);
+                    openFullSizePopup(dispatch,{innerFullView:"Setting", isFullPopupVisible:true});
+                }
+            }
+        }else {
+            setSettingTouch(0);
+        }
+    }
     return(
         <>
             <KeyboardAvoidingView behavior="padding" enabled style={{width:'100%', height:'100%'}} >
@@ -145,7 +181,7 @@ const MainScreen = () =>{
                     </MainWrapper>
                 </WholeWrapper> 
                 {!isOn &&
-                    <TouchableWithoutFeedback onPress={()=>{ /* countDown(); onSettingPress(); */ } } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
+                    <TouchableWithoutFeedback onPress={()=>{countDown(); onSettingPress();} } style={{position:'absolute',  top:0,left:0, zIndex:999999999}}>
                         <TableName>
                             <TableNameSmall>{tableInfoText}</TableNameSmall>
                             <TableNameBig>{tableNoText}</TableNameBig>

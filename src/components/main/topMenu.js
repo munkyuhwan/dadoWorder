@@ -26,6 +26,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import AutoScroll from "@homielab/react-native-auto-scroll";
 import { setTableInfo } from '../../store/tableInfo'
 import FastImage from 'react-native-fast-image'
+import { setAdScreen } from '../../store/ad'
+import { regularUpdate } from '../../store/menu'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -98,48 +100,16 @@ const TopMenu = () =>{
         //dispatch(setSelectedSubCategory(index)); 
     }
 
-      
-    // 세팅 터치
-    const [settingTouch, setSettingTouch] = useState(0);
-    const [isStartCounting, setIsStartCounting] = useState(true);
-    let settingCount=null;
-    let countTime = 5;
-    const countDown = () =>{
-        if(isStartCounting) {
-            setIsStartCounting(false);
-            settingCount = setInterval(() => {
-                if(countTime>0) {
-                    countTime = countTime-1;
-                }else {
-                    countTime = 5
-                    clearInterval(settingCount);
-                    settingCount=null;
-                    setIsStartCounting(true);
-                }
-            }, 1000);
-        }
+    function toAd() {
+        dispatch(regularUpdate());
+        dispatch(setAdScreen({isShow:true,isMain:true}))
     }
-    const onSettingPress = () => {
-        if(settingTouch<5) {
-            setSettingTouch(settingTouch+1);
-            if(countTime>0) {
-                if(settingTouch>=4) {
-                    clearInterval(settingCount);
-                    settingCount=null;
-                    setIsStartCounting(true);
-                    setSettingTouch(0);
-                    openFullSizePopup(dispatch,{innerFullView:"Setting", isFullPopupVisible:true});
-                }
-            }
-        }else {
-            setSettingTouch(0);
-        }
-    }
+    
     return(
         <>
             <TopMenuWrapper>
                
-                <TouchableWithoutFeedback onPress={()=>{countDown(); onSettingPress();}} >
+                <TouchableWithoutFeedback onPress={()=>{toAd();}} >
                     <FastImage source={require("../../assets/icons/daedo_logo.png")} style={{ marginLeft:40,marginRight:20, flex:0.5}} resizeMode='contain' />
                 </TouchableWithoutFeedback>
                 <SafeAreaView>

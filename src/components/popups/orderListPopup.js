@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableWithoutFeedback } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { OrderListWrapper, OrderListPopupWrapper, OrderListTopSubtitle, OrderListTopTitle, OrdrListTopWrapper, OrderListTableWrapper, OrderListTableColumnNameWrapper, OrderListTableColumnName, OrderListTableList, OrderListTalbleGrandTotal, OrderListTalbleGrandTotalWrapper, OrderListTotalTitle, OrderListTotalAmount } from '../../styles/popup/orderListPopupStyle';
 import { PopupBottomButtonBlack, PopupBottomButtonText, PopupBottomButtonWrapper } from '../../styles/common/coreStyle';
 import { LANGUAGE } from '../../resources/strings';
 import { BottomButton, BottomButtonIcon, BottomButtonText, BottomButtonWrapper } from '../../styles/main/detailStyle';
-import { colorBlack, colorRed } from '../../assets/colors/color';
+import { colorBlack, colorGrey, colorRed, colorWhite } from '../../assets/colors/color';
 import { numberWithCommas, openTransperentPopup } from '../../utils/common';
 import OrderListItem from '../orderListComponents/orderListItem';
 import { clearOrderStatus, getOrderStatus } from '../../store/order';
@@ -73,6 +73,7 @@ const OrderListPopup = () =>{
     },[orderStatus])
     return(
         <>
+            {/* <View style={{position:'absolute',height:10,backgroundColor:colorGrey, width:'100%', top:90, zIndex:9999}} /> */}
             <OrderListPopupWrapper>
                 <OrdrListTopWrapper>
                     <OrderListTopTitle>{LANGUAGE[language]?.orderListPopup.orderListTitle}</OrderListTopTitle>
@@ -107,7 +108,7 @@ const OrderListPopup = () =>{
                         <OrderListTotalAmount>{numberWithCommas(orderTotalAmt)}{LANGUAGE[language]?.orderListPopup.totalAmtUnit}</OrderListTotalAmount>
                     </OrderListTalbleGrandTotalWrapper>
                 </OrderListWrapper>
-                <BottomButtonWrapper>
+                <BottomButtonWrapper style={{backgroundColor:colorWhite,paddingBottom:20}} >
                     {/*!isPrepay &&
                        <BottomButton backgroundColor={colorRed} >
                             <BottomButtonText>{LANGUAGE[language]?.orderListPopup.orderListPay}</BottomButtonText>
