@@ -78,6 +78,7 @@ const MenuListView = () => {
         if(catData.length>0) {
             setNumColumns(Number(catData[0].view_type));
             setViewType(Number(catData[0].view_type));
+            //setViewType(3);
         }
     },[selectedMainCategory])
 

@@ -159,6 +159,7 @@ export default function Navigation() {
                             openTransperentPopup(dispatch, {innerView:"OrderReady", isPopupVisible:true,param:{msg:body}});
                         }//displayErrorNonClosePopup(dispatch, "XXXX", `${body}`);
                     }else {
+                        console.log("update");
                         dispatch(regularUpdate());    
                     }
                 }

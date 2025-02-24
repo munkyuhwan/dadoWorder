@@ -12,7 +12,7 @@ export const MenuListWrapper = styled.View`
     paddingBottom:${props=>props?.viewType==3?(props?.isSub?"110px":"50px"):"50px"};
     backgroundColor:#252525;
     justifyContent:center;
-`;
+`
 
 
 // menu item style

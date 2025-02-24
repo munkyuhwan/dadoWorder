@@ -91,6 +91,14 @@ const SettingPopup = () =>{
                 .catch((err)=>{
                     console.log("download error-======================================================");
                     console.log(err)
+                    setSpinnerText("");
+                    Alert.alert(
+                        "업데이트 에러",
+                        "업데이트를 할 수 없습니다.",
+                        [{
+                            text:'확인',
+                        }]
+                    )
                 })
 
             }else {
@@ -112,9 +120,9 @@ const SettingPopup = () =>{
 
         const prevTableCode = await AsyncStorage.getItem("TABLE_INFO");
 
-        AsyncStorage.setItem("TABLE_INFO", itemValue);   
-        AsyncStorage.setItem("TABLE_NM", itemNM);   
-        AsyncStorage.setItem("TABLE_FLOOR",floor);
+        await AsyncStorage.setItem("TABLE_INFO", itemValue);   
+        await AsyncStorage.setItem("TABLE_NM", itemNM);   
+        await AsyncStorage.setItem("TABLE_FLOOR",floor);
         dispatch(changeTableInfo({tableNo:itemValue}))
 
         const prevStoreID = await AsyncStorage.getItem("STORE_IDX").catch(()=>{return null;});

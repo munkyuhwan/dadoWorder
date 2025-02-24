@@ -48,7 +48,6 @@ export const CartItemWrapper = styled.View`
     paddingRight:13px;
     borderColor:${colorGrey};
     flexDirection:row;
-    flex:1;
 `
 export const DutchItemWrapper = styled.View`
     width:220px;

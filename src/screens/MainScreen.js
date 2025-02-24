@@ -163,7 +163,6 @@ const MainScreen = () =>{
     }
     return(
         <>
-            <KeyboardAvoidingView behavior="padding" enabled style={{width:'100%', height:'100%'}} >
                 <WholeWrapper onTouchStart={()=>{     screenTimeOut();  quickOrderTimeOut();   }} >
                     {/* <SideMenu/> */}
                     <MainWrapper>
@@ -188,7 +187,6 @@ const MainScreen = () =>{
                         </TableName>
                     </TouchableWithoutFeedback>
                 }
-            </KeyboardAvoidingView>
             {(vieweType!=2 && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
