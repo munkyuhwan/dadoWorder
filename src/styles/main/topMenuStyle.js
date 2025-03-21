@@ -55,6 +55,27 @@ export const CategorySelected = styled.View`
     borderTopLeftRadius:${RADIUS_DOUBLE}px;
     borderTopRightRadius:${RADIUS_DOUBLE}px;
 `
+export const CategoryFixed = styled.View`
+    backgroundColor: ${colorRed};
+    width:100px;
+    height:90%;
+    marginRight:7px;
+    justifyContent: flex-end;
+    marginTop:14px;
+    borderTopLeftRadius:${RADIUS_DOUBLE}px;
+    borderTopRightRadius:${RADIUS_DOUBLE}px;
+`
+export const CategoryFixedText = styled.Text`
+    flex:1;
+    textAlign:center;
+    justifyContent:center;
+    display:flex;
+    alignItems:center;
+    fontSize:18px;
+    fontWeight:bold;
+    paddingTop:10%;
+    color: ${textColorWhite};
+`;
 export const FloatingCategorySelected = styled.View`
     backgroundColor: ${ props => props?.isSelected?colorRed:colorBrown };
     width:100%;

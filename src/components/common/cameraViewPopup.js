@@ -12,7 +12,7 @@ import { CategoryScrollView, CategoryWrapper, TopMenuWrapper } from "../../style
 import TopMenuList from "../menuComponents/topMenuList";
 import CCTVItemList from "../menuComponents/cctvItemList";
 import { EventRegister } from "react-native-event-listeners";
-
+import {isEmpty} from "lodash";
 
 const CameraView = () => {
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const CameraView = () => {
         setCurrentIndex(data.idx);
     }
     useEffect(()=>{
-        if(cctv) {
+        if(!isEmpty(cctv)) {
             if(currentIndex) {
                 setCurrentIndex(currentIndex);
             }else {
@@ -36,13 +36,21 @@ const CameraView = () => {
     },[cctv])
     useEffect(()=>{
         EventRegister.emit("showSpinner",{isSpinnerShow:true, msg:"로딩중"});
-        const filteredCctv = cctv.filter(el=>el.idx==currentIndex);
-        if(filteredCctv) {
-            if(filteredCctv[0]) {
-                setCctvUrl(filteredCctv[0].cctv_url);   
+        if(!isEmpty(cctv)) {
+            const filteredCctv = cctv.filter(el=>el.idx==currentIndex);
+            if(filteredCctv) {
+                if(filteredCctv[0]) {
+                    setCctvUrl(filteredCctv[0].cctv_url);   
+                }
             }
         }
     },[currentIndex])
+
+    if(isEmpty(cctv)) {
+        EventRegister.emit("showSpinner",{isSpinnerShow:false, msg:""});
+        return(<></>);
+    }
+
     return(
         <>  
 

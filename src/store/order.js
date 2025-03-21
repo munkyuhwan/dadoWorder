@@ -722,6 +722,7 @@ export const postLog =  createAsyncThunk("order/postLog", async(_,{dispatch, get
 // 테이블 주문 히스토리
 export const getOrderStatus = createAsyncThunk("order/getOrderStatus", async(_,{dispatch, getState,extra}) =>{
     const result = await getTableOrderList();
+    //const result = [{"ITEM_SEQ":1,"ITEM_CD":"900061","ITEM_NM":"한우 대패등심(120g)","ITEM_QTY":1,"ITEM_AMT":28000,"ITEM_VAT":0,"ITEM_DC":0,"ITEM_CANCEL_YN":"N","ITEM_UPD_DT":"2025-02-27 10:53:04","ITEM_ORDER_NO":"","POS_ITEM_ORDER_NO":"20250220|11|1","SETITEM_CNT":0,"SETITEM_INFO":[]},{"ITEM_SEQ":2,"ITEM_CD":"100334","ITEM_NM":"한우 생등심 오리지널컷(150g)","ITEM_QTY":1,"ITEM_AMT":49000,"ITEM_VAT":0,"ITEM_DC":0,"ITEM_CANCEL_YN":"N","ITEM_UPD_DT":"2025-02-27 10:53:09","ITEM_ORDER_NO":"","POS_ITEM_ORDER_NO":"20250220|11|2","SETITEM_CNT":2,"SETITEM_INFO":[]},{"ITEM_SEQ":3,"ITEM_CD":"100276","ITEM_NM":"고기 더블샷(100g) 추가","ITEM_QTY":1,"ITEM_AMT":9000,"ITEM_VAT":0,"ITEM_DC":0,"ITEM_CANCEL_YN":"N","ITEM_UPD_DT":"2025-02-27 10:53:11","ITEM_ORDER_NO":"","POS_ITEM_ORDER_NO":"20250220|11|3","SETITEM_CNT":0,"SETITEM_INFO":[]}]
     return result;
 })
 // 테이블 주문 히스토리 지우기

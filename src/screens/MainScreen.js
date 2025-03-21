@@ -19,13 +19,16 @@ import { getAD, setAdScreen } from '../store/ad'
 import { regularUpdate } from '../store/menu'
 import { QuickOrderPopup } from '../components/popups/quickOrderPopup'
 import FloatingBtn from '../components/popups/floatingButtonPopup'
-import { setQuickShow } from '../store/order'
+import { initOrderList, setQuickShow } from '../store/order'
 import SubMenu from '../components/main/subMenu'
 import LanguageSelectView from '../components/main/languageSelectView'
 import CallHelp from '../components/main/callHelp'
 import ItemDetailBig from '../components/detailComponents/itemDetailBig'
 import { TableName, TableNameBig, TableNameSmall } from '../styles/main/topMenuStyle'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setCartView } from '../store/cart'
+import { setCommon } from '../store/common'
+import { setSelectedMainCategory } from '../store/categories'
 let timeoutSet = null;
 let quickOrderTimeoutSet = null;
 
@@ -82,8 +85,14 @@ const MainScreen = () =>{
         clearInterval(timeoutSet);
         timeoutSet=null;
         timeoutSet = setInterval(()=>{
+            dispatch(setCartView(false));
+            dispatch(setSelectedMainCategory("")); 
+            dispatch(setCommon({"tab":"menu"})); 
+            dispatch(initOrderList());
             dispatch(regularUpdate());
             dispatch(setAdScreen({isShow:true,isMain:true}))
+
+
         },SCREEN_TIMEOUT)
     } 
     function quickOrderTimeOut(){

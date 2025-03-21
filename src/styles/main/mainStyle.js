@@ -61,10 +61,10 @@ export const MenuSelectCategoryIcon = styled(FastImage)`
     height:70px;
 `
 export const MenuSelectCategoryText = styled.Text`
-    fontSize:30px;
+    fontSize:60px;
     fontWeight:bold;
     marginTop:13px;
 `
 export const MenuSelectCategorySubText = styled.Text`
-    fontSize:20px;
+    fontSize:30px;
 `
