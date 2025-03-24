@@ -10,6 +10,7 @@ import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
 import { setCommon } from '../../store/common';
 import { openTransperentPopup } from '../../utils/common';
 import { setCartView } from '../../store/cart';
+import FastImage from 'react-native-fast-image';
 
 
 
@@ -70,6 +71,7 @@ const TopMenuList = (props) => {
                             {
                                 <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{moveTab(el)}}>
                                     <CategoryFixed>
+                                        <FastImage source={el.code == "lang" ? require("../../assets/icons/lang_icon.png"):require("../../assets/icons/howto.png")} style={{width:23,height:23, marginLeft:'auto',marginRight:'auto',marginTop:10}} resizeMode={FastImage.resizeMode.contain} />
                                         <CategoryFixedText key={"subcatText_"+el?.idx} >{tabTitle(el)}</CategoryFixedText>
                                     </CategoryFixed>
                                 </TouchableWithoutFeedback>

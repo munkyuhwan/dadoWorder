@@ -43,6 +43,7 @@ const CameraView = () => {
                     setCctvUrl(filteredCctv[0].cctv_url);   
                 }
             }
+            EventRegister.emit("showSpinner",{isSpinnerShow:false, msg:""});
         }
     },[currentIndex])
 
@@ -55,6 +56,9 @@ const CameraView = () => {
         <>  
 
                 <CCTVWrapper>
+                    <TouchableWithoutFeedback onPress={()=>{ openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
+                        <PopupCloseButton  style={{zIndex:999999999, position:'absolute', right:10,top:10}} source={require('../../assets/icons/close_red.png')}/>
+                    </TouchableWithoutFeedback>
                     <TopMenuWrapper>
                             <CategoryScrollView  horizontal showsHorizontalScrollIndicator={false} >
                                 <CategoryWrapper>
@@ -77,13 +81,12 @@ const CameraView = () => {
                             onLoad={()=>{ console.log("on playing"); EventRegister.emit("showSpinner",{isSpinnerShow:false, msg:""});  }}
                             onPlaying={()=>{console.log("on load"); EventRegister.emit("showSpinner",{isSpinnerShow:false, msg:""});  }}
                             source={{ uri: cctvUrl}}
+                            repeat={true}
                         />
                     }
                 </CCTVWrapper>
 
-                <TouchableWithoutFeedback style={{zIndex:999999}} onPress={()=>{ openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
-                    <PopupCloseButton  style={{position:'absolute', right:5,top:5}} source={require('../../assets/icons/close_red.png')}/>
-                </TouchableWithoutFeedback>
+                
         </>
     ) 
 }

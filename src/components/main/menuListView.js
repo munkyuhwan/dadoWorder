@@ -109,7 +109,7 @@ const MenuListView = () => {
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setSelectedMainCategory("meal"));}}>
                             <MenuSelectCategory>
-                            <MenuSelectCategoryDim/>
+                                <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>식사</MenuSelectCategoryText>
                                 <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
                             </MenuSelectCategory>

@@ -73,7 +73,7 @@ export const CategoryFixedText = styled.Text`
     alignItems:center;
     fontSize:18px;
     fontWeight:bold;
-    paddingTop:10%;
+    paddingTop:3px;
     color: ${textColorWhite};
 `;
 export const FloatingCategorySelected = styled.View`
