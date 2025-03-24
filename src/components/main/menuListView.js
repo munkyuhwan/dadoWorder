@@ -17,6 +17,7 @@ import SubMenu from './subMenu';
 import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, TransparentPopupBottomButtonWraper, TransparentPopupBottomInnerWrapper, TransparentPopupBottomWrapper } from '../../styles/common/popup';
 import { LANGUAGE } from '../../resources/strings';
 import { colorDarkGrey, colorLightBrown, colorRed } from '../../assets/colors/color';
+import { setCartView } from '../../store/cart';
 
 // 스크롤링 관련
 var touchStartOffset = 0;
@@ -101,20 +102,20 @@ const MenuListView = () => {
                 <MenuSelectView>
                     <MenuSelectBg source={require("../../assets/icons/daedo_bg.png")} resizeMethod={"contain"} />
                     <MenuSelectCategoryView style={{paddingTop:50}} >
-                        <TouchableWithoutFeedback onPress={()=>{console.log("meat"); dispatch(setSelectedMainCategory("meat"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("meat");dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>고기</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setSelectedMainCategory("meal"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setCartView(false));dispatch(setSelectedMainCategory("meal"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>식사</MenuSelectCategoryText>
                                 <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setSelectedMainCategory("lunch"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>점심 식사</MenuSelectCategoryText>
@@ -122,19 +123,19 @@ const MenuListView = () => {
                         </TouchableWithoutFeedback>
                     </MenuSelectCategoryView>
                     <MenuSelectCategoryView style={{paddingBottom:50}} >
-                        <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setSelectedMainCategory("extra"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setCartView(false));dispatch(setSelectedMainCategory("extra"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>추가메뉴</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("liquor");dispatch(setSelectedMainCategory("liquor"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("liquor");dispatch(setCartView(false));dispatch(setSelectedMainCategory("liquor"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>주류</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("drink");dispatch(setSelectedMainCategory("drink"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{console.log("drink");dispatch(setCartView(false));dispatch(setSelectedMainCategory("drink"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>음료</MenuSelectCategoryText>
@@ -184,7 +185,7 @@ const MenuListView = () => {
                         }
                         <TransparentPopupBottomWrapper style={{paddingTop:10,}} >
                             <TransparentPopupBottomInnerWrapper>
-                                <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory(""));}}>
+                                <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCartView(false));  }}>
                                     <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
                                         <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
                                         <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>

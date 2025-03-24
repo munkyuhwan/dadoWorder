@@ -391,7 +391,7 @@ const CartView = () =>{
             <CartViewWrapper style={[{...boxStyle}]} >
                 <TopTitleWrapper>
                     <TopTitleView align={"center"} >
-                        <TopTitleText textAlign={"left"} >{LANGUAGE[language]?.orderListPopup?.orderListTitle}</TopTitleText>
+                        <TopTitleText textAlign={"left"} >{LANGUAGE[language]?.cart?.cart}</TopTitleText>
                     </TopTitleView>
                     <TopTableView align={"center"} >
                         <TopTableText textAlign={"center"} >{tableNoText}</TopTableText>

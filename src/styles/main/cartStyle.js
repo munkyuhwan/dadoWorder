@@ -334,7 +334,7 @@ export const OrderWrapper = styled.View`
     paddingRight:23px;
     paddingLeft:23px;
     paddingBottom:23px;
-    paddingTop:20px;
+    paddingTop:4px;
 `
 
 export const PayWrapper = styled.View`
@@ -355,17 +355,19 @@ export const PayAmtWrapper = styled.View`
 `
 export const PayAmtTitle = styled.Text`
     flex:1;
-    fontSize:20px;
-    color:${colorWhite}
+    fontSize:24px;
+    color:${colorWhite};
+    fontWeight:bold;
 `
 export const PayAmtNumber = styled.Text`
-    fontSize:20px;
+    fontSize:24px;
     color:${colorWhite};
     fontWeight:bold;
 `
 export const PayAmtUnit = styled.Text`
     fontSize:20px;
     color:${colorWhite};
+    fontWeight:bold;
 `
 export const PayBtnWrapper = styled.View`
     flexDirection:row;

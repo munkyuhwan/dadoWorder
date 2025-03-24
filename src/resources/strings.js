@@ -77,6 +77,9 @@ export const LANGUAGE = {
             quickOrder:"논스톱으로 장바구니에 담기지 않고 바로 주문(주문시 유의)",
             postAgain:"재주문",
             back:"이전화면",
+        },
+        cart:{
+            cart:"장바구니"
         }
     },
 
@@ -153,6 +156,9 @@ export const LANGUAGE = {
            quickOrder:"ノンストップでカートに入れずにすぐに注文（注文時の注意)",
            postAgain:"재주문",
            back:"前の画面",
+        },
+        cart:{
+            cart:"カート"
         }
     },
 
@@ -224,6 +230,9 @@ export const LANGUAGE = {
             quickOrder:"无需加入购物车即可立即下单（下单需谨慎）",
             postAgain:"재주문",
             back:"上一个画面",
+        },
+        cart:{
+            cart:"购物车"
         }
 
     },
@@ -294,6 +303,9 @@ export const LANGUAGE = {
            quickOrder:"Order directly without adding to cart nonstop (Note when ordering)",
            postAgain:"재주문",
            back:"back",
+        },
+        cart:{
+            cart:"cart"
         }
     }
 
