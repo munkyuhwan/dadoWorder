@@ -17,10 +17,10 @@ const LanguageSelectView = () => {
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("korean")); }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
-                            <LanguageInnerWrapper style={{flex:1, paddingTop:30}} >
+                            <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
                                 <LanguageSelectIcon source={require("../../assets/icons/korean.png")} resizeMode={"contain"} />
                             </LanguageInnerWrapper>
-                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:50}}>
+                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:20}}>
                                 <LanguageSelectTitle>한국어</LanguageSelectTitle>
                             </LanguageInnerWrapper>
                         </NewLanguageWrapper>
@@ -28,10 +28,10 @@ const LanguageSelectView = () => {
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("english")); }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
-                            <LanguageInnerWrapper style={{flex:1, paddingTop:30}} >
+                            <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
                                 <LanguageSelectIcon source={require("../../assets/icons/english.png")}  resizeMode={"contain"} />
                             </LanguageInnerWrapper>
-                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:47}}>
+                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:20}}>
                                 <LanguageSelectTitle>ENGLISH</LanguageSelectTitle>
                             </LanguageInnerWrapper>
                         </NewLanguageWrapper>
@@ -39,10 +39,10 @@ const LanguageSelectView = () => {
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("japanese")); }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>        
-                            <LanguageInnerWrapper style={{flex:1, paddingTop:30}} >
+                            <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
                                 <LanguageSelectIcon source={require("../../assets/icons/japanese.png")} resizeMode={"contain"} />
                             </LanguageInnerWrapper>
-                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:47}}>
+                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:20}}>
                                 <LanguageSelectTitle>日本語</LanguageSelectTitle>
                             </LanguageInnerWrapper>
                         </NewLanguageWrapper>
@@ -50,10 +50,10 @@ const LanguageSelectView = () => {
                     <TouchableWithoutFeedback onPress={()=>{ dispatch(setLanguage("chinese")); }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
-                            <LanguageInnerWrapper style={{flex:1, paddingTop:30}} >
+                            <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
                                 <LanguageSelectIcon source={require("../../assets/icons/chinese.png")} resizeMode={"contain"} />
                                 </LanguageInnerWrapper>
-                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:47}}>
+                            <LanguageInnerWrapper  style={{flex:1, paddingBottom:20}}>
                                 <LanguageSelectTitle>中國語</LanguageSelectTitle>
                             </LanguageInnerWrapper>
                         </NewLanguageWrapper>

@@ -10,12 +10,12 @@ export const NewLanguageSelectWrapper = styled.View`
     flexDirection:row;
     justifyContent:center;
     alignItems:center;
-    gap:20px;
+    gap:50px;
 `
 export const NewLanguageWrapper = styled.View`
     flexDirection:column;
-    height:450px;
-    width:270px;
+    height:330px;
+    width:200px;
     justifyContent:center;
     alignItems:center;
     borderRadius:20px;
