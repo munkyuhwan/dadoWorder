@@ -566,12 +566,32 @@ export const addToQuickOrderList =  createAsyncThunk("order/addToQuickOrderList"
                     if(isEqual(quickOrderList[i].set_item, menuOptionSelected)) {
                         if(isAdd) {
                             // 세트 아이템 
-                            currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
+                            if(item?.for_two=="Y") {
+                                if(Number(quickOrderList[i]["qty"])==0) {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+2}});
+                                }else {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
+                                }
+                            }
+                            else {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
+                            }
+
+                            //currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
                         }else {
                             if(isDelete) {
                                 currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:0}});
                             }else {
-                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
+                                if(item?.for_two == "Y" ) {
+                                    if(Number(quickOrderList[i]["qty"])==2) {
+                                        currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-2}});
+                                    }else {
+                                        currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
+                                    }
+                                }else {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
+                                }
+                                //currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
                             }
                         }
                     }
@@ -579,7 +599,12 @@ export const addToQuickOrderList =  createAsyncThunk("order/addToQuickOrderList"
             }
         }else {
             orderItemForm["prod_cd"] = item?.prod_cd;
-            orderItemForm["qty"] = 1;
+            if(item?.for_two == "Y" ) {
+                orderItemForm["qty"] = 2;
+            }else {
+                orderItemForm["qty"] = 1;
+            }
+            //orderItemForm["qty"] = 1;
             orderItemForm["set_item"] = menuOptionSelected;
             currentOrderList.unshift(orderItemForm);
         }
@@ -598,19 +623,42 @@ export const addToQuickOrderList =  createAsyncThunk("order/addToQuickOrderList"
             for(var i=0;i<quickOrderList.length;i++) {
                 if(quickOrderList[i].prod_cd == item?.prod_cd) {
                     if(isAdd) {
-                        currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
+                        if(item?.for_two=="Y") {
+                            if(Number(quickOrderList[i]["qty"])==0) {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+2}});
+                            }else {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
+                            }
+                        }
+                        else {
+                            currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
+                        }
+                        //currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])+1}});
                     }else {
                         if(isDelete) {
                             currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:0}});
                         }else {
-                            currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
+                            if(item?.for_two == "Y" ) {
+                                if(Number(quickOrderList[i]["qty"])==2) {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-2}});
+                                }else {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
+                                }
+                            }else {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(quickOrderList[i]["qty"])-1}});
+                            }
                         }
                     }
                 }
             }
         }else {
             orderItemForm["prod_cd"] = item?.prod_cd;
-            orderItemForm["qty"] = 1;
+            if(item?.for_two == "Y" ) {
+                orderItemForm["qty"] = 2;
+            }else {
+                orderItemForm["qty"] = 1;
+            }
+            //orderItemForm["qty"] = 1;
             orderItemForm["set_item"] = [];
             currentOrderList.unshift(orderItemForm);
         }
