@@ -328,7 +328,7 @@ export const CartItemCancelBtn = styled.Image`
 `
 // 주문하기
 export const OrderWrapper = styled.View`
-    backgroundColor:${colorLightBrown};
+    backgroundColor:${colorRed};
     width:100%;
     height:24%;
     paddingRight:23px;
@@ -417,7 +417,7 @@ export const TopTitleWrapper = styled.View`
 `
 export const TopTitleView = styled.View`
     flex:1;
-    backgroundColor:${colorLightBrown};
+    backgroundColor:${colorRed};
     justifyContent:${props=>props?.align};
 `
 export const TopTitleText = styled.Text`

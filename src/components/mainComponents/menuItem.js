@@ -66,7 +66,6 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
 
         //FastImage.preload([{uri:item?.gimg_chg}]);
     },[])
-
     if(viewType == 2 ) {
         return(
             <>
@@ -178,7 +177,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
 
     return(
         <>
-        {reload &&
+        {
         <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
             <MenuItemWrapper viewType={viewType} >
                 <MenuItemTopWrapper>

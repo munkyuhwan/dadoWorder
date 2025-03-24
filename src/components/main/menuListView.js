@@ -74,11 +74,19 @@ const MenuListView = () => {
             setNumColumns(viewType);
         } 
     },[isOn])
+    
     useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
         if(catData.length>0) {
             setNumColumns(Number(catData[0].view_type));
             setViewType(Number(catData[0].view_type));
+            if(catData[0].view_type == 2) {
+                setGap(40);
+            }if(catData[0].view_type == 3) {
+                setGap(30);
+            }if(catData[0].view_type == 4) {
+                setGap(20);
+            }
             //setViewType(3);
         }
     },[selectedMainCategory])
@@ -171,7 +179,7 @@ const MenuListView = () => {
                             <ScrollView style={{width:'100%'}}>
                                 <View style={{ width:listWidth, flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}} >
                                     {
-                                    [...displayMenu,...displayMenu,...displayMenu].map((el)=>{
+                                    displayMenu.map((el)=>{
                                         index++;
                                         return(
                                             <>
