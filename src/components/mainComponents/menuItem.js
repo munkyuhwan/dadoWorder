@@ -79,7 +79,7 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
                         </TouchableWithoutFeedback>
                         {imgUrl &&
                             <>
-                                <FastImage style={{ width:'100%',height: viewType==2?380:height*0.33,borderTopLeftRadius:RADIUS_DOUBLE, borderTopRightRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
+                                <FastImage style={{ width:'100%',height: viewType==2?360:height*0.33,borderTopLeftRadius:RADIUS_DOUBLE, borderTopRightRadius:RADIUS_DOUBLE}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
                             </>
                         }
                         {!imgUrl &&

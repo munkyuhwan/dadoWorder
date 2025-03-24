@@ -35,7 +35,7 @@ export const MenuItemWrapper = styled.View`
     width:${props=> props?.viewType==3?"375px":(props?.viewType==2?"578px":"518")};    
     ${props=>{
         if(props?.viewType == 2) {
-            return "height:540px;marginBottom:60px;";
+            return "height:520px;marginBottom:0px;";
         }else if(props?.viewType == 3) {
             return "height:250px;marginBottom:0px;";
         }else {
@@ -122,13 +122,13 @@ export const MenuItemBottomWRapper = styled.View`
 `
 export const BigMenuItemBottomWrapper = styled.View`
     width:100%; 
-    height:160px;
+    height:120px;
     flex:1;
     flexDirection:column;  
     paddingTop:12px;
     alignItems:center;
     position:absolute;
-    bottom:0;
+    bottom:40;
     justifyContent:center;
     backgroundColor:${colorWhite};
     borderBottomLeftRadius:${RADIUS_DOUBLE};

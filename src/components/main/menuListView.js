@@ -170,7 +170,7 @@ const MenuListView = () => {
                             <ScrollView style={{width:'100%'}}>
                                 <View style={{ width:listWidth, flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}} >
                                     {
-                                    displayMenu.map((el)=>{
+                                    [...displayMenu,...displayMenu,...displayMenu].map((el)=>{
                                         index++;
                                         return(
                                             <>
