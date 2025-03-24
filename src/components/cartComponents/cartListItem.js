@@ -139,18 +139,17 @@ const CartListItem = (props) => {
                     
                 </CartItemTitlePriceWrapper>
                 <CartItemAmtWrapper>
-                    <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:true, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
-                        <CartItemAmtController>
-                            <OperandorText fontSize={"32"} >+</OperandorText>
-                        </CartItemAmtController>
-                    </TouchableWithoutFeedback>
-                    <CartItemAmtText>{numberPad(order?.qty,2)}</CartItemAmtText>
                     <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:false, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
                         <CartItemAmtController>
                             <OperandorText fontSize={"52"} >-</OperandorText>
                         </CartItemAmtController>
                     </TouchableWithoutFeedback>
-                    
+                    <CartItemAmtText>{numberPad(order?.qty,2)}</CartItemAmtText>
+                    <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:true, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
+                        <CartItemAmtController>
+                            <OperandorText fontSize={"32"} >+</OperandorText>
+                        </CartItemAmtController>
+                    </TouchableWithoutFeedback>
                 </CartItemAmtWrapper>
 
                 <View style={{borderBottomWidth:1,borderBottomColor:colorGrey, position:'absolute',width:'100%',left:30}}>

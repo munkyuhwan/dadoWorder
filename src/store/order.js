@@ -631,6 +631,7 @@ export const addToOrderList =  createAsyncThunk("order/addToOrderList", async(_,
         qty:0,
         set_item:[]
     };
+    console.log("item: ",item?.for_two);
     if( META_SET_MENU_SEPARATE_CODE_LIST.indexOf(item?.prod_gb)>=0) {
         // 메뉴 선택하부금액 
         // 선택한 옵션의 가격이 들어감
@@ -645,12 +646,31 @@ export const addToOrderList =  createAsyncThunk("order/addToOrderList", async(_,
                     if(isEqual(orderList[i].set_item, menuOptionSelected)) {
                         if(isAdd) {
                             // 세트 아이템 
-                            currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+1}});
+                            if(item?.for_two=="Y") {
+                                if(Number(orderList[i]["qty"])==0) {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+2}});
+                                }else {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+1}});
+                                }
+                            }
+                            else {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+1}});
+                            }
+
                         }else {
                             if(isDelete) {
                                 currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:0}});
                             }else {
-                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-1}});
+                                if(item?.for_two == "Y" ) {
+                                    if(Number(orderList[i]["qty"])==2) {
+                                        currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-2}});
+                                    }else {
+                                        currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-1}});
+                                    }
+                                }else {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-1}});
+                                }
+
                             }
                         }
                     }
@@ -658,7 +678,11 @@ export const addToOrderList =  createAsyncThunk("order/addToOrderList", async(_,
             }
         }else {
             orderItemForm["prod_cd"] = item?.prod_cd;
-            orderItemForm["qty"] = 1;
+            if(item?.for_two == "Y" ) {
+                orderItemForm["qty"] = 2;
+            }else {
+                orderItemForm["qty"] = 1;
+            }
             orderItemForm["set_item"] = menuOptionSelected;
             currentOrderList.unshift(orderItemForm);
         }
@@ -677,19 +701,40 @@ export const addToOrderList =  createAsyncThunk("order/addToOrderList", async(_,
             for(var i=0;i<orderList.length;i++) {
                 if(orderList[i].prod_cd == item?.prod_cd) {
                     if(isAdd) {
-                        currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+1}});
+                        if(item?.for_two=="Y") {
+                            if(Number(orderList[i]["qty"])==0) {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+2}});
+                            }else {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+1}});
+                            }
+                        }
+                        else {
+                            currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])+1}});
+                        }
                     }else {
                         if(isDelete) {
                             currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:0}});
                         }else {
-                            currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-1}});
+                            if(item?.for_two == "Y" ) {
+                                if(Number(orderList[i]["qty"])==2) {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-2}});
+                                }else {
+                                    currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-1}});
+                                }
+                            }else {
+                                currentOrderList[i] = Object.assign({},{...currentOrderList[i],...{qty:Number(orderList[i]["qty"])-1}});
+                            }
                         }
                     }
                 }
             }
         }else {
             orderItemForm["prod_cd"] = item?.prod_cd;
-            orderItemForm["qty"] = 1;
+            if(item?.for_two == "Y" ) {
+                orderItemForm["qty"] = 2;
+            }else {
+                orderItemForm["qty"] = 1;
+            }
             orderItemForm["set_item"] = [];
             currentOrderList.unshift(orderItemForm);
         }
