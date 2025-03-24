@@ -42,7 +42,7 @@ export const DetailWrapperBig=styled.View`
     paddingRight:0px;
     paddingBottom:0px;
     paddingLeft:0px;
-    backgroundColor:rgba(0,0,0,0.7);
+    backgroundColor:transparent;
     justifyContent:center;
     alignItems:center;
 `

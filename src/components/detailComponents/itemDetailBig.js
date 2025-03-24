@@ -257,6 +257,10 @@ const ItemDetailBig = (props) => {
         return selWonsanjiLanguage;
     }
 
+    if(menuDetailID==null) {
+        return(<></>)
+    }
+
     if(isEmpty(menuDetail)) {
         return(<></>)
     }
@@ -264,7 +268,12 @@ const ItemDetailBig = (props) => {
     return(
         <>
             <Animated.View  style={[{...PopStyle.animatedPop, ...boxWidthStyle,...{zIndex:detailZIndex} } ]} >
-                    <DetailWrapperBig onTouchStart={()=>{ props?.onDetailTouchStart(); }}>
+                    <DetailWrapperBig onTouchStart={()=>{closeDetail(); props?.onDetailTouchStart(); }}>
+                        <TouchableWithoutFeedback onPress={()=>{closeDetail();}}>
+                            <View style={{backgroundColor:'rgba(0,0,0,0.7)', position:'absolute',width:'100%',height:'100%' }} >
+
+                            </View>
+                        </TouchableWithoutFeedback>
                         <DetailWhiteWrapperBig>
                             {menuDetailID==null &&
                                 <WaitIndicator/>
@@ -371,25 +380,7 @@ const ItemDetailBig = (props) => {
                             }
                             
                             
-                            {/*(menuDetail?.sale_status!='3'&&isAvailable(menuDetail) ) &&
-                            <BottomButtonWrapper>
-                                <TouchableWithoutFeedback onPress={()=>{addToCart()}}>
-                                    <BottomButton backgroundColor={colorLightRed} >
-                                        <BottomButtonIcon source={require("../../assets/icons/cart_select.png")} />
-                                        <BottomButtonText>{LANGUAGE[language]?.detailView.addToCart}</BottomButtonText>
-                                    </BottomButton>
-                                </TouchableWithoutFeedback>
-
-                                <TouchableWithoutFeedback onPress={()=>{closeDetail(); }}>
-                                    <BottomButton backgroundColor={colorBlack} >
-                                        <BottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
-                                        <BottomButtonText>{LANGUAGE[language]?.detailView.toMenu}</BottomButtonText>
-                                    </BottomButton>
-                                </TouchableWithoutFeedback>
-                                
-
-                            </BottomButtonWrapper>
-                            */}
+                          
                             </>
                             }
                         </DetailWhiteWrapperBig>

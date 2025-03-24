@@ -29,6 +29,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { setCartView } from '../store/cart'
 import { setCommon } from '../store/common'
 import { setSelectedMainCategory } from '../store/categories'
+import { initMenuDetail, setItemDetail } from '../store/menuDetail'
 let timeoutSet = null;
 let quickOrderTimeoutSet = null;
 
@@ -88,10 +89,11 @@ const MainScreen = () =>{
             dispatch(setCartView(false));
             dispatch(setSelectedMainCategory("")); 
             dispatch(setCommon({"tab":"menu"})); 
+            dispatch(initMenuDetail());
             dispatch(initOrderList());
             dispatch(regularUpdate());
             dispatch(setAdScreen({isShow:true,isMain:true}))
-
+            
 
         },SCREEN_TIMEOUT)
     } 
@@ -196,13 +198,13 @@ const MainScreen = () =>{
                         </TableName>
                     </TouchableWithoutFeedback>
                 }
-            {(vieweType!=2 && menuDetailID!=null) &&
+            {/*(vieweType!=2 && menuDetailID!=null) &&
+                <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
+            */}
+            {(menuDetailID!=null && (menuDetail?.prod_gb=="09"||menuDetail?.prod_gb=="02")) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
-            {(vieweType==2 && menuDetailID!=null && (menuDetail?.prod_gb=="09"||menuDetail?.prod_gb=="02")) &&
-                <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
-            }
-            {(vieweType==2 && menuDetailID!=null && (menuDetail?.prod_gb!="09"&&menuDetail?.prod_gb!="02")) &&
+            {( menuDetailID!=null && (menuDetail?.prod_gb!="09"&&menuDetail?.prod_gb!="02")) &&
                 <ItemDetailBig onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
             <FloatingBtn/>
