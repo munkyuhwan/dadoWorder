@@ -16,7 +16,7 @@ import { BulletinText, BulletinWrapper, CategoryScrollView, CategoryWrapper, Ico
  import TopButton from '../menuComponents/topButton'
 import { useDispatch, useSelector } from 'react-redux'
 import ItemDetail from '../detailComponents/itemDetail'
-import { getSubCategories, setCategories, setSelectedSubCategory } from '../../store/categories'
+import { getSubCategories, setCategories, setSelectedMainCategory, setSelectedSubCategory } from '../../store/categories'
 import { getTableInfo, openFullSizePopup, openPopup, openTransperentPopup } from '../../utils/common'
 import { colorWhite } from '../../assets/colors/color'
 import TopMenuList from '../menuComponents/topMenuList'
@@ -28,6 +28,10 @@ import { setTableInfo } from '../../store/tableInfo'
 import FastImage from 'react-native-fast-image'
 import { setAdScreen } from '../../store/ad'
 import { regularUpdate } from '../../store/menu'
+import { setCommon } from '../../store/common'
+import { initMenuDetail } from '../../store/menuDetail'
+import { initOrderList } from '../../store/order'
+import { setCartView } from '../../store/cart'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -103,6 +107,11 @@ const TopMenu = () =>{
     function toAd() {
         dispatch(regularUpdate());
         dispatch(setAdScreen({isShow:true,isMain:true}))
+        dispatch(setCartView(false));
+        dispatch(setSelectedMainCategory("")); 
+        dispatch(setCommon({"tab":"menu"})); 
+        dispatch(initMenuDetail());
+        dispatch(initOrderList());
     }
     
     return(

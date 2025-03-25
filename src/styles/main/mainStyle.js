@@ -63,6 +63,7 @@ export const MenuSelectCategoryIcon = styled(FastImage)`
 export const MenuSelectCategoryText = styled.Text`
     fontSize:60px;
     fontWeight:bold;
+    textAlign:center;
 `
 export const MenuSelectCategorySubText = styled.Text`
     fontSize:30px;

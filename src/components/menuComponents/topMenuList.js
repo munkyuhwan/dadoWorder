@@ -22,7 +22,7 @@ const TopMenuList = (props) => {
         {idx:2, code:"orderList", title_kor:"주문내역",title_en:"Order List",title_jp:"注文履歴",title_cn:"订单记录" },
         {idx:3, code:"cart", title_kor:"장바구니",title_en:"Cart",title_jp:"カート",title_cn:"购物车" },
         {idx:4, code:"lang", title_kor:"언어선택",title_en:"Language" ,title_jp:"言語",title_cn:"语言选择"   },
-        {idx:5, code:"howto", title_kor:"고기굽는법",title_en:"Language" ,title_jp:"言語",title_cn:"语言选择"   },
+        {idx:5, code:"howto", title_kor:"고기굽는법",title_en:"How to" ,title_jp:"肉の焼き方",title_cn:"烤肉的方法"   },
     ];
     const {tab} = useSelector(state=>state.common);
     const {language} = useSelector(state=>state.languages);

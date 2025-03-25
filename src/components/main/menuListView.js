@@ -47,7 +47,15 @@ const MenuListView = () => {
 
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
-   
+    const CAT_LAN = [
+        {idx:0, code:"Meat", title_kor:"고기",title_en:"Meat",title_jp:"肉",title_cn:"肉" },
+        {idx:1, code:"Meal", title_kor:"식사",title_en:"Meal",title_jp:"食事",title_cn:"餐" },
+        {idx:2, code:"Sirloin", title_kor:"등심 드신 후",title_en:"After Sirloin",title_jp:"食べた後",title_cn:"吃完后" },
+        {idx:3, code:"Lunch", title_kor:"점심 식사",title_en:"Lunch",title_jp:"昼食",title_cn:"午餐" },
+        {idx:4, code:"menu", title_kor:"추가메뉴",title_en:"Additional menu" ,title_jp:"追加",title_cn:"追加菜单"   },
+        {idx:5, code:"Alcohol", title_kor:"주류",title_en:"Alcohol" ,title_jp:"酒類",title_cn:"酒类"   },
+        {idx:5, code:"Beverages", title_kor:"음료",title_en:"Drinks" ,title_jp:"飲み物",title_cn:"饮料"   },
+    ];
     useEffect(()=>{
         if(isOn) {
             setNumColumns(viewType-1);
@@ -77,6 +85,7 @@ const MenuListView = () => {
     
     useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
+        console.log('allCategories: ',allCategories);
         if(catData.length>0) {
             setNumColumns(Number(catData[0].view_type));
             setViewType(Number(catData[0].view_type));
@@ -104,6 +113,23 @@ const MenuListView = () => {
     var index=0;
 
     //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
+    const catLang = (kor) => {
+        console.log("language: ",language);
+        if(CAT_LAN.filter(el=>el.title_kor==kor).length<=0) {
+            return kor;
+        }else {
+            if(language == "korean") {
+                return CAT_LAN.filter(el=>el.title_kor==kor)[0].title_kor
+            }else if(language == "japanese") {
+                return CAT_LAN.filter(el=>el.title_kor==kor)[0].title_jp
+            }else if(language == "english") {
+                return CAT_LAN.filter(el=>el.title_kor==kor)[0].title_en
+            }else if(language == "chinese") {
+                return CAT_LAN.filter(el=>el.title_kor==kor)[0].title_cn
+            }
+        }
+    }
+
     if(selectedMainCategory == "") {
         return(
             <>
@@ -113,20 +139,20 @@ const MenuListView = () => {
                         <TouchableWithoutFeedback onPress={()=>{console.log("meat");dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>고기</MenuSelectCategoryText>
+                                <MenuSelectCategoryText>{catLang("고기")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setCartView(false));dispatch(setSelectedMainCategory("meal"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>식사</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>(등심 드신 후)</MenuSelectCategorySubText>
+                                <MenuSelectCategoryText>{catLang("식사")}</MenuSelectCategoryText>
+                                <MenuSelectCategorySubText>({catLang("등심 드신 후")})</MenuSelectCategorySubText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>점심 식사</MenuSelectCategoryText>
+                                <MenuSelectCategoryText>{catLang("점심 식사")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                     </MenuSelectCategoryView>
@@ -134,19 +160,19 @@ const MenuListView = () => {
                         <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setCartView(false));dispatch(setSelectedMainCategory("extra"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>추가메뉴</MenuSelectCategoryText>
+                                <MenuSelectCategoryText>{catLang("추가메뉴")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("liquor");dispatch(setCartView(false));dispatch(setSelectedMainCategory("liquor"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>주류</MenuSelectCategoryText>
+                                <MenuSelectCategoryText>{catLang("주류")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("drink");dispatch(setCartView(false));dispatch(setSelectedMainCategory("drink"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>음료</MenuSelectCategoryText>
+                                <MenuSelectCategoryText>{catLang("음료")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                     </MenuSelectCategoryView>
