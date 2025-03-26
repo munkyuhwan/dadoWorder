@@ -80,6 +80,7 @@ export const DetailItemInfoWrapper = styled.View`
     flexDirection:column;
     height:250px;
     paddingLeft:19px;
+    paddingRight:19px;
     paddingTop:${props=>props.paddingTop?"80":""}px;
     flex:1;
 `
@@ -115,7 +116,7 @@ export const DetailItemInfoTitleBig = styled.Text`
     width:100%;
     textAlign:center;
     fontSize:34px;
-    marginTop:20px;
+    marginTop:5px;
     fontWeight:bold;
     marginRight:11px;
     color:${colorBlack}
@@ -157,11 +158,11 @@ export const DetailItemInfoMore = styled.Text`
 export const DetailItemInfoMoreBig = styled.Text`
     fontSize:18px;
     color:${colorLightRed};
-    flex:1;
     fontWeight:bold;
     width:100%;
     textAlign:center;
     marginTop:10px;
+    height:100px;
 `
 export const CloseBtnWrapper = styled.View`
     position:absolute;

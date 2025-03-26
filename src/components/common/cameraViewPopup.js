@@ -56,7 +56,7 @@ const CameraView = () => {
         <>  
 
                 <CCTVWrapper>
-                    <TouchableWithoutFeedback onPress={()=>{ openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
+                    <TouchableWithoutFeedback onPress={()=>{setCctvUrl(""); openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
                         <PopupCloseButton  style={{zIndex:999999999, position:'absolute', right:10,top:10}} source={require('../../assets/icons/close_red.png')}/>
                     </TouchableWithoutFeedback>
                     <TopMenuWrapper>

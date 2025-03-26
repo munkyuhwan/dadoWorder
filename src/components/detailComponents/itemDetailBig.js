@@ -216,13 +216,14 @@ const ItemDetailBig = (props) => {
             }
             else if(language=="english") {
                 selTitleLanguage = menuDetail?.gname_en;
+            }else {
+                selTitleLanguage = menuDetail?.gname_kr
             }
        
         return selTitleLanguage;
     }
     const ItemInfo = () =>{
         let selInfoLanguage = "";
-        
             if(language=="korean") {
                 selInfoLanguage = menuDetail?.gmemo;
             }
