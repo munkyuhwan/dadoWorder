@@ -51,6 +51,7 @@ const MainScreen = () =>{
 
     const [tableNoText, setTableNoText] = useState("");
     const [tableInfoText, setTableInfoText] = useState("");
+    const [isDetailOpen, setDetailOpen] = useState(true);
 
     useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
@@ -179,7 +180,7 @@ const MainScreen = () =>{
                     <MainWrapper>
                         <TopMenu/>
                         {tab == "menu" &&
-                            <MenuListView/>
+                            <MenuListView setDetailOpen={setDetailOpen} />
                         }
                         {tab == "lang" &&
                             <LanguageSelectView/>
@@ -201,10 +202,10 @@ const MainScreen = () =>{
             {/*(vieweType!=2 && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             */}
-            {(menuDetailID!=null && (menuDetail?.prod_gb=="09"||menuDetail?.prod_gb=="02")) &&
+            {(isDetailOpen==false && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
-            {( menuDetailID!=null && (menuDetail?.prod_gb!="09"&&menuDetail?.prod_gb!="02")) &&
+            {(isDetailOpen==true && menuDetailID!=null) &&
                 <ItemDetailBig onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
             <FloatingBtn/>

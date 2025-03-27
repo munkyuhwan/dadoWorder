@@ -24,7 +24,7 @@ const height = Dimensions.get('window').height;
 let timeoutSet = null;
 
 /* 메인메뉴 메뉴 아이템 */
-const MenuItem = ({item,index,setDetailShow,viewType}) => {
+const MenuItem = ({item,index,setDetailShow,viewType,onPress}) => {
     //<MenuItemImage />    
     // 포스 api ITEM_ID 는 관리자 api에서 pos_code임
     const dispatch = useDispatch();
@@ -70,10 +70,10 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
         return(
             <>
             {reload &&
-            <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
+            <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false); setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
                 <MenuItemWrapper viewType={viewType} >
                     <MenuItemTopWrapper>
-                        <TouchableWithoutFeedback onPress={()=>{ setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                        <TouchableWithoutFeedback onPress={()=>{ onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
                             <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:80, height:80, position:'absolute', zIndex:999999, right:10, top:10 }} />
                         </TouchableWithoutFeedback>
                         {imgUrl &&
@@ -178,10 +178,10 @@ const MenuItem = ({item,index,setDetailShow,viewType}) => {
     return(
         <>
         {
-        <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
+        <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false);setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
             <MenuItemWrapper viewType={viewType} >
                 <MenuItemTopWrapper>
-                    <TouchableWithoutFeedback onPress={()=>{ setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                    <TouchableWithoutFeedback onPress={()=>{onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
                         <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />
                     </TouchableWithoutFeedback>
                     {imgUrl &&

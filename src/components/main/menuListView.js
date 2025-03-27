@@ -30,7 +30,7 @@ var scrollUpCnt = 0;
 var isScrolling = false;
 let direction = "";
 
-const MenuListView = () => {
+const MenuListView = (props) => {
 
     const dispatch = useDispatch();
     const listRef = useRef();
@@ -209,7 +209,7 @@ const MenuListView = () => {
                                         index++;
                                         return(
                                             <>
-                                                <MenuItem viewType={viewType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={el} index={index} />
+                                                <MenuItem onPress={(isDetail)=>{props.setDetailOpen(isDetail); console.log("isDetail: ",isDetail); } } viewType={viewType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={el} index={index} />
                                             </>
                                         )
                                     })
