@@ -19,18 +19,18 @@ export const CartFlatList = styled.FlatList`
     backgroundColor:${colorWhite};
 `
 export const Handle = styled.View`
-    backgroundColor:${colorWhite};
-    height:101px;
-    width:50px;
+    backgroundColor:${colorRed};
+    height:131px;
+    width:80px;
     marginTop:320px;
     position:absolute;
-    left:-42px;
+    left:-80px;
     zIndex:999999;
     borderTopLeftRadius:23px;
     borderBottomLeftRadius:22px;
     alignIten:center;
     justfyContent:center;
-    paddingLeft:15px;
+    justifyContent:center;
 `
 export const ArrowImage = styled.Image`
     resizeMode:contain;

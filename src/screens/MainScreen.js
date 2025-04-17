@@ -175,7 +175,7 @@ const MainScreen = () =>{
     }
     return(
         <>
-                <WholeWrapper onTouchStart={()=>{     screenTimeOut();  quickOrderTimeOut();   }} >
+                <WholeWrapper onTouchStart={()=>{ screenTimeOut();  quickOrderTimeOut(); }} >
                     {/* <SideMenu/> */}
                     <MainWrapper>
                         <TopMenu/>

@@ -36,6 +36,7 @@ export const CategoryScrollView = styled.ScrollView`
     marginRight:36%;
     flex:1;
     flowDirection:column;
+    width:100%;
 `
 export const SubCategoryDefault = styled.View`
     backgroundColor: ${colorWhite};

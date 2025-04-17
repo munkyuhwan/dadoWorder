@@ -34,7 +34,7 @@ import FloatingBtn from '../popups/floatingButtonPopup';
 import { getAdminCategories } from '../../store/categories';
 import { getAD } from '../../store/ad';
 import { getAdminBulletin } from '../../store/menuExtra';
-import { colorBlack, colorRed } from '../../assets/colors/color';
+import { colorBlack, colorRed, colorWhite } from '../../assets/colors/color';
 
 const windowWidth = Dimensions.get('window').width;
 const CartView = () =>{
@@ -399,12 +399,15 @@ const CartView = () =>{
                 </TopTitleWrapper>
                 <TouchableWithoutFeedback onPress={()=>{   dispatch(setCartView(!isOn));  }}>
                     <Handle>
-                        {isOn&&
+                        <Text style={{fontSize:26, fontWeight:'bold', color:colorWhite, textAlign:'center', width:'100%', backgroundColor:'transparent'}} >
+                            {"주문\n메뉴\n확인"}
+                        </Text>
+                        {/*isOn&&
                             <ArrowImage source={require("../../assets/icons/close_arrow.png")} />
                         }
                         {!isOn&&
                             <ArrowImage style={{transform:[{scaleX:-1}]}} source={require("../../assets/icons/close_arrow.png")} />
-                        }
+                        */}
                     </Handle>
                 </TouchableWithoutFeedback>
                 {orderList &&

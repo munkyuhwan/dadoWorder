@@ -41,8 +41,8 @@ export const MenuSelectCategoryView = styled.View`
     flex:1;
 `
 export const MenuSelectCategory = styled.View`
-    width:280px;
-    height:240px;
+    width:40%;
+    height:80%;
     backgroundColor:transparent;
     borderRadius:20px;
     justifyContent:center;
@@ -61,10 +61,12 @@ export const MenuSelectCategoryIcon = styled(FastImage)`
     height:70px;
 `
 export const MenuSelectCategoryText = styled.Text`
-    fontSize:60px;
+    fontSize:120px;
+    width:80%;
     fontWeight:bold;
     textAlign:center;
 `
 export const MenuSelectCategorySubText = styled.Text`
-    fontSize:30px;
+    fontSize:38px;
+    fontWeight:bold;
 `

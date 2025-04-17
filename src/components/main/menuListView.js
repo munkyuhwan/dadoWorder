@@ -48,13 +48,15 @@ const MenuListView = (props) => {
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
     const CAT_LAN = [
-        {idx:0, code:"Meat", title_kor:"고기",title_en:"Meat",title_jp:"肉",title_cn:"肉" },
+        {idx:0, code:"Meat", title_kor:"고기\n식사",title_en:"Meat",title_jp:"肉",title_cn:"肉" },
         {idx:1, code:"Meal", title_kor:"식사",title_en:"Meal",title_jp:"食事",title_cn:"餐" },
         {idx:2, code:"Sirloin", title_kor:"등심 드신 후",title_en:"After Sirloin",title_jp:"食べた後",title_cn:"吃完后" },
-        {idx:3, code:"Lunch", title_kor:"점심 식사",title_en:"Lunch",title_jp:"昼食",title_cn:"午餐" },
+        {idx:3, code:"Lunch", title_kor:"점심\n식사",title_en:"Lunch",title_jp:"昼食",title_cn:"午餐" },
         {idx:4, code:"menu", title_kor:"추가메뉴",title_en:"Additional menu" ,title_jp:"追加",title_cn:"追加菜单"   },
         {idx:5, code:"Alcohol", title_kor:"주류",title_en:"Alcohol" ,title_jp:"酒類",title_cn:"酒类"   },
         {idx:5, code:"Beverages", title_kor:"음료",title_en:"Drinks" ,title_jp:"飲み物",title_cn:"饮料"   },
+        {idx:6, code:"LunchTime", title_kor:"오전 10시 ~ 오후4시",title_en:"am 10시 ~ pm4시",title_jp:"am 10시 ~ pm4시",title_cn:"am 10시 ~ pm4시" },
+
     ];
     useEffect(()=>{
         if(isOn) {
@@ -135,28 +137,31 @@ const MenuListView = (props) => {
             <>
                 <MenuSelectView>
                     <MenuSelectBg source={require("../../assets/icons/daedo_bg.png")} resizeMethod={"contain"} />
-                    <MenuSelectCategoryView style={{paddingTop:50}} >
-                        <TouchableWithoutFeedback onPress={()=>{console.log("meat");dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
+                    <MenuSelectCategoryView style={{paddingTop:10}} >
+                        <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("고기")}</MenuSelectCategoryText>
-                            </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("meal");dispatch(setCartView(false));dispatch(setSelectedMainCategory("meal"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("등심 드신 후")})</MenuSelectCategorySubText>
+                                <MenuSelectCategoryText>{catLang("고기\n식사")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("점심 식사")}</MenuSelectCategoryText>
-                            </MenuSelectCategory>
+                                <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
+                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
+                                </MenuSelectCategory>
                         </TouchableWithoutFeedback>
+                        {/* <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false));dispatch(setSelectedMainCategory("meal"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
+                                <MenuSelectCategoryText>{catLang("식사")}</MenuSelectCategoryText>
+                                <MenuSelectCategorySubText>({catLang("등심 드신 후")})</MenuSelectCategorySubText>
+                            </MenuSelectCategory>
+                        </TouchableWithoutFeedback> */}
+                        
                     </MenuSelectCategoryView>
-                    <MenuSelectCategoryView style={{paddingBottom:50}} >
+                    
+                    {/* <MenuSelectCategoryView style={{paddingBottom:50}} >
                         <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setCartView(false));dispatch(setSelectedMainCategory("extra"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
@@ -175,7 +180,7 @@ const MenuListView = (props) => {
                                 <MenuSelectCategoryText>{catLang("음료")}</MenuSelectCategoryText>
                             </MenuSelectCategory>
                         </TouchableWithoutFeedback>
-                    </MenuSelectCategoryView>
+                    </MenuSelectCategoryView> */}
                 </MenuSelectView>
             </>
         )
@@ -217,22 +222,23 @@ const MenuListView = (props) => {
                                 </View>
                             </ScrollView>
                         }
-                        <TransparentPopupBottomWrapper style={{paddingTop:10,}} >
+                        {/* <TransparentPopupBottomWrapper style={{paddingTop:10,}} >
                             <TransparentPopupBottomInnerWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCartView(false));  }}>
                                     <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
                                         <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
                                         <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
                                     </TransparentPopupBottomButtonWraper>
-                                </TouchableWithoutFeedback>
-                                {/* <TouchableWithoutFeedback onPress={()=>{openFullSizePopup(dispatch, {innerView:"", isFullPopupVisible:false});}}>
-                                    <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
-                                        <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
-                                        <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
-                                    </TransparentPopupBottomButtonWraper>
-                                </TouchableWithoutFeedback> */}
+                                </TouchableWithoutFeedback> 
+                                {// <TouchableWithoutFeedback onPress={()=>{openFullSizePopup(dispatch, {innerView:"", isFullPopupVisible:false});}}>
+                                 //   <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
+                                 //       <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
+                                 //       <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
+                                 //   </TransparentPopupBottomButtonWraper>
+                                //</TouchableWithoutFeedback>
+                                }
                             </TransparentPopupBottomInnerWrapper>
-                        </TransparentPopupBottomWrapper>   
+                        </TransparentPopupBottomWrapper>    */}
                     </MenuListWrapper>
                     </>
                 );
