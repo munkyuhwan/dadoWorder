@@ -384,6 +384,16 @@ export const PayBtn = styled.View`
     paddingTop:12px;
     paddingBottom:14px;
 `
+export const PayFullBtn = styled.View`
+    width: 100%;
+    height: 90px;
+    position:absolute;
+    backgroundColor:${props=>props.color};
+    flexDirection:row;
+    textAlign:center;
+    justifyContent:center; 
+    bottom:0px;
+`
 export const DutchPayBtn = styled.View`
     width: ${(props)=>{ return props?.isFull? "93%" :  "48%" }};
     ${(props)=>{ return props?.isGap?"marginLeft:4px; marginRight:4px;":"" }}
@@ -398,17 +408,19 @@ export const DutchPayBtn = styled.View`
 `
 export const PayTitle = styled.Text`
     color:${colorWhite};
-    fontSize:28px;
+    fontSize:52px;
     fontWeight:bold;
-    marginTop:auto;
-    marginBottom:auto;
+    marginTop:10px;
+    marginBottom:10px;
 `
 export const PayIcon = styled.Image`
-    marginTop:auto;
-    marginLeft:7px;
-    width:30px;
+    marginLeft:17px;
+    width:52px;
+    height:52px;
     resizeMode:contain;
-`
+    marginTop:23px;
+    marginBottom:40px;
+    `
 
 export const TopTitleWrapper = styled.View`
     width:100%;

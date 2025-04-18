@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
-import { ArrowImage, CartFlatList, CartScrollView, CartViewWrapper, Handle, OrderWrapper, PayAmtNumber, PayAmtTitle, PayAmtUnit, PayAmtWrapper, PayBtn, PayBtnWrapper, PayIcon, PayTitle, PayWrapper, TopTableText, TopTableView, TopTitleText, TopTitleView, TopTitleWrapper } from '../../styles/main/cartStyle';
+import { ArrowImage, CartFlatList, CartScrollView, CartViewWrapper, Handle, OrderWrapper, PayAmtNumber, PayAmtTitle, PayAmtUnit, PayAmtWrapper, PayBtn, PayBtnWrapper, PayFullBtn, PayIcon, PayTitle, PayWrapper, TopTableText, TopTableView, TopTitleText, TopTitleView, TopTitleWrapper } from '../../styles/main/cartStyle';
 import CartListItem from '../cartComponents/cartListItem';
 import { LANGUAGE } from '../../resources/strings';
 import { setCartView, setIconClick } from '../../store/cart';
@@ -34,7 +34,7 @@ import FloatingBtn from '../popups/floatingButtonPopup';
 import { getAdminCategories } from '../../store/categories';
 import { getAD } from '../../store/ad';
 import { getAdminBulletin } from '../../store/menuExtra';
-import { colorBlack, colorRed, colorWhite } from '../../assets/colors/color';
+import { colorBlack, colorBrown, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 
 const windowWidth = Dimensions.get('window').width;
 const CartView = () =>{
@@ -437,16 +437,17 @@ const CartView = () =>{
                             <PayAmtUnit> {LANGUAGE[language]?.cartView.totalAmtUnit}</PayAmtUnit>
                         </PayAmtWrapper>
                     </PayWrapper>
-                    <PayBtnWrapper>
-                        <TouchableWithoutFeedback onPress={()=>{if(isPayProcess == false){setPayProcess(true); doPayment();}}} >
-                            <PayBtn isFull={true} color={colorBlack} >
-                                <PayTitle>{LANGUAGE[language]?.cartView.makeOrder}</PayTitle>
-                                <PayIcon source={require("../../assets/icons/card.png")} />
-                            </PayBtn>
-                        </TouchableWithoutFeedback>
-                    </PayBtnWrapper>
+                    {/* <PayBtnWrapper> */}
+                        
+                    {/* </PayBtnWrapper> */}
 
                 </OrderWrapper>
+                <TouchableWithoutFeedback onPress={()=>{if(isPayProcess == false){setPayProcess(true); doPayment();}}} >
+                    <PayFullBtn isFull={true} color={colorLightBrown} >
+                        <PayTitle>{LANGUAGE[language]?.cartView.makeOrder}</PayTitle>
+                        <PayIcon source={require("../../assets/icons/card.png")} />
+                    </PayFullBtn>
+                </TouchableWithoutFeedback>
             </CartViewWrapper>  
         </>
     )

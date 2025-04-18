@@ -79,7 +79,7 @@ export const LANGUAGE = {
             back:"이전화면",
         },
         cart:{
-            cart:"장바구니"
+            cart:"주문메뉴"
         }
     },
 
