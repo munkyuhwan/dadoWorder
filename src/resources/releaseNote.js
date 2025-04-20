@@ -1,6 +1,10 @@
 
-export const CURRENT_VERSION = "1.0.3";
+export const CURRENT_VERSION = "1.0.4";
 export const releaseNote = {
+    "1.0.4": //2025.04.18
+    `
+        - 기타 버그 수정 반영
+    `,
     "1.0.3": //2025.04.18
     `
         - 수정사항 반영

@@ -51,7 +51,7 @@ export const MenuSelectCategory = styled.View`
 export const MenuSelectCategoryDim = styled.View`
     width:100%;
     height:100%;
-    backgroundColor:rgba(225,225,225,0.7);
+    backgroundColor:${colorWhite};
     position:absolute;
     borderRadius:20px;
 
