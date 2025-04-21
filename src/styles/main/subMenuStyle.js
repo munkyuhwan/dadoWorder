@@ -40,7 +40,7 @@ export const CategoryScrollView = styled.ScrollView`
 `
 export const SubCategoryDefault = styled.View`
     backgroundColor: ${colorWhite};
-    width:160px;
+    width:165px;
     height:50px;
     marginRight:7px;
     justifyContent: flex-end;
@@ -49,7 +49,7 @@ export const SubCategoryDefault = styled.View`
 `
 export const SubCategorySelected = styled.View`
     backgroundColor: ${colorRed};
-    width:160px;
+    width:165px;
     height:50px;
     marginRight:7px;
     justifyContent: flex-end;
@@ -74,7 +74,7 @@ export const TopMenuText = styled.Text`
     justifyContent:center;
     display:flex;
     alignItems:center;
-    fontSize:24px;
+    fontSize:22px;
     fontWeight:bold;
     paddingTop:10%;
     lineHeight:10px;

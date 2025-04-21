@@ -1,6 +1,10 @@
 
-export const CURRENT_VERSION = "1.0.4";
+export const CURRENT_VERSION = "1.0.5";
 export const releaseNote = {
+    "1.0.5": //2025.04.18
+    `
+        - 중분류 폰트 수정
+    `,
     "1.0.4": //2025.04.18
     `
         - 기타 버그 수정 반영
