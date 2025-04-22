@@ -40,21 +40,29 @@ export const CategoryScrollView = styled.ScrollView`
 `
 export const SubCategoryDefault = styled.View`
     backgroundColor: ${colorWhite};
-    width:165px;
+    flex:1;
+    minWidth:120px;
     height:50px;
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:24px;
     borderRadius:40px;
+    paddingLeft:16px;
+    paddingRight:16px;
+    paddingTop:4px;
 `
 export const SubCategorySelected = styled.View`
     backgroundColor: ${colorRed};
-    width:165px;
+    flex:1;
+    minWidth:120px;
     height:50px;
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:24px;
     borderRadius:40px;
+    paddingLeft:16px;
+    paddingRight:16px;
+    paddingTop:4px;
 `
 export const FloatingCategorySelected = styled.View`
     backgroundColor: ${ props => props?.isSelected?colorRed:colorBrown };
@@ -74,10 +82,8 @@ export const TopMenuText = styled.Text`
     justifyContent:center;
     display:flex;
     alignItems:center;
-    fontSize:22px;
+    fontSize:24px;
     fontWeight:bold;
-    paddingTop:10%;
-    lineHeight:10px;
     color: ${props=>props.color};
 `;
 export const FloatingTopMenuText = styled.Text`

@@ -1,6 +1,12 @@
 
-export const CURRENT_VERSION = "1.0.5";
+export const CURRENT_VERSION = "1.0.6";
 export const releaseNote = {
+    "1.0.6": //2025.04.18
+    `
+        - 메뉴 두줄ui 수정.
+        - 카트 핸들 텍스트 외국어 반영.
+            
+    `,
     "1.0.5": //2025.04.18
     `
         - 중분류 폰트 수정
