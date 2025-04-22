@@ -35,7 +35,7 @@ export const MenuItemWrapper = styled.View`
     width:${props=> props?.viewType==3?"375px":(props?.viewType==2?"578px":"518")};    
     ${props=>{
         if(props?.viewType == 2) {
-            return "height:520px;marginBottom:0px;";
+            return "height:550px;marginBottom:0px;";
         }else if(props?.viewType == 3) {
             return "height:250px;marginBottom:0px;";
         }else {
@@ -122,13 +122,13 @@ export const MenuItemBottomWRapper = styled.View`
 `
 export const BigMenuItemBottomWrapper = styled.View`
     width:100%; 
-    height:120px;
+    height:150px;
     flex:1;
     flexDirection:column;  
     paddingTop:12px;
     alignItems:center;
     position:absolute;
-    bottom:40;
+    bottom:40px;
     justifyContent:center;
     backgroundColor:${colorWhite};
     borderBottomLeftRadius:${RADIUS_DOUBLE};
@@ -141,6 +141,8 @@ export const BigMenuItemName = styled.Text`
     height:100px;
     textAlignVertical:center;
     flex:1;
+    paddingLeft:6px;
+    paddingRight:6px;
 `
 export const MenuItemName = styled.Text`
     fontSize:23px;
@@ -156,9 +158,8 @@ export const BigMenuItemPrice = styled.Text`
     color:${colorRed};
     justifyContents:center;
     lineHeight:30px;
-    flex:1;
+    flex:0.5;
     textAlign:right;
- 
     fontWeight:bold;
 `
 export const MenuItemPrice = styled.Text`
