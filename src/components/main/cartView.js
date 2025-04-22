@@ -385,7 +385,6 @@ const CartView = () =>{
             }
         })
     ],[])
-
     return(
         <>  
             <CartViewWrapper style={[{...boxStyle}]} >
@@ -400,7 +399,7 @@ const CartView = () =>{
                 <TouchableWithoutFeedback onPress={()=>{   dispatch(setCartView(!isOn));  }}>
                     <Handle>
                         <Text style={{fontSize:26, fontWeight:'bold', color:colorWhite, textAlign:'center', width:'100%', backgroundColor:'transparent'}} >
-                            {"주문\n메뉴\n확인"}
+                            {LANGUAGE[language]?.cartView.handleText}
                         </Text>
                         {/*isOn&&
                             <ArrowImage source={require("../../assets/icons/close_arrow.png")} />
