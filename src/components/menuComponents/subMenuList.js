@@ -69,6 +69,7 @@ const SubMenuList = (props) => {
     },[subCategories])
 
     const onPressAction = (itemCD) =>{
+        props.onSelectItem(itemCD);
         dispatch(setSelectedSubCategory(itemCD)); 
     }
     return (

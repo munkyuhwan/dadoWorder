@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE } from '../values';
-import { colorBlack, colorGrey, colorListItemTitle, colorRed, colorWhite, listItemTitle } from '../../assets/colors/color';
+import { colorBlack, colorGrey, colorLightBrown, colorLightRed, colorListItemTitle, colorRed, colorWhite, listItemTitle } from '../../assets/colors/color';
 
 export const MenuListWrapper = styled.View`
     width:100%;
@@ -217,4 +217,21 @@ export const SoldOutText = styled.Text`
     textAlign:center;
     width:100%;
     height:100%;
+`
+export const MenuViewListView = styled.View`
+    flexDirection:column;
+    flex:1;
+`
+export const InMenuCatView = styled.View`
+    paddingTop:12px;
+    paddingBottom:12px;
+    marginBottom:10px;
+    borderBottomWidth:2px;
+    borderColor:${colorLightBrown};
+    paddingLeft:10px;
+`
+export const InMenuCatText = styled.Text`
+    fontSize:50px;
+    fontWeight:bold;
+    color:${colorWhite};
 `

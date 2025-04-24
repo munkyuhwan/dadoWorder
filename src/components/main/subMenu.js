@@ -23,7 +23,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const MAINIMG = windowWidth;
 
-const SubMenu = () =>{
+const SubMenu = (props) =>{
     const dispatch = useDispatch();
     const scrollViewRef = useRef();
     const {selectedMainCategory,subCategories, allCategories} = useSelector(state => state.categories);
@@ -108,6 +108,7 @@ const SubMenu = () =>{
     },[])
 
     const onPressItem = (index) => {
+        props.onPressSubCat(index);
         dispatch(setSelectedSubCategory(index)); 
     }
 
@@ -158,7 +159,7 @@ const SubMenu = () =>{
                             {subCategories &&
                                 <SubMenuList
                                     data={subCategories}
-                                    onSelectItem={(index)=>{ onPressItem(index); }}
+                                    onSelectItem={(index)=>{onPressItem(index); }}
                                     initSelect={0}
                                 />
                             }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View } from 'react-native'
-import { MenuListWrapper } from '../../styles/main/menuListStyle';
+import { InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
 import ItemDetail from '../detailComponents/itemDetail';
 import { getMenu, updateMenu } from '../../store/menu';
@@ -16,7 +16,7 @@ import { MenuSelectBg, MenuSelectCategory, MenuSelectCategoryDim, MenuSelectCate
 import SubMenu from './subMenu';
 import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, TransparentPopupBottomButtonWraper, TransparentPopupBottomInnerWrapper, TransparentPopupBottomWrapper } from '../../styles/common/popup';
 import { LANGUAGE } from '../../resources/strings';
-import { colorDarkGrey, colorLightBrown, colorRed } from '../../assets/colors/color';
+import { colorDarkGrey, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 import { setCartView } from '../../store/cart';
 
 // 스크롤링 관련
@@ -34,6 +34,8 @@ const MenuListView = (props) => {
 
     const dispatch = useDispatch();
     const listRef = useRef();
+    const scrollViewRef = useRef(null);
+    const itemLayouts = useRef({}); 
 
     const {displayMenu} = useSelector((state)=>state.menu);
     const {isOn} = useSelector((state)=>state.cartView);
@@ -112,11 +114,21 @@ const MenuListView = (props) => {
         }
     },[displayMenu])
 
+    useEffect(()=>{
+        //console.log("selectedSubCategory: ",selectedSubCategory)
+    },[selectedSubCategory])
+    function onPressSubCat(catId) {
+        const targetY = itemLayouts.current[`${catId}_0`];
+        if (targetY !== undefined && scrollViewRef.current) {
+            scrollViewRef.current.scrollTo({ y: targetY, animated: false });
+        }
+    }
+
     var index=0;
+    var groupCode="";
 
     //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
     const catLang = (kor) => {
-        console.log("language: ",language);
         if(CAT_LAN.filter(el=>el.title_kor==kor).length<=0) {
             return kor;
         }else {
@@ -131,7 +143,23 @@ const MenuListView = (props) => {
             }
         }
     }
-
+    const findCateCodeByYOffset = (yOffset) => {
+        const layouts = itemLayouts.current;
+    
+        let closestKey = null;
+        let closestDistance = Infinity;
+    
+        Object.entries(layouts).forEach(([key, y]) => {
+            const distance = Math.abs(y - yOffset);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestKey = key;
+            }
+        });
+    
+        return closestKey;
+    };
+    
     if(selectedMainCategory == "") {
         return(
             <>
@@ -189,7 +217,7 @@ const MenuListView = (props) => {
         //if(selectedMainCategory == "liquor") {
             return(
                 <>
-                    <SubMenu/>
+                    <SubMenu onPressSubCat={(subId)=>{onPressSubCat(subId)}}/>
                     <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
                         {/*(displayMenu?.length > 0 && !isOn )&&
                             <FlatList
@@ -207,18 +235,127 @@ const MenuListView = (props) => {
                             />
                         */}
                         {//(displayMenu?.length > 0 && isOn ) &&
-                            <ScrollView style={{width:'100%'}}>
-                                <View style={{ width:listWidth, flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}} >
-                                    {
+                            <ScrollView 
+                                onScroll={(event) => {
+                                    const yOffset = event.nativeEvent.contentOffset.y;
+                                    const scrolledKey = findCateCodeByYOffset(yOffset);
+                                    const prefix = scrolledKey.split("_")[0]; // "k2"
+                                    dispatch(setSelectedSubCategory(prefix));
+                                }} 
+                               
+                                ref={scrollViewRef} style={{width:'100%'}}>
+                                <View  >
+                                    {subCategories &&
+                                    subCategories.map((el)=>{
+                                        const ItemTitle = () => {
+                                            if(language=="japanese") {
+                                                return (
+                                                    
+                                                    <InMenuCatText>{el.cate_name2_jp}</InMenuCatText>
+                                                )
+                                            }
+                                            else if(language=="chinese") {
+                                                return (
+                                                    <InMenuCatText>{el.cate_name2_cn}</InMenuCatText>
+                                                )
+                                            }
+                                            else if(language=="english") {
+                                                return (
+                                                    <InMenuCatText>{el.cate_name2_en}</InMenuCatText>
+                                                )
+                                            } else {
+                                                return (
+                                                    <InMenuCatText>{el.cate_name2}</InMenuCatText>
+                                                )
+                                            }
+                                        }
+                                        
+                                         
+                                        const itemsFiltered = displayMenu.filter(item=>item.cate_code == el.cate_code2);
+                                        const ItemList =()=> itemsFiltered.map((el)=>{
+                                            index++;
+                                            return(
+                                                <>
+                                                    <MenuItem 
+                                                    key={index}
+                                                    onLayout={(event)=>{
+                                                        /*
+                                                        const layout = event.nativeEvent.layout;
+                                                        if(groupCode!=el.cate_code) {
+                                                            groupCode = el.cate_code;
+                                                            tmpValue = `${el.cate_code}_0`
+                                                            itemLayouts.current[`${el.cate_code}_0`] = layout.y;
+                                                        }else {
+                                                            tmpValue = `${el.cate_code}_${index}`
+                                                            itemLayouts.current[`${el.cate_code}_${index}`] = layout.y;
+                                                        }
+                                                        */
+                                                    }}
+                                                    onPress={(isDetail)=>{props.setDetailOpen(isDetail); } } 
+                                                    viewType={viewType} isDetailShow={isDetailShow} 
+                                                    setDetailShow={setDetailShow} 
+                                                    item={el} 
+                                                    index={index} />
+                                                </>
+                                            )
+    
+                                        })
+                                        return(
+                                        <>
+                                        <MenuViewListView>
+                                            <InMenuCatView 
+                                                onLayout={(event)=>{
+                                                    const layout = event.nativeEvent.layout;
+                                                    console.log("layout: ",layout);
+                                                    tmpValue = `${el.cate_code}`
+                                                    itemLayouts.current[`${el.cate_code}`] = layout.y;
+                                                }}
+                                            >
+                                                <ItemTitle/>
+                                            </InMenuCatView>
+                                            <View style={{ width:'100%', flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}}>
+                                                <ItemList/>
+                                            </View>
+                                        </MenuViewListView>
+                                        
+                                        </>
+                                        )
+                                        
+                                        
+                                    })
+
+
+                                    }
+                                    {/*
                                     displayMenu.map((el)=>{
+
                                         index++;
                                         return(
                                             <>
-                                                <MenuItem onPress={(isDetail)=>{props.setDetailOpen(isDetail); console.log("isDetail: ",isDetail); } } viewType={viewType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={el} index={index} />
+                                                <MenuItem 
+                                                key={index}
+                                                onLayout={(event)=>{
+                                                    console.log("on layout==================");
+                                                    const layout = event.nativeEvent.layout;
+                                                    if(groupCode!=el.cate_code) {
+                                                        groupCode = el.cate_code;
+                                                        tmpValue = `${el.cate_code}_0`
+                                                        itemLayouts.current[`${el.cate_code}_0`] = layout.y;
+                                                    }else {
+                                                        tmpValue = `${el.cate_code}_${index}`
+                                                        itemLayouts.current[`${el.cate_code}_${index}`] = layout.y;
+                                                    }
+                                                }}
+                                                onPress={(isDetail)=>{props.setDetailOpen(isDetail); } } 
+                                                viewType={viewType} isDetailShow={isDetailShow} 
+                                                setDetailShow={setDetailShow} 
+                                                item={el} 
+                                                index={index} />
                                             </>
                                         )
-                                    })
-                                    }
+
+                                        })
+                                    */}
                                 </View>
                             </ScrollView>
                         }

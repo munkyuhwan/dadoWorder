@@ -128,7 +128,6 @@ const MainScreen = () =>{
           
     },[isQuickShow])
     useEffect(()=>{
-        console.log("menuDetailID: ",menuDetailID);
         const filteredItem = allItems.filter(data => data.prod_cd == menuDetailID);
         if(filteredItem.length > 0) {
             setMenuDetail(filteredItem[0]);

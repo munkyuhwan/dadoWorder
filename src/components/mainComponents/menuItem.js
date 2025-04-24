@@ -24,7 +24,7 @@ const height = Dimensions.get('window').height;
 let timeoutSet = null;
 
 /* 메인메뉴 메뉴 아이템 */
-const MenuItem = ({item,index,setDetailShow,viewType,onPress}) => {
+const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
     //<MenuItemImage />    
     // 포스 api ITEM_ID 는 관리자 api에서 pos_code임
     const dispatch = useDispatch();
@@ -71,7 +71,8 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress}) => {
             <>
             {reload &&
             <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false); setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
-                <MenuItemWrapper viewType={viewType} >
+                <MenuItemWrapper viewType={viewType} onLayout={(event)=>{onLayout(event); }} >
+                    <Text style={{color:'yellow', fontWeight:'bold', position:'absolute',zIndex:99999,fontSize:30}} >{item.cate_level}_{item.cate_code}_{index}</Text>
                     <MenuItemTopWrapper>
                         <TouchableWithoutFeedback onPress={()=>{ onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
                             <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:80, height:80, position:'absolute', zIndex:999999, right:10, top:10 }} />
