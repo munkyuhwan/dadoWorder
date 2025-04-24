@@ -72,7 +72,6 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
             {reload &&
             <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false); setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
                 <MenuItemWrapper viewType={viewType} onLayout={(event)=>{onLayout(event); }} >
-                    <Text style={{color:'yellow', fontWeight:'bold', position:'absolute',zIndex:99999,fontSize:30}} >{item.cate_level}_{item.cate_code}_{index}</Text>
                     <MenuItemTopWrapper>
                         <TouchableWithoutFeedback onPress={()=>{ onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
                             <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:80, height:80, position:'absolute', zIndex:999999, right:10, top:10 }} />

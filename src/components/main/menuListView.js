@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View } from 'react-native'
+import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager } from 'react-native'
 import { InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
 import ItemDetail from '../detailComponents/itemDetail';
@@ -47,6 +47,16 @@ const MenuListView = (props) => {
     const [listWidth,setListWidth] = useState("100%");
     const [gap,setGap] = useState(20);
 
+
+    const getCategoryName = (el) => {
+        switch (language) {
+        case 'japanese': return el.cate_name2_jp;
+        case 'chinese': return el.cate_name2_cn;
+        case 'english': return el.cate_name2_en;
+        default: return el.cate_name2;
+        }
+    };
+
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
     const CAT_LAN = [
@@ -89,7 +99,6 @@ const MenuListView = (props) => {
     
     useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
-        console.log('allCategories: ',allCategories);
         if(catData.length>0) {
             setNumColumns(Number(catData[0].view_type));
             setViewType(Number(catData[0].view_type));
@@ -118,8 +127,11 @@ const MenuListView = (props) => {
         //console.log("selectedSubCategory: ",selectedSubCategory)
     },[selectedSubCategory])
     function onPressSubCat(catId) {
-        const targetY = itemLayouts.current[`${catId}_0`];
+        console.log("catId: ",catId);
+        console.log("itemLayouts: ",itemLayouts.current);
+        const targetY = itemLayouts.current[`${catId}`];
         if (targetY !== undefined && scrollViewRef.current) {
+            console.log("targetY: ",targetY);
             scrollViewRef.current.scrollTo({ y: targetY, animated: false });
         }
     }
@@ -148,7 +160,7 @@ const MenuListView = (props) => {
     
         let closestKey = null;
         let closestDistance = Infinity;
-    
+        console.log("layouts: ",layouts);
         Object.entries(layouts).forEach(([key, y]) => {
             const distance = Math.abs(y - yOffset);
             if (distance < closestDistance) {
@@ -234,7 +246,63 @@ const MenuListView = (props) => {
                                 }}
                             />
                         */}
-                        {//(displayMenu?.length > 0 && isOn ) &&
+                        <ScrollView 
+                            ref={scrollViewRef}
+                            onScroll={(event)=>{
+                                const y = event.nativeEvent.contentOffset.y;
+                                console.log("scroll y: ",findCateCodeByYOffset(y));
+                            }}
+                        >
+                            {subCategories.map((el, sectionIndex) => {
+                                const filteredItems = displayMenu.filter(item => item.cate_code === el.cate_code2);
+                                return (
+                                    <View
+                                        key={el.cate_code2}
+                                        onLayout={(event) => {
+                                            const layout = event.nativeEvent.layout;
+                                            // 렌더 완료 후 layout.y 기록
+                                            InteractionManager.runAfterInteractions(() => {
+                                                itemLayouts.current[el.cate_code2] = layout.y;
+                                                console.log(`📍 ${el.cate_code2} layout.y = `, layout.y);
+                                            });
+                                        }}
+                                    >
+                                        {/* 카테고리 제목 */}
+                                        <InMenuCatView>
+                                        <InMenuCatText>{getCategoryName(el)}</InMenuCatText>
+                                        </InMenuCatView>
+
+                                        {/* 아이템 리스트 */}
+                                        <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: "flex-start", gap }}>
+                                        {filteredItems.map((item, itemIndex) => (
+                                            <MenuItem
+                                            key={`${el.cate_code2}_${itemIndex}`}
+                                            onLayout={()=>{}}
+                                            onPress={(isDetail) => setDetailOpen(isDetail)}
+                                            viewType={viewType}
+                                            isDetailShow={isDetailShow}
+                                            setDetailShow={setDetailShow}
+                                            item={item}
+                                            index={itemIndex}
+                                            />
+                                        ))}
+                                        </View>
+                                        <View
+                                            key={el.cate_code2+"btm"}
+                                            onLayout={(event) => {
+                                                const layout = event.nativeEvent.layout;
+                                                // 렌더 완료 후 layout.y 기록
+                                                InteractionManager.runAfterInteractions(() => {
+                                                    itemLayouts.current[`${el.cate_code2}_btm`] = layout.y;
+                                                    console.log(`📍 ${el.cate_code2} layout.y = `, layout.y);
+                                                });
+                                            }}
+                                        ></View>
+                                    </View>
+                                );
+                            })}
+                            </ScrollView>
+                        {/*(displayMenu?.length > 0 && isOn ) &&
                             <ScrollView 
                                 onScroll={(event) => {
                                     const yOffset = event.nativeEvent.contentOffset.y;
@@ -248,53 +316,50 @@ const MenuListView = (props) => {
                                     {subCategories &&
                                     subCategories.map((el)=>{
                                         const ItemTitle = () => {
+                                            var lanTYpe = "";
                                             if(language=="japanese") {
-                                                return (
-                                                    
-                                                    <InMenuCatText>{el.cate_name2_jp}</InMenuCatText>
-                                                )
+                                                lanTYpe = el.cate_name2_jp;
                                             }
                                             else if(language=="chinese") {
-                                                return (
-                                                    <InMenuCatText>{el.cate_name2_cn}</InMenuCatText>
-                                                )
+                                                lanTYpe = el.cate_name2_cn;
                                             }
                                             else if(language=="english") {
-                                                return (
-                                                    <InMenuCatText>{el.cate_name2_en}</InMenuCatText>
-                                                )
+                                                lanTYpe = el.cate_name2_en;
                                             } else {
-                                                return (
-                                                    <InMenuCatText>{el.cate_name2}</InMenuCatText>
-                                                )
+                                                lanTYpe = el.cate_name2;
                                             }
+                                            return (
+                                                <InMenuCatText
+                                                    
+                                                >{lanTYpe}</InMenuCatText>
+                                            )
                                         }
                                         
                                          
                                         const itemsFiltered = displayMenu.filter(item=>item.cate_code == el.cate_code2);
-                                        const ItemList =()=> itemsFiltered.map((el)=>{
+                                        const ItemList =()=> itemsFiltered.map((items)=>{
                                             index++;
                                             return(
                                                 <>
                                                     <MenuItem 
                                                     key={index}
                                                     onLayout={(event)=>{
-                                                        /*
-                                                        const layout = event.nativeEvent.layout;
-                                                        if(groupCode!=el.cate_code) {
-                                                            groupCode = el.cate_code;
-                                                            tmpValue = `${el.cate_code}_0`
-                                                            itemLayouts.current[`${el.cate_code}_0`] = layout.y;
-                                                        }else {
-                                                            tmpValue = `${el.cate_code}_${index}`
-                                                            itemLayouts.current[`${el.cate_code}_${index}`] = layout.y;
-                                                        }
-                                                        */
+                                                        
+                                                        //const layout = event.nativeEvent.layout;
+                                                        //if(groupCode!=el.cate_code) {
+                                                        //    groupCode = el.cate_code;
+                                                        //    tmpValue = `${el.cate_code}_0`
+                                                        //    itemLayouts.current[`${el.cate_code}_0`] = layout.y;
+                                                        //}else {
+                                                        //    tmpValue = `${el.cate_code}_${index}`
+                                                        //    itemLayouts.current[`${el.cate_code}_${index}`] = layout.y;
+                                                        //}
+                                                        
                                                     }}
                                                     onPress={(isDetail)=>{props.setDetailOpen(isDetail); } } 
                                                     viewType={viewType} isDetailShow={isDetailShow} 
                                                     setDetailShow={setDetailShow} 
-                                                    item={el} 
+                                                    item={items} 
                                                     index={index} />
                                                 </>
                                             )
@@ -302,21 +367,22 @@ const MenuListView = (props) => {
                                         })
                                         return(
                                         <>
-                                        <MenuViewListView>
-                                            <InMenuCatView 
+                                        <React.Fragment key={el.cate_code2}>
+                                            <MenuViewListView>
+                                                <InMenuCatView 
                                                 onLayout={(event)=>{
                                                     const layout = event.nativeEvent.layout;
                                                     console.log("layout: ",layout);
-                                                    tmpValue = `${el.cate_code}`
-                                                    itemLayouts.current[`${el.cate_code}`] = layout.y;
+                                                    itemLayouts.current[`${el.cate_code2}`] = layout.y;
                                                 }}
-                                            >
-                                                <ItemTitle/>
-                                            </InMenuCatView>
-                                            <View style={{ width:'100%', flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}}>
-                                                <ItemList/>
-                                            </View>
-                                        </MenuViewListView>
+                                                >
+                                                    <ItemTitle/>
+                                                </InMenuCatView>
+                                                <View style={{ width:'100%', flexDirection:'row', flexWrap:'wrap',justifyContent:"flex-start", gap:gap}}>
+                                                    <ItemList/>
+                                                </View>
+                                            </MenuViewListView>
+                                        </React.Fragment>
                                         
                                         </>
                                         )
@@ -326,7 +392,7 @@ const MenuListView = (props) => {
 
 
                                     }
-                                    {/*
+                                    {
                                     displayMenu.map((el)=>{
 
                                         index++;
@@ -355,10 +421,10 @@ const MenuListView = (props) => {
                                         )
 
                                         })
-                                    */}
+                                    }
                                 </View>
                             </ScrollView>
-                        }
+                                */}
                         {/* <TransparentPopupBottomWrapper style={{paddingTop:10,}} >
                             <TransparentPopupBottomInnerWrapper>
                                 <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCartView(false));  }}>

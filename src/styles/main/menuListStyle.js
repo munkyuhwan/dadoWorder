@@ -220,7 +220,6 @@ export const SoldOutText = styled.Text`
 `
 export const MenuViewListView = styled.View`
     flexDirection:column;
-    flex:1;
 `
 export const InMenuCatView = styled.View`
     paddingTop:12px;
