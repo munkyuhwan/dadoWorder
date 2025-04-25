@@ -123,19 +123,6 @@ const MenuListView = (props) => {
         }
     },[displayMenu])
 
-    useEffect(()=>{
-        //console.log("selectedSubCategory: ",selectedSubCategory)
-    },[selectedSubCategory])
-    function onPressSubCat(catId) {
-        console.log("catId: ",catId);
-        console.log("itemLayouts: ",itemLayouts.current);
-        const targetY = itemLayouts.current[`${catId}`];
-        if (targetY !== undefined && scrollViewRef.current) {
-            console.log("targetY: ",targetY);
-            scrollViewRef.current.scrollTo({ y: targetY, animated: false });
-        }
-    }
-
     var index=0;
     var groupCode="";
 
@@ -155,21 +142,23 @@ const MenuListView = (props) => {
             }
         }
     }
+    const findYOffsetCodeByCate = (catId) => {
+        const targetY = itemLayouts.current[`${catId}`];
+        if (targetY !== undefined && scrollViewRef.current) {
+            scrollViewRef.current.scrollTo({ y: targetY, animated: false });
+        }
+    }
     const findCateCodeByYOffset = (yOffset) => {
         const layouts = itemLayouts.current;
-    
-        let closestKey = null;
-        let closestDistance = Infinity;
-        console.log("layouts: ",layouts);
-        Object.entries(layouts).forEach(([key, y]) => {
-            const distance = Math.abs(y - yOffset);
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestKey = key;
-            }
-        });
-    
-        return closestKey;
+        const keys = Object.keys(layouts).filter(k => !k.endsWith('_btm'));
+        for (let key of keys) {
+          const top = layouts[key];
+          const bottom = layouts[`${key}_btm`] ?? Infinity;
+          if (yOffset >= top && yOffset < bottom) {
+            return key;
+          }
+        }
+        return null; // 어느 범위에도 해당 안될 경우
     };
     
     if(selectedMainCategory == "") {
@@ -229,7 +218,7 @@ const MenuListView = (props) => {
         //if(selectedMainCategory == "liquor") {
             return(
                 <>
-                    <SubMenu onPressSubCat={(subId)=>{onPressSubCat(subId)}}/>
+                    <SubMenu onPressSubCat={(subId)=>{findYOffsetCodeByCate(subId)}}/>
                     <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
                         {/*(displayMenu?.length > 0 && !isOn )&&
                             <FlatList
@@ -250,7 +239,7 @@ const MenuListView = (props) => {
                             ref={scrollViewRef}
                             onScroll={(event)=>{
                                 const y = event.nativeEvent.contentOffset.y;
-                                console.log("scroll y: ",findCateCodeByYOffset(y));
+                                dispatch(setSelectedSubCategory(findCateCodeByYOffset(y)));
                             }}
                         >
                             {subCategories.map((el, sectionIndex) => {
@@ -263,6 +252,8 @@ const MenuListView = (props) => {
                                             // 렌더 완료 후 layout.y 기록
                                             InteractionManager.runAfterInteractions(() => {
                                                 itemLayouts.current[el.cate_code2] = layout.y;
+                                                itemLayouts.current[`${el.cate_code2}_btm`] = layout.y+layout.height-10;
+
                                                 console.log(`📍 ${el.cate_code2} layout.y = `, layout.y);
                                             });
                                         }}
@@ -288,14 +279,15 @@ const MenuListView = (props) => {
                                         ))}
                                         </View>
                                         <View
-                                            key={el.cate_code2+"btm"}
+                                            style={{ height: 1, backgroundColor: 'transparent' }}
+                                            key={el.cate_code2+"_btm"}
                                             onLayout={(event) => {
                                                 const layout = event.nativeEvent.layout;
                                                 // 렌더 완료 후 layout.y 기록
-                                                InteractionManager.runAfterInteractions(() => {
+                                               /*  InteractionManager.runAfterInteractions(() => {
                                                     itemLayouts.current[`${el.cate_code2}_btm`] = layout.y;
                                                     console.log(`📍 ${el.cate_code2} layout.y = `, layout.y);
-                                                });
+                                                }); */
                                             }}
                                         ></View>
                                     </View>

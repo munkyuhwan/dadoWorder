@@ -232,5 +232,5 @@ export const InMenuCatView = styled.View`
 export const InMenuCatText = styled.Text`
     fontSize:50px;
     fontWeight:bold;
-    color:${colorWhite};
+    color:${colorGrey};
 `
