@@ -19,6 +19,7 @@ export const LANGUAGE = {
             togoCancel:"포장취소",
             payDutch:'더치페이',
             handleText:'주문\n메뉴\n확인',
+            handleTextClose:'주문\n메뉴\n닫기',
         },
         detailView:{
             toMenu:'메뉴로 이동',
@@ -106,6 +107,7 @@ export const LANGUAGE = {
             togoCancel:"包装キャンセル",
             payDutch:'ダッチペイ',
             handleText:'注文\nメニュ\n確認',
+            handleTextClose:'注文\nメニュ\閉じる',
         },
        detailView:{
             toMenu:"「メニューに移動」",
@@ -181,6 +183,7 @@ export const LANGUAGE = {
             togoCancel:"取消包装",
             payDutch:'荷兰支付',
             handleText:'点单\n菜单\n确认',
+            handleTextClose:'点单\n菜单\n关闭',
         },
         detailView:{
             toMenu:'转到菜单',
@@ -255,6 +258,8 @@ export const LANGUAGE = {
             togoCancel:"Cancel packaging",
             payDutch:'Dutch Pay',
             handleText:'Order\nmenu\nlist',
+            handleTextClose:'Order\nmenu\nclose',
+
         },
         detailView:{
             toMenu:'Go to menu',

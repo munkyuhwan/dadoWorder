@@ -118,7 +118,7 @@ const TopMenu = () =>{
         <>
             <TopMenuWrapper>
                
-                <TouchableWithoutFeedback onPress={()=>{toAd();}} >
+                <TouchableWithoutFeedback>
                     <FastImage source={require("../../assets/icons/daedo_logo.png")} style={{ marginLeft:40,marginRight:20, flex:0.5}} resizeMode='contain' />
                 </TouchableWithoutFeedback>
                 <SafeAreaView>
