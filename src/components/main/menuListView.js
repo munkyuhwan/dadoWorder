@@ -267,12 +267,12 @@ const MenuListView = (props) => {
                                         </InMenuCatView>
 
                                         {/* 아이템 리스트 */}
-                                        <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: "flex-start", gap }}>
+                                        <View style={{ width: listWidth, flexDirection: 'row', flexWrap: 'wrap', justifyContent: "flex-start", gap }}>
                                         {filteredItems.map((item, itemIndex) => (
                                             <MenuItem
                                             key={`${el.cate_code2}_${itemIndex}`}
                                             onLayout={()=>{}}
-                                            onPress={(isDetail) => setDetailOpen(isDetail)}
+                                            onPress={(isDetail) => props.setDetailOpen(isDetail)}
                                             viewType={viewType}
                                             isDetailShow={isDetailShow}
                                             setDetailShow={setDetailShow}
