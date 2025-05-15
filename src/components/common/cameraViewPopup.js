@@ -59,7 +59,8 @@ const CameraView = () => {
                     <TouchableWithoutFeedback onPress={()=>{setCctvUrl(""); openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
                         <PopupCloseButton  style={{zIndex:999999999, position:'absolute', right:10,top:10}} source={require('../../assets/icons/close_red.png')}/>
                     </TouchableWithoutFeedback>
-                    <TopMenuWrapper>
+                    <Image source={require("../../assets/imgs/howto.png")} style={{width:'100%',height:'100%'}} resizeMethod="cover" />
+                    {/* <TopMenuWrapper>
                             <CategoryScrollView  horizontal showsHorizontalScrollIndicator={false} >
                                 <CategoryWrapper>
                                     {
@@ -83,7 +84,7 @@ const CameraView = () => {
                             source={{ uri: cctvUrl}}
                             repeat={true}
                         />
-                    }
+                    } */}
                 </CCTVWrapper>
 
                 

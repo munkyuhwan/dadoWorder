@@ -70,7 +70,7 @@ export const MenuImageDefaultBig = styled.Image`
 `
 export const DetailItemInfoImageWrapperBig = styled.ImageBackground`
     width:100%;
-    height:400px;
+    height:370px;
     borderRadius:${RADIUS};
     backgroundColor:black;
 `
@@ -119,14 +119,14 @@ export const DetailItemInfoTitleBig = styled.Text`
     marginTop:5px;
     fontWeight:bold;
     marginRight:11px;
-    color:${colorBlack}
+    color:${colorBlack};
+    height:100px;
 `
 export const DetailItemInfoTitleEtc = styled.Image`
     width:54px;
     height:42px;
     marginRight:7px;
     resizeMode:contain;
-    
 `
 export const DetailItemInfoSource = styled.Text`
     fontSize:32px;
@@ -166,7 +166,7 @@ export const DetailItemInfoMoreBig = styled.Text`
 `
 export const CloseBtnWrapper = styled.View`
     position:absolute;
-    top:170px;
+    top:200px;
     width:100%;
     alignItems:center;
 `

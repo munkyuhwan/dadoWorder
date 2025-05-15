@@ -141,13 +141,13 @@ const CartListItem = (props) => {
                 <CartItemAmtWrapper>
                     <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:false, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
                         <CartItemAmtController>
-                            <OperandorText fontSize={"52"} >-</OperandorText>
+                            <OperandorText fontSize={"85"} >-</OperandorText>
                         </CartItemAmtController>
                     </TouchableWithoutFeedback>
                     <CartItemAmtText>{numberPad(order?.qty,2)}</CartItemAmtText>
                     <TouchableWithoutFeedback  onPress={()=>{ dispatch(addToOrderList({isAdd:true, isDelete: false, item:itemDetail[0],menuOptionSelected:order?.set_item})); }} >
                         <CartItemAmtController>
-                            <OperandorText fontSize={"32"} >+</OperandorText>
+                            <OperandorText fontSize={"50"} >+</OperandorText>
                         </CartItemAmtController>
                     </TouchableWithoutFeedback>
                 </CartItemAmtWrapper>

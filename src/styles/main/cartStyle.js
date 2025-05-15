@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled, {css} from 'styled-components/native';
 import { RADIUS, RADIUS_DOUBLE, RADIUS_SMALL, RADIUS_SMALL_DOUBLE } from '../values';
 import { Animated, TouchableWithoutFeedback } from 'react-native';
-import { colorBlack, colorBrown, colorGrey, colorLightBrown, colorRed, colorWhite, mainTheme, textColorWhite } from '../../assets/colors/color';
+import { colorBlack, colorBrown, colorGrey, colorHandle, colorLightBrown, colorRed, colorWhite, mainTheme, textColorWhite } from '../../assets/colors/color';
 import FastImage from 'react-native-fast-image';
 
 export const CartViewWrapper = styled(Animated.View)`
@@ -19,8 +19,8 @@ export const CartFlatList = styled.FlatList`
     backgroundColor:${colorWhite};
 `
 export const Handle = styled.View`
-    backgroundColor:${colorRed};
-    height:131px;
+    backgroundColor:${colorHandle};
+    height:200px;
     width:80px;
     marginTop:320px;
     position:absolute;
@@ -110,7 +110,7 @@ export const OperandorText = styled.Text`
     width:100%;
     textAlign:center;
     justifyContent:center;
-    lineHeight:38px;
+    lineHeight:48px;
 
 `
 export const CartItemTogoWrapper = styled.View`
@@ -200,8 +200,8 @@ export const CartItemAmtWrapper = styled.View`
     paddingRight:10px;
 `
 export const CartItemAmtController = styled.View`
-    width:42px;
-    height:42px;
+    width:52px;
+    height:52px;
     backgroundColor:${colorWhite};
     borderWidth:1px;
     borderRadius:10px;
@@ -217,16 +217,16 @@ export const CartItemAmtControllerImage = styled.Image`
     resizeMode:contain;
  `
 export const CartItemAmtText = styled.Text`
-    fontSize:26px;
+    fontSize:36px;
     width:60px;
-    height:44px;
+    height:54px;
     fontWeight:bold;
     textAlign:center;
-    lineHeight:40px;
+    lineHeight:52px;
     color:${colorBlack};
     borderWidth:1px;
     borderRadius:10px;
-    marginTop:5px;
+    marginTop:0px;
 `
 export const DutchItemAmtText = styled.Text`
     fontSize:30px;

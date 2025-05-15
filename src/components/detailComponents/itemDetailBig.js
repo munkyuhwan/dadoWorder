@@ -286,7 +286,7 @@ const ItemDetailBig = (props) => {
                                     <DetailItemInfoImageWrapperBig>
                                         {menuDetail&& 
                                             menuDetail?.gimg_chg &&
-                                            <DetailItemInfoFastImageBig source={ {uri:(`${menuDetail?.gimg_chg}`),priority: FastImage.priority.high } } />
+                                            <DetailItemInfoFastImageBig  source={ {uri:(`${menuDetail?.gimg_chg}`),priority: FastImage.priority.high } } resizeMethod="contain" />
                                         }
                                         {menuDetail&&
                                             !menuDetail?.gimg_chg &&

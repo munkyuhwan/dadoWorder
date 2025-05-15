@@ -400,12 +400,12 @@ const CartView = () =>{
                     <Handle>
                         
                         {isOn&&
-                            <Text style={{fontSize:26, fontWeight:'bold', color:colorWhite, textAlign:'center', width:'100%', backgroundColor:'transparent'}} >
+                            <Text style={{fontSize:26, fontWeight:'bold', color:colorBlack, textAlign:'center', width:'100%', backgroundColor:'transparent'}} >
                                 {LANGUAGE[language]?.cartView.handleTextClose}
                             </Text>
                         }
                         {!isOn&&
-                            <Text style={{fontSize:26, fontWeight:'bold', color:colorWhite, textAlign:'center', width:'100%', backgroundColor:'transparent'}} >
+                            <Text style={{fontSize:26, fontWeight:'bold', color:colorBlack, textAlign:'center', width:'100%', backgroundColor:'transparent'}} >
                                 {LANGUAGE[language]?.cartView.handleText}
                             </Text>
                         }

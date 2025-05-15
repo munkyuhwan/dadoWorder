@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Animated, TouchableWithoutFeedback } from 'react-native';
 import { CategoryDefault, CategorySelected, SubCategoryDefault, SubCategorySelected, TopMenuText } from '../../styles/main/subMenuStyle';
-import { colorBrown, colorRed, colorWhite, tabBaseColor } from '../../assets/colors/color';
+import { colorBlack, colorBrown, colorRed, colorWhite, tabBaseColor } from '../../assets/colors/color';
 import { RADIUS_DOUBLE } from '../../styles/values';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSubCategory } from '../../store/categories';
@@ -90,7 +90,7 @@ const SubMenuList = (props) => {
                         (el?.cate_code2!=selectedSubCategory) &&
                             <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
                                 <SubCategoryDefault>
-                                    <TopMenuText color={"#969595"} key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
+                                    <TopMenuText color={colorBlack} key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
                                 </SubCategoryDefault>
                             </TouchableWithoutFeedback>
                         }
