@@ -55,7 +55,7 @@ export const DetailWhiteWrapperBig = styled.View`
 `
 export const DetailItemInfoFastImageBig = styled(FastImage)`
     width:100%;
-    height:480px;
+    height:450px;
     resizeMode:cover;
     borderTopRightRadius:${RADIUS};
     borderTopLeftRadius:${RADIUS};
