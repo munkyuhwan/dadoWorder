@@ -13,6 +13,7 @@ import TopMenuList from "../menuComponents/topMenuList";
 import CCTVItemList from "../menuComponents/cctvItemList";
 import { EventRegister } from "react-native-event-listeners";
 import {isEmpty} from "lodash";
+import FastImage from "react-native-fast-image";
 
 const CameraView = () => {
     const dispatch = useDispatch();
@@ -52,14 +53,16 @@ const CameraView = () => {
         return(<></>);
     }
 
+
     return(
         <>  
 
                 <CCTVWrapper>
                     <TouchableWithoutFeedback onPress={()=>{setCctvUrl(""); openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
-                        <PopupCloseButton  style={{zIndex:999999999, position:'absolute', right:10,top:10}} source={require('../../assets/icons/close_red.png')}/>
+                        <PopupCloseButton  style={{ width:80,height:80, zIndex:999999999, position:'absolute', right:10,top:10}} source={require('../../assets/icons/close_red.png')}/>
                     </TouchableWithoutFeedback>
-                    <Image source={require("../../assets/imgs/howto.png")} style={{width:'100%',height:'100%'}} resizeMethod="cover" />
+                    <FastImage source={{uri:"https://worder2.co.kr/dd.jpg"}} style={{width:'100%',height:'100%'}} resizeMode="contain"/>
+                    {/* <Image source={require("../../assets/imgs/howto.png")} style={{width:'100%',height:'100%'}} resizeMethod="cover" /> */}
                     {/* <TopMenuWrapper>
                             <CategoryScrollView  horizontal showsHorizontalScrollIndicator={false} >
                                 <CategoryWrapper>

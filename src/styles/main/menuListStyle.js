@@ -14,6 +14,14 @@ export const MenuListWrapper = styled.View`
     justifyContent:center;
 `
 
+export const MoreBtnImg = styled.Image`
+    width:70px;
+    height:70px;
+    position:absolute;
+    ${props=>props.position=="top"?"transform: rotate(90deg);top:0;":"transform: rotate(270deg);bottom:100px;"}
+    marginLeft:607px;
+    zIndex:9999;
+`
 
 // menu item style
 export const MenuImageDefaultWrapper = styled.View`
@@ -143,6 +151,7 @@ export const BigMenuItemName = styled.Text`
     flex:1;
     paddingLeft:6px;
     paddingRight:6px;
+    textAlign:center;
 `
 export const MenuItemName = styled.Text`
     fontSize:23px;

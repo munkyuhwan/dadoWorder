@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager } from 'react-native'
-import { InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView } from '../../styles/main/menuListStyle';
+import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager, Image } from 'react-native'
+import { InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView, MoreBtnImg } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
 import ItemDetail from '../detailComponents/itemDetail';
 import { getMenu, updateMenu } from '../../store/menu';
@@ -29,7 +29,7 @@ var scrollUpReached = false;
 var scrollUpCnt = 0;
 var isScrolling = false;
 let direction = "";
-
+const scrollHeight = 650;
 const MenuListView = (props) => {
 
     const dispatch = useDispatch();
@@ -46,6 +46,7 @@ const MenuListView = (props) => {
     const [isDetailShow, setDetailShow] = useState(false);
     const [listWidth,setListWidth] = useState("100%");
     const [gap,setGap] = useState(20);
+    const [currentY, setCurrentY] = useState(0); // 현재 스크롤 위치 저장
 
 
     const getCategoryName = (el) => {
@@ -162,12 +163,24 @@ const MenuListView = (props) => {
         }
         return null; // 어느 범위에도 해당 안될 경우
     };
+
+    const scrollUp = () => {
+
+        const newY = Math.max(currentY - scrollHeight, 0); // 0보다 아래로 못 내려가게
+        scrollViewRef.current?.scrollTo({ y: newY, animated: true });
+        setCurrentY(newY);
+    };
+    const scrollDown = () => {
+        const newY = currentY + scrollHeight;
+        scrollViewRef.current?.scrollTo({ y: newY, animated: true });
+        setCurrentY(newY);
+    };
     
     if(selectedMainCategory == "") {
         return(
             <>
                 <MenuSelectView>
-                    <MenuSelectBg source={require("../../assets/icons/daedo_bg.png")} resizeMethod={"contain"} />
+                    <MenuSelectBg resizeMethod={"contain"} />
                     <MenuSelectCategoryView style={{paddingTop:10}} >
                         <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
                             <MenuSelectCategory>
@@ -222,26 +235,20 @@ const MenuListView = (props) => {
                 <>
                     <SubMenu onPressSubCat={(subId)=>{findYOffsetCodeByCate(subId)}}/>
                     <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
-                        {/*(displayMenu?.length > 0 && !isOn )&&
-                            <FlatList
-                                ref={listRef}
-                                columnWrapperStyle={{gap:24}}
-                                style={{height:'100%', width:'100%', zIndex: 99,  }}
-                                data={displayMenu}
-                                renderItem={({item, index})=>{ return(<MenuItem viewType={vieweType} isDetailShow={isDetailShow} setDetailShow={setDetailShow} item={item} index={index} /> );}}
-                                numColumns={numColumns==4?2:numColumns}
-                                key={numColumns}
-                                keyExtractor={(item,index)=>index}
-                                onTouchStart={(event)=>{
-                                    touchStartOffset = event.nativeEvent.pageY;
-                                }}
-                            />
-                        */}
+                        <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
+                            <MoreBtnImg position={"top"} source={require("../../assets/icons/back.png")} resizeMode='contain'  />
+                        </TouchableWithoutFeedback>
+
+                        <TouchableWithoutFeedback onPress={()=>{scrollDown()}} >
+                            <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/back.png")} resizeMode='contain'  />
+                        </TouchableWithoutFeedback>
+
                         <ScrollView 
                             ref={scrollViewRef}
                             onScroll={(event)=>{
                                 const y = event.nativeEvent.contentOffset.y;
                                 dispatch(setSelectedSubCategory(findCateCodeByYOffset(y)));
+                                setCurrentY(y);
                             }}
                         >
                             {subCategories.map((el, sectionIndex) => {
@@ -285,23 +292,6 @@ const MenuListView = (props) => {
                                 );
                             })}
                             </ScrollView>
-                        {/* <TransparentPopupBottomWrapper style={{paddingTop:10,}} >
-                            <TransparentPopupBottomInnerWrapper>
-                                <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCartView(false));  }}>
-                                    <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
-                                        <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
-                                        <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
-                                    </TransparentPopupBottomButtonWraper>
-                                </TouchableWithoutFeedback> 
-                                {// <TouchableWithoutFeedback onPress={()=>{openFullSizePopup(dispatch, {innerView:"", isFullPopupVisible:false});}}>
-                                 //   <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
-                                 //       <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
-                                 //       <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />
-                                 //   </TransparentPopupBottomButtonWraper>
-                                //</TouchableWithoutFeedback>
-                                }
-                            </TransparentPopupBottomInnerWrapper>
-                        </TransparentPopupBottomWrapper>    */}
                     </MenuListWrapper>
                     </>
                 );

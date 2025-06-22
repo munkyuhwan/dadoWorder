@@ -454,4 +454,5 @@ export const TopTableText = styled.Text`
     fontWeight:bold;
     textAlign:center;
     lineHeight:42px;
+    
 `

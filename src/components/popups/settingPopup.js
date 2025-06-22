@@ -167,6 +167,8 @@ const SettingPopup = () =>{
                                 //console.log("item changed:",itemValue)
                                 
                                 if(!isEmpty(itemValue)){
+                                    console.log("table itemvaleu: ",itemValue)
+                                    console.log("table itemNM: ",itemNM)
                                     setTableInfo(itemValue, itemNM,floor)
                                     dispatch(initOrderList());
                                     dispatch(setCartView(false));        

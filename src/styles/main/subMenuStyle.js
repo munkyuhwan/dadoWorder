@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native';
 
 export const TopMenuWrapper = styled.View`
     flexDirection:row;
-    height:${props=>props?.isShow?"80px":"20px"};
+    height:${props=>props?.isShow?"100px":"20px"};
     display: flex;
     justifyContent: flex-start;
     zIndex:99999;
@@ -42,7 +42,7 @@ export const SubCategoryDefault = styled.View`
     backgroundColor: ${colorWhite};
     flex:1;
     minWidth:120px;
-    height:50px;
+    height:60px;
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:24px;
@@ -55,7 +55,7 @@ export const SubCategorySelected = styled.View`
     backgroundColor: ${colorRed};
     flex:1;
     minWidth:120px;
-    height:50px;
+    height:60px;
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:24px;
@@ -82,8 +82,9 @@ export const TopMenuText = styled.Text`
     justifyContent:center;
     display:flex;
     alignItems:center;
-    fontSize:24px;
+    fontSize:42px;
     fontWeight:bold;
+    lineHeight:44px;
     color: ${props=>props.color};
 `;
 export const FloatingTopMenuText = styled.Text`

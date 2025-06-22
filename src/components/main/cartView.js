@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { 
     Alert,
     Animated,
@@ -35,6 +35,7 @@ import { getAdminCategories } from '../../store/categories';
 import { getAD } from '../../store/ad';
 import { getAdminBulletin } from '../../store/menuExtra';
 import { colorBlack, colorBrown, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
+import { useFocusEffect } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const CartView = () =>{
@@ -376,6 +377,7 @@ const CartView = () =>{
             if(isPayProcess == false){setPayProcess(true); doPayment();}
         }
     },[isQuickOrder])
+    
     useEffect(()=>[
         AsyncStorage.getItem("TABLE_NM")
         .then((TABLE_NM)=>{
@@ -396,7 +398,19 @@ const CartView = () =>{
                         <TopTableText textAlign={"center"} >{tableNoText}</TopTableText>
                     </TopTableView>
                 </TopTitleWrapper>
-                <TouchableWithoutFeedback onPress={()=>{   dispatch(setCartView(!isOn));  }}>
+                <TouchableWithoutFeedback 
+                    onPress={()=>{ 
+                        AsyncStorage.getItem("TABLE_NM")
+                            .then((TABLE_NM)=>{
+                                console.log("cart view TABLE_NM: ",TABLE_NM);
+                                if(TABLE_NM) {
+                                    setTableNoText(TABLE_NM)
+                                }else {
+                                }
+                            });  
+                            dispatch(setCartView(!isOn));  
+                        }
+                    }>
                     <Handle>
                         
                         {isOn&&
