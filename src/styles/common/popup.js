@@ -32,7 +32,7 @@ export const PopupCloseButton = styled.Image`
 // 투명배경 팝업
 export const TransparentPopupWrapper = styled.View`
     flex:1;
-    marginTop:58px;
+    marginTop:20px;
     marginRight:96px;
     marginLeft:96px;
     marginBottom:34px;
@@ -58,7 +58,7 @@ export const TransperentPopupMidWrapper = styled.View`
     width:100%;
     justifyContents:center;
     alignItems:center;
-    paddingTop:50px;
+    paddingTop:40px;
 `   
 // 하단 버튼 선택
 export const TransparentPopupBottomWrapper = styled.View`
