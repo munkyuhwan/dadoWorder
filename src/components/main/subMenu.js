@@ -154,7 +154,7 @@ const SubMenu = (props) =>{
         <>
             <TopMenuWrapper isShow={subCategories?.length>0} >
                 <SafeAreaView>
-                    <CategoryScrollView ref={scrollViewRef} horizontal showsHorizontalScrollIndicator={false} >
+                    <CategoryScrollView ref={scrollViewRef} horizontal={true} showsHorizontalScrollIndicator={false} >
                         <CategoryWrapper>
                             {subCategories &&
                                 <SubMenuList

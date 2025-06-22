@@ -47,7 +47,8 @@ const MenuListView = (props) => {
     const [listWidth,setListWidth] = useState("100%");
     const [gap,setGap] = useState(20);
     const [currentY, setCurrentY] = useState(0); // 현재 스크롤 위치 저장
-
+    const [isAtTop, setIsAtTop] = useState(true);
+    const [isAtBottom, setIsAtBottom] = useState(false);
 
     const getCategoryName = (el) => {
         switch (language) {
@@ -182,6 +183,22 @@ const MenuListView = (props) => {
                 <MenuSelectView>
                     <MenuSelectBg resizeMethod={"contain"} />
                     <MenuSelectCategoryView style={{paddingTop:10}} >
+                        <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
+                                <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
+                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후 4시")})</MenuSelectCategorySubText>
+                                </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+
+                        <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
+                            <MenuSelectCategory>
+                                <MenuSelectCategoryDim/>
+                                <MenuSelectCategoryText>{catLang("저녁\n식사")}</MenuSelectCategoryText>
+                                <MenuSelectCategorySubText>({catLang("오전 4시 ~ 오후 10시")})</MenuSelectCategorySubText>
+                                </MenuSelectCategory>
+                        </TouchableWithoutFeedback>
+                        {/* 
                         <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
@@ -195,6 +212,7 @@ const MenuListView = (props) => {
                                 <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
                                 </MenuSelectCategory>
                         </TouchableWithoutFeedback>
+                         */}
                         {/* <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false));dispatch(setSelectedMainCategory("meal"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
@@ -235,13 +253,16 @@ const MenuListView = (props) => {
                 <>
                     <SubMenu onPressSubCat={(subId)=>{findYOffsetCodeByCate(subId)}}/>
                     <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
-                        <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
-                            <MoreBtnImg position={"top"} source={require("../../assets/icons/back.png")} resizeMode='contain'  />
-                        </TouchableWithoutFeedback>
-
-                        <TouchableWithoutFeedback onPress={()=>{scrollDown()}} >
-                            <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/back.png")} resizeMode='contain'  />
-                        </TouchableWithoutFeedback>
+                        {!isAtTop &&
+                            <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
+                                <MoreBtnImg position={"top"} source={require("../../assets/icons/back.png")} resizeMode='contain'  />
+                            </TouchableWithoutFeedback>
+                        }
+                        {!isAtBottom &&
+                            <TouchableWithoutFeedback onPress={()=>{scrollDown()}} >
+                                <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/back.png")} resizeMode='contain'  />
+                            </TouchableWithoutFeedback>
+                        }
 
                         <ScrollView 
                             ref={scrollViewRef}
@@ -249,6 +270,15 @@ const MenuListView = (props) => {
                                 const y = event.nativeEvent.contentOffset.y;
                                 dispatch(setSelectedSubCategory(findCateCodeByYOffset(y)));
                                 setCurrentY(y);
+
+                                const yOffset = event.nativeEvent.contentOffset.y;
+                                setIsAtTop(yOffset <= 0);  
+
+                                const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+                                const isBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
+                                setIsAtBottom(isBottom);
+
+
                             }}
                         >
                             {subCategories.map((el, sectionIndex) => {
