@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager, Image } from 'react-native'
-import { InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView, MoreBtnImg } from '../../styles/main/menuListStyle';
+import { InMenuCatSubText, InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView, MoreBtnImg } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
 import ItemDetail from '../detailComponents/itemDetail';
 import { getMenu, updateMenu } from '../../store/menu';
@@ -62,7 +62,7 @@ const MenuListView = (props) => {
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
     const CAT_LAN = [
-        {idx:0, code:"Meat", title_kor:"고기\n식사",title_en:"Meat",title_jp:"肉",title_cn:"肉" },
+        {idx:0, code:"Meat", title_kor:"저녁\n식사",title_en:"Meat",title_jp:"肉",title_cn:"肉" },
         {idx:1, code:"Meal", title_kor:"식사",title_en:"Meal",title_jp:"食事",title_cn:"餐" },
         {idx:2, code:"Sirloin", title_kor:"등심 드신 후",title_en:"After Sirloin",title_jp:"食べた後",title_cn:"吃完后" },
         {idx:3, code:"Lunch", title_kor:"점심\n식사",title_en:"Lunch",title_jp:"昼食",title_cn:"午餐" },
@@ -176,6 +176,18 @@ const MenuListView = (props) => {
         scrollViewRef.current?.scrollTo({ y: newY, animated: true });
         setCurrentY(newY);
     };
+    const subTitle = (data) => {
+        if(language == "korean") {
+            return data.cate_name2_m;
+        }else if(language == "japanese") {
+            return data?.cate_name2_jp_m||data.cate_name2_m
+        }else if(language == "english") {
+            return data?.cate_name2_en_m||data.cate_name2_m
+        }else if(language == "chinese") {
+            return data?.cate_name2_cn_m||data.cate_name2_m
+        }
+        return data.cate_name2_m
+    }
     
     if(selectedMainCategory == "") {
         return(
@@ -282,6 +294,7 @@ const MenuListView = (props) => {
                             }}
                         >
                             {subCategories.map((el, sectionIndex) => {
+                                console.log("el: ",el);
                                 const filteredItems = displayMenu.filter(item => item.cate_code === el.cate_code2);
                                 return (
                                     <View
@@ -292,15 +305,13 @@ const MenuListView = (props) => {
                                             InteractionManager.runAfterInteractions(() => {
                                                 itemLayouts.current[el.cate_code2] = layout.y;
                                                 itemLayouts.current[`${el.cate_code2}_btm`] = layout.y+layout.height-10;
-
-                                                console.log(`📍 ${el.cate_code2} layout.y = `, layout.y);
-                                                console.log("itemLayouts: ",itemLayouts)
                                             });
                                         }}
                                     >
                                         {/* 카테고리 제목 */}
                                         <InMenuCatView>
-                                        <InMenuCatText>{getCategoryName(el)}</InMenuCatText>
+                                            <InMenuCatText>{getCategoryName(el)}</InMenuCatText>
+                                            <InMenuCatSubText>{subTitle(el)}</InMenuCatSubText>
                                         </InMenuCatView>
 
                                         {/* 아이템 리스트 */}

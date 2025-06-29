@@ -237,9 +237,17 @@ export const InMenuCatView = styled.View`
     borderBottomWidth:2px;
     borderColor:${colorLightBrown};
     paddingLeft:10px;
+    flexDirection:row;
 `
 export const InMenuCatText = styled.Text`
     fontSize:50px;
     fontWeight:bold;
     color:${colorGrey};
+`
+export const InMenuCatSubText = styled.Text`
+    fontSize:30px;
+    fontWeight:bold;
+    color:${colorRed};
+    paddingTop:23px;
+    paddingLeft:20px;
 `
