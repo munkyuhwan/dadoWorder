@@ -267,12 +267,12 @@ const MenuListView = (props) => {
                     <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
                         {!isAtTop &&
                             <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
-                                <MoreBtnImg position={"top"} source={require("../../assets/icons/back.png")} resizeMode='contain'  />
+                                <MoreBtnImg position={"top"} source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
                             </TouchableWithoutFeedback>
                         }
                         {!isAtBottom &&
                             <TouchableWithoutFeedback onPress={()=>{scrollDown()}} >
-                                <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/back.png")} resizeMode='contain'  />
+                                <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
                             </TouchableWithoutFeedback>
                         }
 

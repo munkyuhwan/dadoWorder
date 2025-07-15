@@ -18,8 +18,8 @@ export const MoreBtnImg = styled.Image`
     width:70px;
     height:70px;
     position:absolute;
-    ${props=>props.position=="top"?"transform: rotate(90deg);top:0;":"transform: rotate(270deg);bottom:100px;"}
-    marginLeft:607px;
+    ${props=>props.position=="top"?"transform: rotate(180deg);top:0;marginLeft:600px;":"transform: rotate(0deg);bottom:100px;marginLeft:610px;"}
+    
     zIndex:9999;
 `
 
