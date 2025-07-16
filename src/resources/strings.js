@@ -248,17 +248,17 @@ export const LANGUAGE = {
             callServer:"Call employee"
         },
         cartView:{
-            orderAmt:"order quantity",
+            orderAmt:"Order Quantity",
             orderAmtUnit:'ea',
             totalAmt:"Order Amount",
             totalAmtUnit:'won',
-            makeOrder:"Make Order",
+            makeOrder:"Place Order",
             payOrder:"Pay Order",
             togo:"packaging",
             togoCancel:"Cancel packaging",
             payDutch:'Dutch Pay',
-            handleText:'Order\nmenu\nlist',
-            handleTextClose:'Order\nmenu\nclose',
+            handleText:'View\nOrdered\nMenu',
+            handleTextClose:'Close\nOrdered\nMenu',
 
         },
         detailView:{

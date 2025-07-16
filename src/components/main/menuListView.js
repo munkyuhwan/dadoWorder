@@ -294,7 +294,6 @@ const MenuListView = (props) => {
                             }}
                         >
                             {subCategories.map((el, sectionIndex) => {
-                                console.log("el: ",el);
                                 const filteredItems = displayMenu.filter(item => item.cate_code === el.cate_code2);
                                 return (
                                     <View

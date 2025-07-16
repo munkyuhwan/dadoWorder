@@ -1,6 +1,10 @@
 
-export const CURRENT_VERSION = "1.0.8";
+export const CURRENT_VERSION = "1.0.9";
 export const releaseNote = {
+    "1.0.9": //2025.07.15
+    `
+        - 위,아래 화살표 변경
+    `,
     "1.0.8": //2025.04.25
     `
         - 수정요청사항 반영

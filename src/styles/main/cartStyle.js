@@ -21,10 +21,10 @@ export const CartFlatList = styled.FlatList`
 export const Handle = styled.View`
     backgroundColor:${colorHandle};
     height:200px;
-    width:80px;
+    width:100px;
     marginTop:320px;
     position:absolute;
-    left:-80px;
+    left:-100px;
     zIndex:999999;
     borderTopLeftRadius:23px;
     borderBottomLeftRadius:22px;

@@ -42,6 +42,7 @@ export const CategoryDefault = styled.View`
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:14px;
+    ${props=>props?.isPadding?"paddingTop:20px;":""}
     borderTopLeftRadius:${RADIUS_DOUBLE}px;
     borderTopRightRadius:${RADIUS_DOUBLE}px;
 `
@@ -52,6 +53,7 @@ export const CategorySelected = styled.View`
     marginRight:7px;
     justifyContent: flex-end;
     marginTop:14px;
+    ${props=>props?.isPadding?"paddingTop:20px;":""}
     borderTopLeftRadius:${RADIUS_DOUBLE}px;
     borderTopRightRadius:${RADIUS_DOUBLE}px;
 `
@@ -92,11 +94,10 @@ export const TopMenuText = styled.Text`
     flex:1;
     textAlign:center;
     justifyContent:center;
-    display:flex;
     alignItems:center;
+    display:flex;
     fontSize:24px;
     fontWeight:bold;
-    paddingTop:10%;
     color: ${textColorWhite};
 `;
 export const FloatingTopMenuText = styled.Text`
