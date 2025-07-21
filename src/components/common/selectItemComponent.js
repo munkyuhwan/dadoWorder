@@ -111,7 +111,7 @@ const SelectItem = (props) => {
     const languageSelect = () => {
         switch(language){
             case "japanese":
-                return data?.gname_kr;
+                return data?.gname_jp;
                 break;
             case "chinese":
                 return data?.gname_cn;

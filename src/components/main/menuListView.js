@@ -62,14 +62,15 @@ const MenuListView = (props) => {
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
     const CAT_LAN = [
-        {idx:0, code:"Meat", title_kor:"저녁\n식사",title_en:"Meat",title_jp:"肉",title_cn:"肉" },
+        {idx:0, code:"Meat", title_kor:"저녁\n식사",title_en:"Dinner",title_jp:"夕食",title_cn:"下单" },
         {idx:1, code:"Meal", title_kor:"식사",title_en:"Meal",title_jp:"食事",title_cn:"餐" },
         {idx:2, code:"Sirloin", title_kor:"등심 드신 후",title_en:"After Sirloin",title_jp:"食べた後",title_cn:"吃完后" },
         {idx:3, code:"Lunch", title_kor:"점심\n식사",title_en:"Lunch",title_jp:"昼食",title_cn:"午餐" },
         {idx:4, code:"menu", title_kor:"추가메뉴",title_en:"Additional menu" ,title_jp:"追加",title_cn:"追加菜单"   },
         {idx:5, code:"Alcohol", title_kor:"주류",title_en:"Alcohol" ,title_jp:"酒類",title_cn:"酒类"   },
         {idx:5, code:"Beverages", title_kor:"음료",title_en:"Drinks" ,title_jp:"飲み物",title_cn:"饮料"   },
-        {idx:6, code:"LunchTime", title_kor:"오전 10시 ~ 오후4시",title_en:"am 10시 ~ pm4시",title_jp:"am 10시 ~ pm4시",title_cn:"am 10시 ~ pm4시" },
+        {idx:6, code:"LunchTime", title_kor:"오전 10시 ~ 오후4시",title_en:"am 10 ~ pm4",title_jp:"am 10 ~ pm4",title_cn:"am 10 ~ pm4" },
+        {idx:7, code:"DinnerTime", title_kor:"오후 4시 ~ 오후10시",title_en:"pm 4 ~ pm10",title_jp:"pm 4 ~ pm10",title_cn:"pm 4 ~ pm10" },
 
     ];
     useEffect(()=>{
@@ -199,7 +200,7 @@ const MenuListView = (props) => {
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후 4시")})</MenuSelectCategorySubText>
+                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
                                 </MenuSelectCategory>
                         </TouchableWithoutFeedback>
 
@@ -207,7 +208,7 @@ const MenuListView = (props) => {
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>{catLang("저녁\n식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("오전 4시 ~ 오후 10시")})</MenuSelectCategorySubText>
+                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
                                 </MenuSelectCategory>
                         </TouchableWithoutFeedback>
                         {/* 

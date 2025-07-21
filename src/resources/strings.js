@@ -99,7 +99,7 @@ export const LANGUAGE = {
         cartView:{
             orderAmt:"注文数量",
             orderAmtUnit:'',
-            totalAmt:"注文金額",
+            totalAmt:"注文金额",
             totalAmtUnit:'円',
             makeOrder:"注文する",
             payOrder:"支払う",

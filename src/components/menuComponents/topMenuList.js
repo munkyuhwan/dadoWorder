@@ -17,12 +17,12 @@ import FastImage from 'react-native-fast-image';
 const TopMenuList = (props) => {
     const dispatch = useDispatch();
     const TOP_MENU = [
-        {idx:0, code:"menu", title_kor:"메뉴선택",title_en:"Menu Selection",title_jp:"メニュ",title_cn:"菜单选择", is_padding:false },
-        {idx:1, code:"help", title_kor:"직원도움",title_en:"Staff Assistance",title_jp:"スタッフ",title_cn:"员工帮助" , is_padding:false},
-        {idx:2, code:"orderList", title_kor:"주문내역",title_en:"Order History",title_jp:"注文履歴",title_cn:"订单记录" , is_padding:false},
+        {idx:0, code:"menu", title_kor:"메뉴선택",title_en:"Menu Selection",title_jp:"メニュー\n選択",title_cn:"菜单选择", is_padding:false },
+        {idx:1, code:"help", title_kor:"직원도움",title_en:"Staff Assistance",title_jp:"スタッフの\n助け",title_cn:"员工帮助" , is_padding:false},
+        {idx:2, code:"orderList", title_kor:"주문내역",title_en:"Order History",title_jp:"注文履歴",title_cn:"订单明细" , is_padding:false},
         //{idx:3, code:"cart", title_kor:"주문메뉴",title_en:"Cart",title_jp:"カート",title_cn:"购物车" },
         {idx:4, code:"lang", title_kor:"Language",title_en:"Language" ,title_jp:"Language",title_cn:"Language", is_padding:false   },
-        {idx:5, code:"howto", title_kor:"고기굽는법",title_en:"How to" ,title_jp:"肉の焼き方",title_cn:"烤肉的方法", is_padding:false   },
+        {idx:5, code:"howto", title_kor:"고기굽는법",title_en:"How to" ,title_jp:"肉の焼き方",title_cn:"烤肉方法", is_padding:false   },
     ];
     const {tab} = useSelector(state=>state.common);
     const {language} = useSelector(state=>state.languages);

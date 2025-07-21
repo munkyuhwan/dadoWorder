@@ -56,8 +56,8 @@ export const regularUpdate = createAsyncThunk("menu/regularUpdate", async(_,{dis
         // 예외 처리
         EventRegister.emit("showSpinner",{isSpinnerShow:false, msg:""})
         console.log("error: ",error)
-        dispatch(setErrorData({errorCode:"XXXX",errorMsg:`어드민 업데이트 ${error?.message}`})); 
-        openPopup(dispatch,{innerView:"Error", isPopupVisible:true});
+        //dispatch(setErrorData({errorCode:"XXXX",errorMsg:`어드민 업데이트 ${error?.message}`})); 
+        //openPopup(dispatch,{innerView:"Error", isPopupVisible:true});
         return rejectWithValue(error?.message)
     }
 })
