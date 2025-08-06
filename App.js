@@ -16,7 +16,8 @@ StatusBar.setHidden(true);
 console.disableYellowBox = true;
 LogBox.ignoreAllLogs();
 const App =() =>{
-    
+    //AsyncStorage.clear();
+    //RNFS.unlink(RNFS.DocumentDirectoryPath);
     return (
           <Provider store={store} >
               <Navigation />

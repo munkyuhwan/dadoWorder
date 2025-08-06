@@ -34,6 +34,7 @@ import FloatingBtn from '../components/popups/floatingButtonPopup'
 import FastImage from 'react-native-fast-image'
 import InstallMentPopup from '../components/popups/installmentPopup'
 import EventPopup from '../components/popups/eventPopup'
+import RNFS from "react-native-fs";
 
 const Stack = createStackNavigator()
 var statusInterval;
@@ -169,6 +170,8 @@ export default function Navigation() {
 
     const InitFunction = async() =>{
         handleEventListener();
+        await RNFS.unlink(RNFS.DocumentDirectoryPath);
+
         // 카테고리 받기
         await dispatch(getAdminCategories());
         // 메뉴 받아오기

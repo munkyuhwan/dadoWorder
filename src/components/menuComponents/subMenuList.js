@@ -11,15 +11,10 @@ import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
 
 const SubMenuList = (props) => {
     const dispatch = useDispatch();
-    const data = props.data;
-    const initSelect = props.initSelect;
-    const {selectedMainCategory, selectedSubCategory, subCategories, allCategories} = useSelector((state)=>state.categories);
-    const [selectedCode, setSelectedCode] = useState(DEFAULT_CATEGORY_ALL_CODE);
-
-    const {menuCategories} = useSelector(state=>state.menuExtra);
+    const { selectedSubCategory, subCategories} = useSelector((state)=>state.categories);
     const {language} =  useSelector(state=>state.languages);
-
     const [selectedSubList, setSelectedSubList] = useState();
+
     const ItemTitle = (cateCode) => {
         const selectedData = selectedSubList.filter(el=>el.cate_code2 == cateCode);
         if(language=="korean") {
@@ -35,43 +30,48 @@ const SubMenuList = (props) => {
         }
         return "";
 
-    }
-    const ItemWhole = () =>{
-        let selTitleLanguage = "";
-        if(language=="korean") {
-            selTitleLanguage = '전체'
-        }
-        else if(language=="japanese") {
-            selTitleLanguage = "全体"
-        }
-        else if(language=="chinese") {
-            selTitleLanguage = "全部的"
-        }
-        else if(language=="english") {
-            selTitleLanguage = "ALL"
-        }
-        return selTitleLanguage; 
-    }
-/* 
-    useEffect(()=>{
-        if(selectedMainCategory) {
-            const changedSelectedMainCat = allCategories.filter(el=>el.PROD_L1_CD==selectedMainCategory);
-            if(changedSelectedMainCat) {
-                if(changedSelectedMainCat?.length > 0) {
-                    setSelectedSubList(changedSelectedMainCat[0].PROD_L2_LIST);
-                }
-            }
-        }
-    },[selectedMainCategory]) */
+    } 
 
     useEffect(()=>{
         setSelectedSubList(subCategories);
     },[subCategories])
 
     const onPressAction = (itemCD) =>{
+        //dispatch(setSelectedSubCategory(itemCD)); 
         props.onSelectItem(itemCD);
-        dispatch(setSelectedSubCategory(itemCD)); 
     }
+
+    return (
+        <>
+        {selectedSubList &&
+        selectedSubList.map((el, index)=>{
+            return(
+                <>            
+                        {
+                        (el?.cate_code2==props.selectedSubCat) &&
+                            <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
+                                <SubCategorySelected>
+                                    <TopMenuText color={colorWhite} key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
+                                </SubCategorySelected>
+                            </TouchableWithoutFeedback>
+                        }
+                        {
+                        (el?.cate_code2!=props.selectedSubCat) &&
+                            <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
+                                <SubCategoryDefault>
+                                    <TopMenuText color={colorBlack} key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
+                                </SubCategoryDefault>
+                            </TouchableWithoutFeedback>
+                        }
+                        
+                </>
+            )
+
+        })}
+        </>
+    )
+
+
     return (
         <>
         {selectedSubList &&

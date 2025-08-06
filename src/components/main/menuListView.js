@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager, Image } from 'react-native'
+import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager, Image, SafeAreaView, SectionList } from 'react-native'
 import { InMenuCatSubText, InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView, MoreBtnImg } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
 import ItemDetail from '../detailComponents/itemDetail';
-import { getMenu, updateMenu } from '../../store/menu';
+import { getMenu, setSelectedItems, updateMenu } from '../../store/menu';
 import { widthAnimationStyle } from '../../utils/animation';
 import { setSelectedMainCategory, setSelectedSubCategory } from '../../store/categories';
 import { useSharedValue } from 'react-native-reanimated';
@@ -18,6 +18,8 @@ import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, Tra
 import { LANGUAGE } from '../../resources/strings';
 import { colorDarkGrey, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 import { setCartView } from '../../store/cart';
+import { BulletinText, CategoryScrollView, CategoryWrapper, TopMenuWrapper } from '../../styles/main/topMenuStyle';
+import SubMenuList from '../menuComponents/subMenuList';
 
 // 스크롤링 관련
 var touchStartOffset = 0;
@@ -35,11 +37,14 @@ const MenuListView = (props) => {
     const dispatch = useDispatch();
     const listRef = useRef();
     const scrollViewRef = useRef(null);
+    const subScrollViewRef = useRef(null);
     const itemLayouts = useRef({}); 
 
     const {displayMenu} = useSelector((state)=>state.menu);
     const {isOn} = useSelector((state)=>state.cartView);
     const {language} = useSelector(state=>state.languages);
+    // 선택 카테고리
+    const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
 
     const [numColumns, setNumColumns] = useState(3);
     const [viewType, setViewType] = useState(3);
@@ -49,6 +54,7 @@ const MenuListView = (props) => {
     const [currentY, setCurrentY] = useState(0); // 현재 스크롤 위치 저장
     const [isAtTop, setIsAtTop] = useState(true);
     const [isAtBottom, setIsAtBottom] = useState(false);
+    const [tmpSubCat, setTmpSubCat] = useState("");
 
     const getCategoryName = (el) => {
         switch (language) {
@@ -59,8 +65,7 @@ const MenuListView = (props) => {
         }
     };
 
-    // 선택 카테고리
-    const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
+    
     const CAT_LAN = [
         {idx:0, code:"Meat", title_kor:"저녁\n식사",title_en:"Dinner",title_jp:"夕食",title_cn:"下单" },
         {idx:1, code:"Meal", title_kor:"식사",title_en:"Meal",title_jp:"食事",title_cn:"餐" },
@@ -113,25 +118,17 @@ const MenuListView = (props) => {
                 setGap(20);
             }
             //setViewType(3);
+            dispatch(setSelectedSubCategory(catData[0]?.level2[0]?.cate_code2));
         }
         itemLayouts.current = {}; // 초기화
 
     },[selectedMainCategory])
 
-  /*   useEffect(()=>{
-        if(displayMenu.length>0) {
-            //listRef?.current?.scrollTo({x:0,animated: false});
-            //if(listRef)listRef?.current?.scrollTo({y:0,animated: false});
-            if(listRef.current != undefined){
-                listRef.current.scrollToOffset({ animated: false, offset: 0 });
-            }
-        }
-    },[displayMenu]) */
+   /*  useEffect(()=>{
+        console.log("subCategories: ",subCategories[0])
+        dispatch(setSelectedSubCategory(subCategories[0].cate_code2));
+    },[]) */
 
-    var index=0;
-    var groupCode="";
-
-    //console.log("mainCategories: ",mainCategories[0].ITEM_GR`OUP_CODE)
     const catLang = (kor) => {
         if(CAT_LAN.filter(el=>el.title_kor==kor).length<=0) {
             return kor;
@@ -148,6 +145,8 @@ const MenuListView = (props) => {
         }
     }
     const findYOffsetCodeByCate = (catId) => {
+        const filteredItems = displayMenu.filter(item => item.cate_code === catId);
+        //dispatch(setSelectedItems());
         const targetY = itemLayouts.current[`${catId}`];
         if (targetY !== undefined && scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: targetY, animated: false });
@@ -189,7 +188,6 @@ const MenuListView = (props) => {
         }
         return data.cate_name2_m
     }
-    
     if(selectedMainCategory == "") {
         return(
             <>
@@ -210,62 +208,30 @@ const MenuListView = (props) => {
                                 <MenuSelectCategoryText>{catLang("저녁\n식사")}</MenuSelectCategoryText>
                                 <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
                                 </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                        {/* 
-                        <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("고기\n식사")}</MenuSelectCategoryText>
-                            </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
-                                </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                         */}
-                        {/* <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false));dispatch(setSelectedMainCategory("meal"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("등심 드신 후")})</MenuSelectCategorySubText>
-                            </MenuSelectCategory>
-                        </TouchableWithoutFeedback> */}
+                        </TouchableWithoutFeedback> 
                         
                     </MenuSelectCategoryView>
                     
-                    {/* <MenuSelectCategoryView style={{paddingBottom:50}} >
-                        <TouchableWithoutFeedback onPress={()=>{console.log("extra");dispatch(setCartView(false));dispatch(setSelectedMainCategory("extra"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("추가메뉴")}</MenuSelectCategoryText>
-                            </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("liquor");dispatch(setCartView(false));dispatch(setSelectedMainCategory("liquor"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("주류")}</MenuSelectCategoryText>
-                            </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={()=>{console.log("drink");dispatch(setCartView(false));dispatch(setSelectedMainCategory("drink"));}}>
-                            <MenuSelectCategory>
-                                <MenuSelectCategoryDim/>
-                                <MenuSelectCategoryText>{catLang("음료")}</MenuSelectCategoryText>
-                            </MenuSelectCategory>
-                        </TouchableWithoutFeedback>
-                    </MenuSelectCategoryView> */}
+                    
                 </MenuSelectView>
             </>
         )
-    }  
+    }   
+      
+    const sectionListData = subCategories.map(section => {
+        const data = displayMenu.filter(item => item.cate_code === section.cate_code2);
+        return {
+          title: section,
+          data
+        };
+    });
+
+      
     if(selectedMainCategory!= "") {
-        //if(selectedMainCategory == "liquor") {
             return(
-                <>
-                    <SubMenu onPressSubCat={(subId)=>{findYOffsetCodeByCate(subId)}}/>
-                    <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
+                    <>
+                        <SubMenu tmpSubCat={tmpSubCat} onPressSubCat={(subId)=>{ findYOffsetCodeByCate(subId) }}/>
+                        <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
                         {!isAtTop &&
                             <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
                                 <MoreBtnImg position={"top"} source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
@@ -276,12 +242,17 @@ const MenuListView = (props) => {
                                 <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
                             </TouchableWithoutFeedback>
                         }
-
                         <ScrollView 
                             ref={scrollViewRef}
+                            removeClippedSubviews={true}
                             onScroll={(event)=>{
                                 const y = event.nativeEvent.contentOffset.y;
-                                dispatch(setSelectedSubCategory(findCateCodeByYOffset(y)));
+                                const scrolledCat = findCateCodeByYOffset(y);
+                                console.log("scrolledCat: ",scrolledCat)
+                                if(scrolledCat != null) {
+                                    //dispatch(setSelectedSubCategory(scrolledCat));
+                                    setTmpSubCat(scrolledCat);
+                                }
                                 setCurrentY(y);
 
                                 const yOffset = event.nativeEvent.contentOffset.y;
@@ -294,7 +265,7 @@ const MenuListView = (props) => {
 
                             }}
                         >
-                            {subCategories.map((el, sectionIndex) => {
+                            {subCategories?.map((el, sectionIndex) => {
                                 const filteredItems = displayMenu.filter(item => item.cate_code === el.cate_code2);
                                 return (
                                     <View
@@ -308,34 +279,33 @@ const MenuListView = (props) => {
                                             });
                                         }}
                                     >
-                                        {/* 카테고리 제목 */}
                                         <InMenuCatView>
                                             <InMenuCatText>{getCategoryName(el)}</InMenuCatText>
                                             <InMenuCatSubText>{subTitle(el)}</InMenuCatSubText>
                                         </InMenuCatView>
+                                        
 
-                                        {/* 아이템 리스트 */}
                                         <View style={{ width: listWidth, flexDirection: 'row', flexWrap: 'wrap', justifyContent: "flex-start", gap }}>
                                         {filteredItems.map((item, itemIndex) => (
                                             <MenuItem
-                                            key={`${el.cate_code2}_${itemIndex}`}
-                                            onLayout={()=>{}}
-                                            onPress={(isDetail) => props.setDetailOpen(isDetail)}
-                                            viewType={viewType}
-                                            isDetailShow={isDetailShow}
-                                            setDetailShow={setDetailShow}
-                                            item={item}
-                                            index={itemIndex}
+                                                key={`${el.cate_code2}_${itemIndex}`}
+                                                onLayout={()=>{}}
+                                                onPress={(isDetail) => props.setDetailOpen(isDetail)}
+                                                viewType={viewType}
+                                                isDetailShow={isDetailShow}
+                                                setDetailShow={setDetailShow}
+                                                item={item}
+                                                index={itemIndex}
                                             />
                                         ))}
                                         </View> 
                                     </View>
                                 );
                             })}
-                            </ScrollView>
+                        </ScrollView>
                     </MenuListWrapper>
-                    </>
-                );
+                </>
+            );
     }
 
     

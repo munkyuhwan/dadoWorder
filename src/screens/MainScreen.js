@@ -179,7 +179,10 @@ const MainScreen = () =>{
                     <MainWrapper>
                         <TopMenu/>
                         {tab == "menu" &&
-                            <MenuListView setDetailOpen={setDetailOpen} />
+                            <>
+                                {/* <SubMenu onPressSubCat={(subId)=>{  }}/> */}
+                                <MenuListView setDetailOpen={setDetailOpen} />
+                            </>
                         }
                         {tab == "lang" &&
                             <LanguageSelectView/>

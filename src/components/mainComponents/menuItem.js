@@ -24,7 +24,7 @@ const height = Dimensions.get('window').height;
 let timeoutSet = null;
 
 /* 메인메뉴 메뉴 아이템 */
-const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
+const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout,tmpSubCat}) => {
     //<MenuItemImage />    
     // 포스 api ITEM_ID 는 관리자 api에서 pos_code임
     const dispatch = useDispatch();
@@ -66,11 +66,11 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
 
         //FastImage.preload([{uri:item?.gimg_chg}]);
     },[])
-    if(viewType == 2 ) {
+    /* if(viewType == 2 ) {
         return(
             <>
             {reload &&
-            <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false); setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
+            <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false); setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} }} >
                 <MenuItemWrapper viewType={viewType} onLayout={(event)=>{onLayout(event); }} >
                     <MenuItemTopWrapper>
                         <TouchableWithoutFeedback onPress={()=>{ onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
@@ -173,7 +173,7 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
             }
             </>
         );
-    }
+    } */
 
     return(
         <>
@@ -252,12 +252,7 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
                             }
                             {item?.is_on=='Y'&&
                                 <MenuItemHotness source={require('../../assets/icons/hot_menu.png')} />
-                            }
-                            {/* <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} }} >
-                                <MenuItemButtonInnerWrapperLeft>
-                                    <MenuItemButton source={require('../../assets/icons/add.png')}/>
-                                </MenuItemButtonInnerWrapperLeft>
-                            </TouchableWithoutFeedback> */}
+                            } 
                         </MenuItemButtonWrapper>
                     </MenuItemImageWrapper>
                     {item?.sale_status=='3'&&// 1:대기, 2: 판매, 3: 매진
@@ -275,7 +270,7 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout}) => {
 
                 </MenuItemTopWrapper>
             </MenuItemWrapper>
-            </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
         }
         </>
     );

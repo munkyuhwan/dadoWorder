@@ -171,7 +171,7 @@ export const postOrderToPos = async(dispatch, data) =>{
         .then((response => {
             const lw = new LogWriter();
             const logPosResponse = `\nPOST POS RESPONSE DATA==================================\ndata:${JSON.stringify(response)}\n`
-            lw.writeLog(logPosResponse);
+            //lw.writeLog(logPosResponse);
 
             if(posErrorHandler(dispatch, response.data)){
                 const responseData = response.data
@@ -256,7 +256,7 @@ export const addOrderToPos = async(dispatch, data) =>{
         .then((response => {
             const lw = new LogWriter();
             const logPos = `\nPOST POS ADD DATA RESPONSE==================================\ndata:${JSON.stringify(response)}\n`
-            lw.writeLog(logPos);
+            //lw.writeLog(logPos);
             
             if(posErrorHandler(dispatch, response.data)){
                 const responseData = response.data

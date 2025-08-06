@@ -103,11 +103,10 @@ export const setSelectedItems = createAsyncThunk("menu/setSelectedItems", async(
     const {allItems} = getState().menu;
     const {selectedMainCategory, selectedSubCategory} = getState().categories;
     var displayItems = [];
-    //if(selectedSubCategory=="0000") {
-        displayItems = allItems.filter(item => item.prod_l1_cd == selectedMainCategory);
-    //}else {
-    //    displayItems = allItems.filter(item => item.prod_l1_cd == selectedMainCategory && item.prod_l2_cd == selectedSubCategory );
-    //}
+    displayItems = allItems.filter(item => item.prod_l1_cd == selectedMainCategory);
+    //displayItems = allItems.filter(item => (item.prod_l1_cd == selectedMainCategory && item.prod_l2_cd == selectedSubCategory));
+    
+    console.log("displayItems: ",displayItems);
     return displayItems;
 })
 

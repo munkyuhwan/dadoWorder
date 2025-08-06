@@ -82,6 +82,9 @@ export const LANGUAGE = {
         },
         cart:{
             cart:"주문메뉴"
+        },
+        closePopup:{
+            text:"클릭하면 창이 사라집니다."
         }
     },
 
@@ -163,6 +166,9 @@ export const LANGUAGE = {
         },
         cart:{
             cart:"カート"
+        },
+        closePopup:{
+            text:"クリックするとウィンドウが消えます。"
         }
     },
 
@@ -239,6 +245,9 @@ export const LANGUAGE = {
         },
         cart:{
             cart:"购物车"
+        },
+        closePopup:{
+            text:"点击后窗口会消失。"
         }
 
     },
@@ -315,6 +324,9 @@ export const LANGUAGE = {
         },
         cart:{
             cart:"cart"
+        },
+        closePopup:{
+            text:"The window will disappear when clicked."
         }
     }
 

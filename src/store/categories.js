@@ -35,7 +35,7 @@ export const getAdminCategories = createAsyncThunk("categories/getAdminCategorie
 })
 // 메인 카테고리 선택
 export const setSelectedMainCategory = createAsyncThunk("categories/setSelectedMainCategory", async(index,{getState,dispatc, rejectWithValue}) =>{
-   return index;    
+    return index;    
 })
 // 서브 카테고리
 export const setSubCategories = createAsyncThunk("categories/setSubCategories", async(index,{getState,dispatc, rejectWithValue}) =>{

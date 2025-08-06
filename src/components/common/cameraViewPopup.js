@@ -61,7 +61,8 @@ const CameraView = () => {
                     <TouchableWithoutFeedback onPress={()=>{setCctvUrl(""); openTransperentPopup(dispatch, {innerView:"", isPopupVisible:false}); }}>
                         <PopupCloseButton  style={{ width:80,height:80, zIndex:999999999, position:'absolute', right:10,top:10}} source={require('../../assets/icons/close_red.png')}/>
                     </TouchableWithoutFeedback>
-                    <FastImage source={{uri:"https://worder2.co.kr/dd.jpg"}} style={{width:'100%',height:'100%'}} resizeMode="contain"/>
+                    <FastImage source={require("../../assets/imgs/howto.jpeg")} style={{width:'100%',height:'100%'}} resizeMode="contain"/>
+                    {/* <FastImage source={{uri:"https://worder2.co.kr/dd.jpg"}} style={{width:'100%',height:'100%'}} resizeMode="contain"/> */}
                     {/* <Image source={require("../../assets/imgs/howto.png")} style={{width:'100%',height:'100%'}} resizeMethod="cover" /> */}
                     {/* <TopMenuWrapper>
                             <CategoryScrollView  horizontal showsHorizontalScrollIndicator={false} >

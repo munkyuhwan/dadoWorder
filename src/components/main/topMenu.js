@@ -113,7 +113,6 @@ const TopMenu = () =>{
         dispatch(initMenuDetail());
         dispatch(initOrderList());
     }
-    
     return(
         <>
             <TopMenuWrapper>

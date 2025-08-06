@@ -369,7 +369,7 @@ const ItemDetailBig = (props) => {
                                             <CloseBtnWrapper>
                                                 <TouchableWithoutFeedback onPress={()=>{closeDetail();}} >
                                                     <CloseBtnView>
-                                                        <CloseBtnText>클릭하면 창이 사라집니다.</CloseBtnText>
+                                                        <CloseBtnText>{LANGUAGE[language]?.closePopup.text}</CloseBtnText>
                                                     </CloseBtnView>
                                                 </TouchableWithoutFeedback>
                                             </CloseBtnWrapper>

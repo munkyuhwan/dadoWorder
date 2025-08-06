@@ -61,7 +61,6 @@ const TopMenuList = (props) => {
             }
         }
     }
-
     return (
             TOP_MENU.map((el) => {
 
@@ -80,7 +79,6 @@ const TopMenuList = (props) => {
                             
                     )
                 }else {
-                    console.log(tabTitle(el).length);
                     return(
                         <>
                             {tab==el.code &&
