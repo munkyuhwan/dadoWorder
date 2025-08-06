@@ -3,10 +3,12 @@ import {
     Animated,
     Dimensions,
     Image,
+    InteractionManager,
     SafeAreaView,
     StyleSheet,
     Text,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    View
 } from 'react-native'
 import { BulletinText, BulletinWrapper, CategoryScrollView, CategoryWrapper, IconWrapper, TableName, TableNameBig, TableNameSmall, TopMenuWrapper, TouchIcon } from '../../styles/main/subMenuStyle'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,6 +28,9 @@ const MAINIMG = windowWidth;
 const SubMenu = (props) =>{
     const dispatch = useDispatch();
     const scrollViewRef = useRef();
+    const itemLayouts = useRef({});
+    const subcatLayouts = useRef({});
+
     const {selectedMainCategory,subCategories,selectedSubCategory, allCategories} = useSelector(state => state.categories);
     const [tableNoText, setTableNoText] = useState("");
     const [tableInfoText, setTableInfoText] = useState("");
@@ -104,18 +109,70 @@ const SubMenu = (props) =>{
         props.onPressSubCat(index);
         //dispatch(setSelectedSubCategory(index)); 
     }    
+    const findCateCodeByYOffset = (xOffset) => {
+        const layouts = subcatLayouts.current;
+        //console.log("layouts: ",layouts);
+        //console.log("xOffset: ",xOffset);
+        /* 
+        const keys = Object.keys(layouts).filter(k => !k.endsWith('_btm'));
+        for (let key of keys) {
+          const top = layouts[key];
+          const bottom = layouts[`${key}_btm`] ?? Infinity;
+          if (xOffset >= top && xOffset < bottom) {
+            console.log("subcatLayouts :",layouts)
+            scrollViewRef.current.scrollTo({ x:layouts })
+            return key;
+          }
+        } */
+        return null; // 어느 범위에도 해당 안될 경우
+    };
+
+    useEffect(()=>{
+        console.log("selectedSubCat: ",selectedSubCat)
+        const layouts = subcatLayouts.current;
+        console.log("layouts: ",layouts);
+        const xPosition = layouts[selectedSubCat];
+        console.log("xPosition: ",xPosition);
+        if(xPosition) {
+            if(xPosition<=0) {
+                scrollViewRef.current.scrollTo({ x:xPosition-100 })
+            }else {
+                scrollViewRef.current.scrollTo({ x:xPosition })
+            }
+        }else {
+            scrollViewRef.current.scrollTo({ x:0 })
+
+        }
+
+    },[selectedSubCat])
+
     return(
         <>
             <TopMenuWrapper isShow={subCategories?.length>0} >
                 <SafeAreaView>
-                    <CategoryScrollView ref={scrollViewRef} horizontal={true} showsHorizontalScrollIndicator={false} >
-                        <CategoryWrapper>
+                    <CategoryScrollView 
+                        ref={scrollViewRef} 
+                        horizontal={true} 
+                        showsHorizontalScrollIndicator={false} 
+                        onScroll={(event)=>{
+                            const x = event.nativeEvent.contentOffset.x;
+                            const scrolledCat = findCateCodeByYOffset(x);
+                            console.log("scrolledCat: ",scrolledCat)
+                           
+
+                        }}
+                    >
+                        <CategoryWrapper 
+                            
+                        >
                             {subCategories &&
+                                
                                 <SubMenuList
                                     data={subCategories}
                                     onSelectItem={(index)=>{ onPressItem(index); }}
                                     initSelect={0}
                                     selectedSubCat={selectedSubCat}
+                                    subcatLayouts={subcatLayouts}
                                 />
                             }
                        </CategoryWrapper>

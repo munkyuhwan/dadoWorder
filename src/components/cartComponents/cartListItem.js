@@ -135,7 +135,7 @@ const CartListItem = (props) => {
                             })
                         }
                     </CartItemOpts>
-                    <CartItemPrice>{numberWithCommas(itemTotalPrice())}원</CartItemPrice>
+                    <CartItemPrice>{numberWithCommas(itemTotalPrice())}{LANGUAGE[language]?.cartView.totalAmtUnit}</CartItemPrice>
                     
                 </CartItemTitlePriceWrapper>
                 <CartItemAmtWrapper>

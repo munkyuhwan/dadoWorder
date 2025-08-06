@@ -49,7 +49,16 @@ const SubMenuList = (props) => {
                 <>            
                         {
                         (el?.cate_code2==props.selectedSubCat) &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
+                            <TouchableWithoutFeedback 
+                                key={"subcat_"+el?.cate_code2} 
+                                onPress={()=>{ onPressAction(el?.cate_code2); }}
+                                onLayout={(e) => {
+                                    console.log("e x: ",e.nativeEvent.layout.x);
+                                    //itemLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
+                                    props.subcatLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
+                                }}
+        
+                            >
                                 <SubCategorySelected>
                                     <TopMenuText color={colorWhite} key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
                                 </SubCategorySelected>
@@ -57,7 +66,16 @@ const SubMenuList = (props) => {
                         }
                         {
                         (el?.cate_code2!=props.selectedSubCat) &&
-                            <TouchableWithoutFeedback key={"subcat_"+el?.cate_code2} onPress={()=>{ onPressAction(el?.cate_code2); }}>
+                            <TouchableWithoutFeedback 
+                                key={"subcat_"+el?.cate_code2} 
+                                onPress={()=>{ onPressAction(el?.cate_code2); }}
+                                onLayout={(e) => {
+                                    console.log("e x: ",e.nativeEvent.layout.x);
+                                    //itemLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
+                                    props.subcatLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
+
+                                }}
+                            >
                                 <SubCategoryDefault>
                                     <TopMenuText color={colorBlack} key={"subcatText_"+el?.cate_code2} >{ItemTitle(el?.cate_code2)}</TopMenuText>
                                 </SubCategoryDefault>

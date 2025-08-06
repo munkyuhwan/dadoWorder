@@ -74,8 +74,8 @@ const MenuListView = (props) => {
         {idx:4, code:"menu", title_kor:"추가메뉴",title_en:"Additional menu" ,title_jp:"追加",title_cn:"追加菜单"   },
         {idx:5, code:"Alcohol", title_kor:"주류",title_en:"Alcohol" ,title_jp:"酒類",title_cn:"酒类"   },
         {idx:5, code:"Beverages", title_kor:"음료",title_en:"Drinks" ,title_jp:"飲み物",title_cn:"饮料"   },
-        {idx:6, code:"LunchTime", title_kor:"오전 10시 ~ 오후4시",title_en:"am 10 ~ pm4",title_jp:"am 10 ~ pm4",title_cn:"am 10 ~ pm4" },
-        {idx:7, code:"DinnerTime", title_kor:"오후 4시 ~ 오후10시",title_en:"pm 4 ~ pm10",title_jp:"pm 4 ~ pm10",title_cn:"pm 4 ~ pm10" },
+        {idx:6, code:"LunchTime", title_kor:"오전 11시 ~ 오후 4시",title_en:"am 11 ~ pm 4",title_jp:"am 11 ~ pm 4",title_cn:"am 11 ~ pm 4" },
+        {idx:7, code:"DinnerTime", title_kor:"오후 4시 ~ 오후 10시",title_en:"pm 4 ~ pm 10",title_jp:"pm 4 ~ pm 10",title_cn:"pm 4 ~ pm 10" },
 
     ];
     useEffect(()=>{
@@ -198,7 +198,7 @@ const MenuListView = (props) => {
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
+                                <MenuSelectCategorySubText>({catLang("오전 11시 ~ 오후 4시")})</MenuSelectCategorySubText>
                                 </MenuSelectCategory>
                         </TouchableWithoutFeedback>
 
@@ -206,7 +206,7 @@ const MenuListView = (props) => {
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>{catLang("저녁\n식사")}</MenuSelectCategoryText>
-                                <MenuSelectCategorySubText>({catLang("오전 10시 ~ 오후4시")})</MenuSelectCategorySubText>
+                                <MenuSelectCategorySubText>({catLang("오후 4시 ~ 오후 10시")})</MenuSelectCategorySubText>
                                 </MenuSelectCategory>
                         </TouchableWithoutFeedback> 
                         
