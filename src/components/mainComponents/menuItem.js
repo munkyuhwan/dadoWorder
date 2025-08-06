@@ -174,16 +174,33 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout,tmpSubCat}
             </>
         );
     } */
-
+    console.log("language: ",language)
     return(
         <>
         {
         <TouchableWithoutFeedback onPress={()=>{ if(item?.prod_gb=="09"||item?.prod_gb=="02"){onPress(false);setDetailShow(true);  dispatch(setItemDetail({itemID}));} else { dispatch(addToOrderList({isAdd:true, isDelete: false, item:item,menuOptionSelected:[]}));} /* setDetailShow(true); dispatch(setItemDetail({itemID})); */ }} >
             <MenuItemWrapper viewType={viewType} >
                 <MenuItemTopWrapper>
-                    <TouchableWithoutFeedback onPress={()=>{onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
-                        <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />
-                    </TouchableWithoutFeedback>
+                        {language == "korean" &&
+                            <TouchableWithoutFeedback onPress={()=>{onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                                <FastImage source={require("../../assets/icons/toDetail.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />                        
+                            </TouchableWithoutFeedback>
+                        }
+                        {language == "japanese" &&
+                            <TouchableWithoutFeedback onPress={()=>{onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                                <FastImage source={require("../../assets/icons/toDetail_jp.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />                        
+                            </TouchableWithoutFeedback>
+                        }
+                        {language == "chinese" &&
+                            <TouchableWithoutFeedback onPress={()=>{onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                                <FastImage source={require("../../assets/icons/toDetail_cn.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />                        
+                            </TouchableWithoutFeedback>
+                        }
+                        {language == "english" &&
+                            <TouchableWithoutFeedback onPress={()=>{onPress(true); setDetailShow(true); dispatch(setItemDetail({itemID}));  }} >
+                                <FastImage source={require("../../assets/icons/toDetail_en.png")} resizeMode='contain' style={{width:70, height:70, position:'absolute', zIndex:999999, right:10, top:10 }} />                        
+                            </TouchableWithoutFeedback>
+                        }
                     {imgUrl &&
                         <>
                             <FastImage style={{ width:'100%',height: viewType==2?500:(viewType==3?180:210), borderTopLeftRadius:RADIUS_DOUBLE,borderTopRightRadius:RADIUS_DOUBLE,}} source={{uri:item?.gimg_chg}} resizeMode={FastImage.resizeMode.cover} />
