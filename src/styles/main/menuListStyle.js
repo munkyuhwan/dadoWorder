@@ -43,7 +43,7 @@ export const MenuItemWrapper = styled.View`
     width:${props=> props?.viewType==3?"375px":(props?.viewType==2?"578px":"518")};    
     ${props=>{
         if(props?.viewType == 2) {
-            return "height:550px;marginBottom:0px;";
+            return "height:460px;marginBottom:0px;";
         }else if(props?.viewType == 3) {
             return "height:250px;marginBottom:0px;";
         }else {
