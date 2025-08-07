@@ -19,6 +19,7 @@ import { current } from '@reduxjs/toolkit';
 import { useFocusEffect } from '@react-navigation/native';
 import { DEFAULT_TABLE_STATUS_UPDATE_TIME } from '../../resources/defaults';
 import AutoScroll from "@homielab/react-native-auto-scroll";
+import { LANGUAGE } from '../../resources/strings';
 
 const height = Dimensions.get('window').height;
 let timeoutSet = null;
@@ -174,7 +175,7 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout,tmpSubCat}
             </>
         );
     } */
-    console.log("language: ",language)
+
     return(
         <>
         {
@@ -213,7 +214,7 @@ const MenuItem = ({item,index,setDetailShow,viewType,onPress,onLayout,tmpSubCat}
                     
                     <MenuItemBottomWRapper>
                         <MenuItemName>{itemTitle()||item.gname_kr}</MenuItemName>
-                        <MenuItemPrice>{numberWithCommas(itemPrice)}원</MenuItemPrice>
+                        <MenuItemPrice>{numberWithCommas(itemPrice)}{LANGUAGE[language]?.cartView.totalAmtUnit}</MenuItemPrice>
                     </MenuItemBottomWRapper>
                     <MenuItemImageWrapper>
                         <MenuItemHotnessWrapper>
