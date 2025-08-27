@@ -250,7 +250,7 @@ const MenuListView = (props) => {
         if(subCatShow[0]) {
             const currentSubCatCode = subCatShow[0]?.cate_code2;
             const index = subCategories.findIndex(item => item.cate_code2 === currentSubCatCode);
-            if(index<subCategories.length) {
+            if(index<subCategories.length-1) {
                 const nextSubCat = subCategories[index+1]?.cate_code2;
                 setTmpSubCat(nextSubCat);
                 findYOffsetCodeByCate(nextSubCat);
@@ -258,6 +258,7 @@ const MenuListView = (props) => {
         }
     }
     const toPrevCaterogy = () =>{
+        console.log("prev======");
         if(subCatShow[0]) {
             const currentSubCatCode = subCatShow[0]?.cate_code2;
             const index = subCategories.findIndex(item => item.cate_code2 === currentSubCatCode);

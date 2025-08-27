@@ -1,6 +1,15 @@
 
-export const CURRENT_VERSION = "1.0.11";
+export const CURRENT_VERSION = "1.0.13";
 export const releaseNote = {
+    "1.0.13": //2025.08.27
+    `
+        - 마지막 카테고리 이동 버그 수정
+    `,
+    "1.0.12": //2025.08.27
+    `
+        - 버그 수정
+        - 리스트 스크롤 카테고리 이동
+    `,
     "1.0.11": //2025.07.18
     `
         - 일본어 적용
