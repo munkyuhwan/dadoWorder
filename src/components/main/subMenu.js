@@ -46,30 +46,34 @@ const SubMenu = (props) =>{
     const [selectedSubCat, setSelectedSubCat] = useState("");
 
     useEffect(()=>{
-        console.log("props.tmpSubCat: ",props.tmpSubCat);
         setSelectedSubCat(props.tmpSubCat);
     },[props.tmpSubCat])
-    useEffect(()=>{
-        if(subCategories) {
-            if(subCategories?.length > 0) {
-                setBulletinShow(false)
-            }else {
-                setBulletinShow(true)
+   /*  useEffect(()=>{
+        console.log("subCategories: ",subCategories);
+        if(selectedMainCategory!="") {
+            console.log("subCategories: ",subCategories[0].cate_code2);
+            if(subCategories!=undefined) {
+                //dispatch(setSelectedSubCategory(subCategories[0].cate_code2));
             }
-        }else {
-            setBulletinShow(true)
-        }
-    },[subCategories])
+        } 
+    },[subCategories]) */
 
     useEffect(()=>{
        
-        scrollViewRef.current.scrollTo({x:0,animated: false});
+        /* scrollViewRef.current.scrollTo({x:0,animated: false});
         const bulletinToShow = bulletin?.filter(el=>el.cate_code == selectedMainCategory);
         if(bulletinToShow){
             setBulletinCode(bulletinToShow[0]?.cate_code);
             setBulletinText(bulletinToShow[0]?.subject);
+        } */
+        console.log("selectedMainCategory: ",selectedMainCategory);
+        if(selectedMainCategory!="") {
+            if(subCategories!=undefined) {
+                setSelectedSubCat(subCategories[0]?.cate_code2);
+            }
         }
-    },[selectedMainCategory])
+
+    },[selectedMainCategory,subCategories])
 
     useEffect(()=>{
         if(tableInfo) {
@@ -128,11 +132,8 @@ const SubMenu = (props) =>{
     };
 
     useEffect(()=>{
-        console.log("selectedSubCat: ",selectedSubCat)
         const layouts = subcatLayouts.current;
-        console.log("layouts: ",layouts);
         const xPosition = layouts[selectedSubCat];
-        console.log("xPosition: ",xPosition);
         if(xPosition) {
             if(xPosition<=0) {
                 scrollViewRef.current.scrollTo({ x:xPosition-100 })
@@ -157,7 +158,6 @@ const SubMenu = (props) =>{
                         onScroll={(event)=>{
                             const x = event.nativeEvent.contentOffset.x;
                             const scrolledCat = findCateCodeByYOffset(x);
-                            console.log("scrolledCat: ",scrolledCat)
                            
 
                         }}

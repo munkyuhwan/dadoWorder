@@ -53,7 +53,6 @@ const SubMenuList = (props) => {
                                 key={"subcat_"+el?.cate_code2} 
                                 onPress={()=>{ onPressAction(el?.cate_code2); }}
                                 onLayout={(e) => {
-                                    console.log("e x: ",e.nativeEvent.layout.x);
                                     //itemLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
                                     props.subcatLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
                                 }}
@@ -70,7 +69,6 @@ const SubMenuList = (props) => {
                                 key={"subcat_"+el?.cate_code2} 
                                 onPress={()=>{ onPressAction(el?.cate_code2); }}
                                 onLayout={(e) => {
-                                    console.log("e x: ",e.nativeEvent.layout.x);
                                     //itemLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
                                     props.subcatLayouts.current[el?.cate_code2] = e.nativeEvent.layout.x;
 

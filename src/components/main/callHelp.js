@@ -10,14 +10,14 @@ import { getStoreID, openFullSizePopup, openPopup, openTransperentPopup } from '
 import { getAdminServices } from '../../utils/apis';
 import { posErrorHandler } from '../../utils/errorHandler/ErrorHandler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setSelectedMainCategory, setSelectedSubCategory } from '../../store/categories';
-import { setSelectedItems } from '../../store/menu';
+import { setSelectedMainCategory, setSelectedSubCategory, setSubCategories } from '../../store/categories';
+import { setHelpSelectedItems, setSelectedItems } from '../../store/menu';
 import { metaPostPayFormat } from '../../utils/payment/metaPosDataFormat';
 import { adminDataPost, postOrderToPos } from '../../store/order';
 import { setCommon } from '../../store/common';
 //import { STORE_ID } from '../../resources/apiResources';
 
-const CallHelp = () => {
+const CallHelp = (props) => {
     const dispatch = useDispatch();
     const {language} = useSelector(state=>state.languages);
 
@@ -25,7 +25,8 @@ const CallHelp = () => {
     const {isFullPopupVisible, innerFullView} = useSelector(state=>state.popup);
     const {tableInfo} = useSelector(state=>state.tableInfo);
     const [selectedService, setSelectedService] = useState([]);
-    const {displayMenu, allItems} = useSelector((state)=>state.menu);
+    const {displayMenu, allItems, helpMenu} = useSelector((state)=>state.menu);
+    const {selectedMainCategory, allCategories} = useSelector((state)=>state.categories);
 
     // 세팅 터치
     const [settingTouch, setSettingTouch] = useState(0);
@@ -36,7 +37,10 @@ const CallHelp = () => {
     useEffect(()=>{
         dispatch(setSelectedMainCategory("help"));
     },[])
-
+    useEffect(()=>{
+        // 카테고리 선택에 따라 아이템 변경
+        dispatch(setHelpSelectedItems());
+    },[selectedMainCategory])
     const onServiceSelected = (indexArray) =>{
         setSelectedService(indexArray);
     }
@@ -71,7 +75,7 @@ const CallHelp = () => {
             <TransperentPopupMidWrapper>
                 
                 <SelectItemComponent 
-                    data={displayMenu}
+                    data={helpMenu}
                     selectedService={selectedService}
                     onServiceSelected={onServiceSelected}
                 />
@@ -85,7 +89,7 @@ const CallHelp = () => {
                             <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.serverPopup.callBtnText}</TransparentPopupBottomButtonText>
                         </TransparentPopupBottomButtonWraper>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":"menu"})); }}>
+                    <TouchableWithoutFeedback onPress={()=>{dispatch(setSelectedMainCategory("")); dispatch(setCommon({"tab":"menu"})); props.setTab("menu"); }}>
                         <TransparentPopupBottomButtonWraper bgColor={colorLightBrown} >
                             <TransparentPopupBottomButtonText>{"   "+LANGUAGE[language]?.detailView.toMenu}</TransparentPopupBottomButtonText>
                             <TransparentPopupBottomButtonIcon source={require("../../assets/icons/folk_nife.png")} />

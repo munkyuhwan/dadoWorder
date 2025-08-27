@@ -35,13 +35,20 @@ export const getAdminCategories = createAsyncThunk("categories/getAdminCategorie
 })
 // 메인 카테고리 선택
 export const setSelectedMainCategory = createAsyncThunk("categories/setSelectedMainCategory", async(index,{getState,dispatc, rejectWithValue}) =>{
+    const {selectedMainCategory, selectedSubCategory, allCategories} = getState().categories;
+    const subCategoreis = allCategories.filter(item => item.cate_code1 == index);
+    var subcatSel = "0000";
+    if(subCategoreis.length>0) {
+        subcatSel  = subCategoreis[0]?.level2[0]?.cate_code2;
+    }
     return index;    
 })
 // 서브 카테고리
-export const setSubCategories = createAsyncThunk("categories/setSubCategories", async(index,{getState,dispatc, rejectWithValue}) =>{
+export const setSubCategories = createAsyncThunk("categories/setSubCategories", async(data,{getState,dispatc, rejectWithValue}) =>{
     const {selectedMainCategory, selectedSubCategory, allCategories} = getState().categories;
     const subCategoreis = allCategories.filter(item => item.cate_code1 == selectedMainCategory);
     if(subCategoreis.length>0) {
+
         const subLevel = subCategoreis[0]?.level2;
         var filteredSubLevel = [];
         if(subLevel?.length>0) {
@@ -49,7 +56,7 @@ export const setSubCategories = createAsyncThunk("categories/setSubCategories", 
         }else {
             filteredSubLevel = subLevel;
         }
-        return filteredSubLevel;
+    return {filteredSubLevel:filteredSubLevel,subCat:data};
     }else {
         return[]
     }
@@ -106,7 +113,11 @@ export const cagegoriesSlice = createSlice({
 
         // 서브카테고리
         builder.addCase(setSubCategories.fulfilled,(state, action)=>{
-            state.subCategories = action.payload;
+            const filteredSub = action.payload.filteredSubLevel
+            state.subCategories = filteredSub;
+
+            //state.selectedMainCategory = action.payload.subCat;
+            state.selectedSubCategory = "0000";
         })
         builder.addCase(setSubCategories.rejected,(state, action)=>{
             

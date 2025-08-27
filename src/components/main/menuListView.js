@@ -1,25 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Animated,FlatList,ScrollView,Text,TouchableWithoutFeedback, View, InteractionManager, Image, SafeAreaView, SectionList } from 'react-native'
 import { InMenuCatSubText, InMenuCatText, InMenuCatView, MenuListWrapper, MenuViewListView, MoreBtnImg } from '../../styles/main/menuListStyle';
 import MenuItem from '../mainComponents/menuItem';
-import ItemDetail from '../detailComponents/itemDetail';
-import { getMenu, setSelectedItems, updateMenu } from '../../store/menu';
-import { widthAnimationStyle } from '../../utils/animation';
-import { setSelectedMainCategory, setSelectedSubCategory } from '../../store/categories';
-import { useSharedValue } from 'react-native-reanimated';
-import { numberPad, openFullSizePopup, openPopup } from '../../utils/common';
-import { DEFAULT_CATEGORY_ALL_CODE } from '../../resources/defaults';
-import FloatingBtn from '../popups/floatingButtonPopup';
-import { QuickOrderPopup } from '../popups/quickOrderPopup';
+import { setSelectedMainCategory, setSelectedSubCategory, setSubCategories } from '../../store/categories';
 import { MenuSelectBg, MenuSelectCategory, MenuSelectCategoryDim, MenuSelectCategoryIcon, MenuSelectCategorySubText, MenuSelectCategoryText, MenuSelectCategoryView, MenuSelectView } from '../../styles/main/mainStyle';
 import SubMenu from './subMenu';
-import { TransparentPopupBottomButtonIcon, TransparentPopupBottomButtonText, TransparentPopupBottomButtonWraper, TransparentPopupBottomInnerWrapper, TransparentPopupBottomWrapper } from '../../styles/common/popup';
-import { LANGUAGE } from '../../resources/strings';
-import { colorDarkGrey, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 import { setCartView } from '../../store/cart';
-import { BulletinText, CategoryScrollView, CategoryWrapper, TopMenuWrapper } from '../../styles/main/topMenuStyle';
-import SubMenuList from '../menuComponents/subMenuList';
+import { setSelectedItems } from '../../store/menu';
+import { EventRegister } from 'react-native-event-listeners';
 
 // 스크롤링 관련
 var touchStartOffset = 0;
@@ -32,6 +21,8 @@ var scrollUpCnt = 0;
 var isScrolling = false;
 let direction = "";
 const scrollHeight = 650;
+
+var sections = "";
 const MenuListView = (props) => {
 
     const dispatch = useDispatch();
@@ -40,21 +31,26 @@ const MenuListView = (props) => {
     const subScrollViewRef = useRef(null);
     const itemLayouts = useRef({}); 
 
+    // 섹션뷰
+    const sectionListRef = useRef(null);
+
+
     const {displayMenu} = useSelector((state)=>state.menu);
     const {isOn} = useSelector((state)=>state.cartView);
     const {language} = useSelector(state=>state.languages);
     // 선택 카테고리
     const {mainCategories, selectedMainCategory, subCategories, selectedSubCategory, allCategories} = useSelector((state)=>state.categories);
 
-    const [numColumns, setNumColumns] = useState(3);
-    const [viewType, setViewType] = useState(3);
+    const [numColumns, setNumColumns] = useState(2);
+    //const [viewType, setViewType] = useState(3);
     const [isDetailShow, setDetailShow] = useState(false);
     const [listWidth,setListWidth] = useState("100%");
-    const [gap,setGap] = useState(20);
+    const [gap,setGap] = useState(40);
     const [currentY, setCurrentY] = useState(0); // 현재 스크롤 위치 저장
     const [isAtTop, setIsAtTop] = useState(true);
     const [isAtBottom, setIsAtBottom] = useState(false);
     const [tmpSubCat, setTmpSubCat] = useState("");
+    const [subCatShow, setSubCatShow] = useState([]);
 
     const getCategoryName = (el) => {
         switch (language) {
@@ -65,7 +61,6 @@ const MenuListView = (props) => {
         }
     };
 
-    
     const CAT_LAN = [
         {idx:0, code:"Meat", title_kor:"저녁\n식사",title_en:"Dinner",title_jp:"夕食",title_cn:"下单" },
         {idx:1, code:"Meal", title_kor:"식사",title_en:"Meal",title_jp:"食事",title_cn:"餐" },
@@ -79,7 +74,7 @@ const MenuListView = (props) => {
 
     ];
     useEffect(()=>{
-        if(isOn) {
+        /* if(isOn) {
             setNumColumns(viewType-1);
             if(viewType == 2) {
                 setListWidth("82%");
@@ -102,29 +97,41 @@ const MenuListView = (props) => {
             }
             setListWidth("100%");
             setNumColumns(viewType);
-        } 
+        }  */
     },[isOn])
     
-    useEffect(()=>{
+   /*  useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
+        console.log("catData: ",catData);
+
         if(catData.length>0) {
-            setNumColumns(Number(catData[0].view_type));
-            setViewType(Number(catData[0].view_type));
-            if(catData[0].view_type == 2) {
-                setGap(40);
-            }if(catData[0].view_type == 3) {
-                setGap(30);
-            }if(catData[0].view_type == 4) {
-                setGap(20);
-            }
+            
             //setViewType(3);
-            dispatch(setSelectedSubCategory(catData[0]?.level2[0]?.cate_code2));
+            //dispatch(setSelectedSubCategory(catData[0]?.level2[0]?.cate_code2));
+            if(catData[0]?.level2) {
+                async function startDisplay() {
+                    //await dispatch(setSubCategories(catData[0]?.level2[0]?.cate_code2));
+                    //await dispatch(setSelectedItems());
+                    
+                }
+                startDisplay();
+                
+            }
         }
         itemLayouts.current = {}; // 초기화
 
-    },[selectedMainCategory])
+    },[selectedMainCategory]) */
 
-   /*  useEffect(()=>{
+    useEffect(()=>{
+        if(subCategories) {
+            const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
+            const filteredSub = subCategories.filter(item => item.cate_code2 == catData[0]?.level2[0]?.cate_code2);
+            setSubCatShow(filteredSub);
+        }
+    },[subCategories])
+
+
+    /* useEffect(()=>{
         console.log("subCategories: ",subCategories[0])
         dispatch(setSelectedSubCategory(subCategories[0].cate_code2));
     },[]) */
@@ -145,12 +152,18 @@ const MenuListView = (props) => {
         }
     }
     const findYOffsetCodeByCate = (catId) => {
+        const filteredSub = subCategories.filter(item => item.cate_code2 == catId);
+        setSubCatShow(filteredSub);
+        scrollViewRef.current.scrollTo({ y: 0, animated: false });
+        /*
         const filteredItems = displayMenu.filter(item => item.cate_code === catId);
         //dispatch(setSelectedItems());
         const targetY = itemLayouts.current[`${catId}`];
         if (targetY !== undefined && scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: targetY, animated: false });
         }
+        */
+
     }
     const findCateCodeByYOffset = (yOffset) => {
         const layouts = itemLayouts.current;
@@ -188,13 +201,13 @@ const MenuListView = (props) => {
         }
         return data.cate_name2_m
     }
-    if(selectedMainCategory == "") {
+    /* if(selectedMainCategory == "") {
         return(
             <>
                 <MenuSelectView>
                     <MenuSelectBg resizeMethod={"contain"} />
                     <MenuSelectCategoryView style={{paddingTop:10}} >
-                        <TouchableWithoutFeedback onPress={()=>{console.log("lunch");dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
+                        <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch"));}}>
                             <MenuSelectCategory>
                                 <MenuSelectCategoryDim/>
                                 <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
@@ -216,97 +229,234 @@ const MenuListView = (props) => {
                 </MenuSelectView>
             </>
         )
-    }   
-      
-    const sectionListData = subCategories.map(section => {
-        const data = displayMenu.filter(item => item.cate_code === section.cate_code2);
-        return {
-          title: section,
-          data
-        };
-    });
+    }    */
 
-      
-    if(selectedMainCategory!= "") {
+    async function openItemDetail() {
+        //await new Promise(resolve => setTimeout(resolve, 200));
+        console.log("open detail");
+        props.setDetailOpen(isDetail);
+
+    }
+    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+        const paddingToBottom = 2;
+        return layoutMeasurement.height + contentOffset.y >=
+          contentSize.height - paddingToBottom;
+    };
+
+    const isCloseToTop = ({contentOffset}) => {
+        return contentOffset.y == 0;
+    };
+    const toNextCaterogy = () =>{
+        if(subCatShow[0]) {
+            const currentSubCatCode = subCatShow[0]?.cate_code2;
+            const index = subCategories.findIndex(item => item.cate_code2 === currentSubCatCode);
+            if(index<subCategories.length) {
+                const nextSubCat = subCategories[index+1]?.cate_code2;
+                setTmpSubCat(nextSubCat);
+                findYOffsetCodeByCate(nextSubCat);
+            }
+        }
+    }
+    const toPrevCaterogy = () =>{
+        if(subCatShow[0]) {
+            const currentSubCatCode = subCatShow[0]?.cate_code2;
+            const index = subCategories.findIndex(item => item.cate_code2 === currentSubCatCode);
+            if(index>0) {
+                const prevSubCat = subCategories[index-1]?.cate_code2;
+                setTmpSubCat(prevSubCat);
+                findYOffsetCodeByCate(prevSubCat);
+            }
+        }
+    }
+    //console.log("ViewType: ",viewType);
+    //if(selectedMainCategory!= "") {
             return(
+                <>
+                
+                {
                     <>
                         <SubMenu tmpSubCat={tmpSubCat} onPressSubCat={(subId)=>{ findYOffsetCodeByCate(subId) }}/>
-                        <MenuListWrapper viewType={viewType} isSub={subCategories?.length>0} >
-                        {!isAtTop &&
-                            <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
-                                <MoreBtnImg position={"top"} source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
-                            </TouchableWithoutFeedback>
-                        }
-                        {!isAtBottom &&
-                            <TouchableWithoutFeedback onPress={()=>{scrollDown()}} >
-                                <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
-                            </TouchableWithoutFeedback>
-                        }
-                        <ScrollView 
-                            ref={scrollViewRef}
-                            removeClippedSubviews={true}
-                            onScroll={(event)=>{
-                                const y = event.nativeEvent.contentOffset.y;
-                                const scrolledCat = findCateCodeByYOffset(y);
-                                console.log("scrolledCat: ",scrolledCat)
-                                if(scrolledCat != null) {
-                                    //dispatch(setSelectedSubCategory(scrolledCat));
-                                    setTmpSubCat(scrolledCat);
-                                }
-                                setCurrentY(y);
+                        <MenuListWrapper viewType={2} isSub={subCategories?.length>0} >
+                            {!isAtTop &&
+                                <TouchableWithoutFeedback onPress={()=>{scrollUp()}} >
+                                    <MoreBtnImg position={"top"} source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
+                                </TouchableWithoutFeedback>
+                            }
+                            {!isAtBottom &&
+                                <TouchableWithoutFeedback onPress={()=>{scrollDown()}} >
+                                    <MoreBtnImg position={"bottom"}  source={require("../../assets/icons/arrow.png")} resizeMode='contain'  />
+                                </TouchableWithoutFeedback>
+                            }
+                            {subCategories &&
+                                <ScrollView 
+                                    style={isOn?{width:'54%'}:{width:'100%'}}
+                                    ref={scrollViewRef}
+                                    removeClippedSubviews={true}
+                                    onScroll={(event)=>{
+                                        const y = event.nativeEvent.contentOffset.y;
+                                        //const scrolledCat = findCateCodeByYOffset(y);
+                                        //if(scrolledCat != null) {
+                                            //dispatch(setSelectedSubCategory(scrolledCat));
+                                            //setTmpSubCat(scrolledCat);
+                                        //}
+                                        setCurrentY(y);
 
-                                const yOffset = event.nativeEvent.contentOffset.y;
-                                setIsAtTop(yOffset <= 0);  
+                                        const yOffset = event.nativeEvent.contentOffset.y;
+                                        setIsAtTop(yOffset <= 0);  
 
-                                const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
-                                const isBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
-                                setIsAtBottom(isBottom);
+                                        const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+                                        const isBottom = layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
+                                        setIsAtBottom(isBottom);    
 
 
-                            }}
-                        >
-                            {subCategories?.map((el, sectionIndex) => {
-                                const filteredItems = displayMenu.filter(item => item.cate_code === el.cate_code2);
-                                return (
-                                    <View
-                                        key={el.cate_code2}
-                                        onLayout={(event) => {
-                                            const layout = event.nativeEvent.layout;
-                                            // 렌더 완료 후 layout.y 기록
-                                            InteractionManager.runAfterInteractions(() => {
-                                                itemLayouts.current[el.cate_code2] = layout.y;
-                                                itemLayouts.current[`${el.cate_code2}_btm`] = layout.y+layout.height-10;
-                                            });
-                                        }}
-                                    >
-                                        <InMenuCatView>
-                                            <InMenuCatText>{getCategoryName(el)}</InMenuCatText>
-                                            <InMenuCatSubText>{subTitle(el)}</InMenuCatSubText>
-                                        </InMenuCatView>
+
+
+                                        direction = event.nativeEvent.contentOffset.y > currentOffset ? 'down' : 'up';
+                                        currentOffset = event.nativeEvent.contentOffset.y;
                                         
+                                        scrollDownReached = false;
+                                        scrollUpReached = false;
+                                        scrollDownCnt = 0;
+                                        scrollUpCnt = 0;
 
-                                        <View style={{ width: listWidth, flexDirection: 'row', flexWrap: 'wrap', justifyContent: "flex-start", gap }}>
-                                        {filteredItems.map((item, itemIndex) => (
-                                            <MenuItem
-                                                key={`${el.cate_code2}_${itemIndex}`}
-                                                onLayout={()=>{}}
-                                                onPress={(isDetail) => props.setDetailOpen(isDetail)}
-                                                viewType={viewType}
-                                                isDetailShow={isDetailShow}
-                                                setDetailShow={setDetailShow}
-                                                item={item}
-                                                index={itemIndex}
-                                            />
-                                        ))}
-                                        </View> 
-                                    </View>
-                                );
-                            })}
-                        </ScrollView>
-                    </MenuListWrapper>
+                                        if (isCloseToBottom(event.nativeEvent)) {
+                                            scrollDownCnt = scrollDownCnt+1;
+                                            if(direction == "down") scrollDownReached = true; scrollUpReached = false;
+                                        }
+                                        if (isCloseToTop(event.nativeEvent)) {
+                                            scrollUpCnt = scrollUpCnt+1;
+                                            if(direction == 'up') scrollUpReached = true; scrollDownReached = false;
+                                        }
+
+                                        
+                                    }}
+                                    onTouchStart={(event)=>{
+                                        touchStartOffset = event.nativeEvent.pageY;
+
+                                    }}
+                                    onTouchEnd={(event)=>{   
+                                        touchEndOffset = event.nativeEvent.pageY;
+                                        const touchSize = touchStartOffset - touchEndOffset;
+                                        
+                                        if(touchSize < 0) {
+                                            // swipe down
+                                            if( (touchSize*-1) > 150 ) {
+                                                // action
+                                                if(scrollDownCnt>=1) {
+                                                    toPrevCaterogy();
+                                                }else {
+                                                    scrollDownCnt = scrollDownCnt+1;
+                                                }
+                                            }
+                                        }else {
+                                            // swipe up
+                                            if(touchSize>150) {
+                                                //action
+                                                if(scrollUpCnt>=1) {
+                                                    toNextCaterogy();
+                                                }else {
+                                                    scrollUpCnt = scrollUpCnt+1;
+                                                }
+                                            } 
+                                        }
+                                        
+                                    }}
+                                    onScrollBeginDrag={(ev)=>{
+                                        // 스크롤 있을떄 호출됨
+                                        isScrolling=true;
+                                    }}
+                                    onScrollEndDrag={(ev)=>{
+                                        if(scrollDownReached ) {
+                                            if(scrollDownCnt>1) {
+                                                toNextCaterogy();
+                                            }else {
+                                                scrollDownCnt = scrollDownCnt+1;
+                                            }
+            
+                                        }
+                                        if(scrollUpReached) {
+                                            if(scrollUpCnt>1) {
+                                                toPrevCaterogy();
+                                            }else {
+                                                scrollUpCnt = scrollUpCnt+1;
+                                            }
+                                        }
+                                    }}
+
+
+                                >
+                                    {subCatShow?.map((el, sectionIndex) => {
+                                        const filteredItems = displayMenu.filter(item => item.cate_code === el.cate_code2);
+                                        return (
+                                            <View
+                                                key={el.cate_code2}
+                                                onLayout={(event) => {
+                                                    const layout = event.nativeEvent.layout;
+                                                    // 렌더 완료 후 layout.y 기록
+                                                    InteractionManager.runAfterInteractions(() => {
+                                                        itemLayouts.current[el.cate_code2] = layout.y;
+                                                        itemLayouts.current[`${el.cate_code2}_btm`] = layout.y+layout.height-10;
+                                                    });
+                                                }}
+                                            >
+                                                <InMenuCatView>
+                                                    <InMenuCatText>{getCategoryName(el)}</InMenuCatText>
+                                                    <InMenuCatSubText>{subTitle(el)}</InMenuCatSubText>
+                                                </InMenuCatView>
+                                                
+
+                                                <View style={{ width: listWidth, flexDirection: 'row', flexWrap: 'wrap', justifyContent: "flex-start", gap }}>
+                                                {filteredItems.map((item, itemIndex) => {
+                                                    return(
+                                                        <MenuItem
+                                                            key={`${el.cate_code2}_${itemIndex}`}
+                                                            onLayout={()=>{}}
+                                                            onPress={(isDetail) => props.setDetailOpen(isDetail)}
+                                                            viewType={2}
+                                                            isDetailShow={isDetailShow}
+                                                            setDetailShow={setDetailShow}
+                                                            setItemDetailCD={props.setItemDetailCD}
+                                                            item={item}
+                                                            index={itemIndex}
+                                                        />
+                                                    )
+                                                })}
+                                                </View> 
+                                            </View>
+                                        );
+                                    })}
+                                </ScrollView>
+                            }
+                        </MenuListWrapper>
+                    </>
+                }
+                {selectedMainCategory == "" &&
+                    <View style={{position:'absolute',width:'100%',height:'90%',top:80, zIndex:999999, backgroundColor:'#252525'}}>
+                        <MenuSelectView>
+                            <MenuSelectBg resizeMethod={"contain"} />
+                            <MenuSelectCategoryView style={{paddingTop:10}} >
+                                <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false));dispatch(setSelectedMainCategory("lunch")); }}>
+                                    <MenuSelectCategory>
+                                        <MenuSelectCategoryDim/>
+                                        <MenuSelectCategoryText>{catLang("점심\n식사")}</MenuSelectCategoryText>
+                                        <MenuSelectCategorySubText>({catLang("오전 11시 ~ 오후 4시")})</MenuSelectCategorySubText>
+                                        </MenuSelectCategory>
+                                </TouchableWithoutFeedback>
+
+                                <TouchableWithoutFeedback onPress={()=>{dispatch(setCartView(false)); dispatch(setSelectedMainCategory("meat"));}}>
+                                    <MenuSelectCategory>
+                                        <MenuSelectCategoryDim/>
+                                        <MenuSelectCategoryText>{catLang("저녁\n식사")}</MenuSelectCategoryText>
+                                        <MenuSelectCategorySubText>({catLang("오후 4시 ~ 오후 10시")})</MenuSelectCategorySubText>
+                                        </MenuSelectCategory>
+                                </TouchableWithoutFeedback> 
+                            </MenuSelectCategoryView>
+                        </MenuSelectView>
+                    </View>
+                }
                 </>
             );
-    }
+    //}
 
     
 }

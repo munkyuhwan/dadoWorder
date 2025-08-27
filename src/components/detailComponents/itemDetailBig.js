@@ -74,12 +74,19 @@ const ItemDetailBig = (props) => {
         }) 
     }
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         const filteredItem = allItems.filter(data => data.prod_cd == menuDetailID);
         if(filteredItem.length > 0) {
             setMenuDetail(filteredItem[0]);
         }
-    },[menuDetailID])
+    },[menuDetailID]) */
+
+    useEffect(()=>{
+        const filteredItem = allItems.filter(data => data.prod_cd == props.itemDetailCD);
+        if(filteredItem.length > 0) {
+            setMenuDetail(filteredItem[0]);
+        }
+    },[props.itemDetailCD])
 
     
     const onOptionSelect = ( isAdd, optGroup, optItem) =>{     
@@ -192,8 +199,9 @@ const ItemDetailBig = (props) => {
     }
 
     const init = () => {
-        setMenuDetail(null)
-        dispatch(initMenuDetail());
+        props.setItemDetailCD(null);
+        //setMenuDetail(null)
+        //dispatch(initMenuDetail());
     }
 
     useEffect(()=>{
@@ -258,16 +266,17 @@ const ItemDetailBig = (props) => {
         return selWonsanjiLanguage;
     }
 
-    if(menuDetailID==null) {
+    /* if(props.itemDetailCD==null) {
         return(<></>)
     }
 
-    if(isEmpty(menuDetail)) {
+    if(isEmpty(props.itemDetailCD)) {
         return(<></>)
     }
-
+  */
     return(
         <>
+        {props.itemDetailCD &&
             <Animated.View  style={[{...PopStyle.animatedPop, ...boxWidthStyle,...{zIndex:detailZIndex} } ]} >
                     <DetailWrapperBig onTouchStart={()=>{closeDetail(); props?.onDetailTouchStart(); }}>
                         <TouchableWithoutFeedback onPress={()=>{closeDetail();}}>
@@ -276,12 +285,12 @@ const ItemDetailBig = (props) => {
                             </View>
                         </TouchableWithoutFeedback>
                         <DetailWhiteWrapperBig>
-                            {menuDetailID==null &&
+                            {props.itemDetailCD==null &&
                                 <WaitIndicator/>
                             }
-                            {menuDetailID!=null &&
+                            {props.itemDetailCD!=null &&
                             <>
-                            {menuDetailID!=null &&
+                            {props.itemDetailCD!=null &&
                                 <DetailInfoWrapperBig>
                                     <DetailItemInfoImageWrapperBig>
                                         {menuDetail&& 
@@ -387,6 +396,7 @@ const ItemDetailBig = (props) => {
                         </DetailWhiteWrapperBig>
                     </DetailWrapperBig>
             </Animated.View>
+        }
         </>
     )  
 }

@@ -9,7 +9,7 @@ import { setSelectedMainCategory } from "../../store/categories"
 import { setCommon } from "../../store/common"
 
 
-const LanguageSelectView = () => {
+const LanguageSelectView = (props) => {
     const dispatch = useDispatch();
     return(
         <>
@@ -18,7 +18,9 @@ const LanguageSelectView = () => {
                 <NewLanguageSelectWrapper>
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("korean")); 
                                                         dispatch(setSelectedMainCategory("")); 
-                                                        dispatch(setCommon({"tab":"menu"}));  }} >
+                                                        dispatch(setCommon({"tab":"menu"}));  
+                                                        props.setTab("menu");
+                                                    }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
                             <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
@@ -31,7 +33,9 @@ const LanguageSelectView = () => {
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("english")); 
                                                         dispatch(setSelectedMainCategory("")); 
-                                                        dispatch(setCommon({"tab":"menu"})); }} >
+                                                        dispatch(setCommon({"tab":"menu"})); 
+                                                        props.setTab("menu");
+                                                    }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
                             <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
@@ -44,8 +48,11 @@ const LanguageSelectView = () => {
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPress={()=>{dispatch(setLanguage("japanese")); 
                                                         dispatch(setSelectedMainCategory("")); 
-                                                        dispatch(setCommon({"tab":"menu"})); }} >
-                        <NewLanguageWrapper>
+                                                        dispatch(setCommon({"tab":"menu"})); 
+                                                        props.setTab("menu");
+                                                        }} >
+                                                                               
+                            <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>        
                             <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >
                                 <LanguageSelectIcon source={require("../../assets/icons/japanese.png")} resizeMode={"contain"} />
@@ -57,7 +64,9 @@ const LanguageSelectView = () => {
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPress={()=>{ dispatch(setLanguage("chinese")); 
                                                         dispatch(setSelectedMainCategory("")); 
-                                                        dispatch(setCommon({"tab":"menu"})); }} >
+                                                        dispatch(setCommon({"tab":"menu"}));
+                                                        props.setTab("menu");
+                                                        }} >
                         <NewLanguageWrapper>
                             <NewLanguageDimWrapper/>
                             <LanguageInnerWrapper style={{flex:1, paddingTop:70}} >

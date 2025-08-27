@@ -181,6 +181,7 @@ export default function Navigation() {
         // 광고 받기
         dispatch(getAD()); 
         requestUserPermission();
+        await dispatch(setSelectedItems());
 
         const prevStoreID = await AsyncStorage.getItem("STORE_IDX").catch(()=>{return null;});
         const prevTableCode = await AsyncStorage.getItem("TABLE_INFO");
@@ -217,20 +218,29 @@ export default function Navigation() {
     },[])
     useEffect(()=>{
         // 카테고리 선택에 따라 아이템 변경
-        dispatch(setSelectedItems());
+        /* if(selectedSubCategory) {
+            dispatch(setSelectedItems());
+        } */
         // 카테고리 선택에 따른 서브 카테고리 변경
         dispatch(setSubCategories());
-    },[selectedMainCategory, selectedSubCategory])
+    },[selectedMainCategory, /* selectedSubCategory */]);
     useEffect(()=>{
         if(allItems?.length > 0) {
             //dispatch(setSelectedMainCategory(allCategories[0]?.cate_code1));
-            allItems.map(el=>{
-                FastImage.preload([{uri:el?.gimg_chg}]);
-
-            })
+            /* allItems.map(el=>{
+                FastImage.preload({uri:el?.gimg_chg});
+            }) */
+           /*  console.log("start image");
+            EventRegister.emit("showSpinner",{isSpinnerShowNonCancel:true, msg:"이미지 로딩중"});
+            for(var i=0;i<allItems.length;i++) {
+                FastImage.preload([{uri:allItems[i]?.gimg_chg}]);
+            }
+            console.log("finish image");
+            EventRegister.emit("showSpinner",{isSpinnerShowNonCancel:false, msg:""}); */
             // 지워
             //openFullSizePopup(dispatch, {innerFullView:"OrderPay", isFullPopupVisible:true});
         }
+        //FastImage.preload([{uri:require("../assets/icons/daedo_logo.png")}]);
     },[allItems])
     // 테이블 상태
     useEffect(()=>{

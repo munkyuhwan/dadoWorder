@@ -11,6 +11,7 @@ import { setCommon } from '../../store/common';
 import { openTransperentPopup } from '../../utils/common';
 import { setCartView } from '../../store/cart';
 import FastImage from 'react-native-fast-image';
+import { setSelectedItems } from '../../store/menu';
 
 
 
@@ -43,16 +44,23 @@ const TopMenuList = (props) => {
     }
 
     function moveTab(el) {
+        props.onSelectItem(el.code);
         // 카트 닫기
-        dispatch(setCartView(false)); 
+        //dispatch(setCartView(false)); 
         if(el.code=="howto") {
             console.log("howto");
             openTransperentPopup(dispatch, {innerView:"CameraView", isPopupVisible:true});
         }
         else if(el.code!="orderList" && el.code!="cart"){ 
             dispatch(setSelectedMainCategory("")); 
-            dispatch(setCommon({"tab":el.code})); 
-        }else {
+            //dispatch(setCommon({"tab":el.code})); 
+        }else if(el.code=="menu") {
+            dispatch(getAdminCategories());
+            // 메뉴 받아오기
+            dispatch(getAdminItems());
+    
+        }
+        else {
             if(el.code == "orderList") {
                 openTransperentPopup(dispatch, {innerView:"OrderList", isPopupVisible:true});
             }
@@ -81,14 +89,14 @@ const TopMenuList = (props) => {
                 }else {
                     return(
                         <>
-                            {tab==el.code &&
+                            {props.tab==el.code &&
                                 <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{moveTab(el)}}>
                                     <CategorySelected isPadding={tabTitle(el).length<=5} >
                                         <TopMenuText key={"subcatText_"+el?.idx} >{tabTitle(el)}</TopMenuText>
                                     </CategorySelected>
                                 </TouchableWithoutFeedback>
                             }
-                            {tab!=el.code &&
+                            {props.tab!=el.code &&
                                 <TouchableWithoutFeedback key={"subcat_"+el?.idx} onPress={()=>{moveTab(el)}}>
                                     <CategoryDefault isPadding={tabTitle(el).length<=5} >
                                         <TopMenuText key={"subcatText_"+el?.idx} >{tabTitle(el)}</TopMenuText>

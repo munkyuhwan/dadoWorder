@@ -42,7 +42,7 @@ const MainScreen = () =>{
     const {quickOrderList, isQuickShow} = useSelector(state=>state.order);
     const {selectedMainCategory, allCategories} = useSelector((state)=>state.categories);
     const {allItems} = useSelector((state)=>state.menu);
-    const {tab} = useSelector(state=>state.common);
+    //const {tab} = useSelector(state=>state.common);
     const {tableInfo,cctv,tableStatus} = useSelector(state => state.tableInfo);
     const {isOn} = useSelector((state)=>state.cartView);
 
@@ -52,13 +52,15 @@ const MainScreen = () =>{
     const [tableNoText, setTableNoText] = useState("");
     const [tableInfoText, setTableInfoText] = useState("");
     const [isDetailOpen, setDetailOpen] = useState(true);
+    const [itemDetailCD, setItemDetailCD] = useState(null);
+    const [tab, setTab] = useState("menu");
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
         if(catData.length>0) {
             setViewType(Number(catData[0].view_type));
         }
-    },[selectedMainCategory])
+    },[selectedMainCategory]) */
     useEffect(()=>{
         if(tableInfo) {
             //setTableNoText(tableInfo.tableNo)
@@ -89,7 +91,8 @@ const MainScreen = () =>{
         timeoutSet = setInterval(()=>{
             dispatch(setCartView(false));
             dispatch(setSelectedMainCategory("")); 
-            dispatch(setCommon({"tab":"menu"})); 
+            //dispatch(setCommon({"tab":"menu"})); 
+            setTab("menu");
             dispatch(initMenuDetail());
             dispatch(initOrderList());
             dispatch(regularUpdate());
@@ -130,7 +133,7 @@ const MainScreen = () =>{
     useEffect(()=>{
         const filteredItem = allItems.filter(data => data.prod_cd == menuDetailID);
         if(filteredItem.length > 0) {
-            setMenuDetail(filteredItem[0]);
+            //setMenuDetail(filteredItem[0]);
         }
     },[menuDetailID])
 
@@ -172,23 +175,29 @@ const MainScreen = () =>{
             setSettingTouch(0);
         }
     }
+    async function openItemDetail(itemCD) {
+        //await new Promise(resolve => setTimeout(resolve, 200));
+        console.log("open detail");
+        await new Promise(resolve => setTimeout(resolve, 200));
+        setItemDetailCD(itemCD)
+        
+    }
     return(
         <>
                 <WholeWrapper onTouchStart={()=>{ screenTimeOut();  quickOrderTimeOut(); }} >
                     {/* <SideMenu/> */}
                     <MainWrapper>
-                        <TopMenu/>
+                        <TopMenu setTab={setTab} tab={tab}/>
                         {tab == "menu" &&
                             <>
-                                {/* <SubMenu onPressSubCat={(subId)=>{  }}/> */}
-                                <MenuListView setDetailOpen={setDetailOpen} />
+                                <MenuListView setItemDetailCD={(itemCD)=>{openItemDetail(itemCD); }/* setItemDetailCD */} setDetailOpen={setDetailOpen} />
                             </>
                         }
                         {tab == "lang" &&
-                            <LanguageSelectView/>
+                            <LanguageSelectView setTab={setTab}/>
                         }
                         {tab == "help" &&
-                            <CallHelp/>
+                            <CallHelp setTab={setTab} />
                         }
                         <CartView/>
                     </MainWrapper>
@@ -207,8 +216,11 @@ const MainScreen = () =>{
             {(isDetailOpen==false && menuDetailID!=null) &&
                 <ItemDetail onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
             }
-            {(isDetailOpen==true && menuDetailID!=null) &&
+            {/*(isDetailOpen==true && menuDetailID!=null) &&
                 <ItemDetailBig onDetailTouchStart={screenTimeOut} isDetailShow={menuDetailID!=null} language={language}/>
+            */}
+            {//itemDetailCD!=null &&
+                <ItemDetailBig onDetailTouchStart={screenTimeOut} setItemDetailCD={setItemDetailCD} itemDetailCD={itemDetailCD} isDetailShow={itemDetailCD!=null} language={language}/>
             }
             <FloatingBtn/>
         </>

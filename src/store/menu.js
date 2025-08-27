@@ -77,8 +77,11 @@ export const getAdminItems = createAsyncThunk("menu/getAdminItems", async(_,{dis
                 const menuData = data?.order.filter(el=> el.is_view == "Y");
                 //console.log("menu length: ",menuData.length);
                 if(menuData.length > 0) {
+                    /* for(var i=0;i<menuData.length;i++) {
+                        FastImage.preload(menuData[i].gimg_chg);
+                    } */
                     menuData?.map(async (el)=>{
-                        FastImage.preload(el.gimg_chg);
+                        FastImage.preload({uri:el.gimg_chg});
                         //await fileDownloader(dispatch, `${el.prod_cd}`,`${el.gimg_chg}`).catch("");
                     });
                     return menuData;
@@ -101,12 +104,31 @@ export const getAdminItems = createAsyncThunk("menu/getAdminItems", async(_,{dis
 // 카테고리 선택 후 메뉴 보여주기
 export const setSelectedItems = createAsyncThunk("menu/setSelectedItems", async(_,{dispatch, getState, rejectWithValue})=>{
     const {allItems} = getState().menu;
+    const {selectedMainCategory, selectedSubCategory, allCategories} = getState().categories;
+    var displayItems = [];
+    const catData = allCategories.filter(el=>el.cate_code1 == selectedMainCategory);
+
+    if(catData.length>0) {
+        if(catData[0]?.level2) {
+            
+        }
+    }
+    //displayItems = allItems.filter(item => item.prod_l1_cd == selectedMainCategory);
+    displayItems = allItems.filter(item => (item.prod_l1_cd == selectedMainCategory && item.prod_l2_cd == selectedSubCategory));
+    
+    //console.log("displayItems: ",displayItems);
+    return allItems;
+    //return displayItems;
+})
+// 카테고리 선택 후 메뉴 보여주기
+export const setHelpSelectedItems = createAsyncThunk("menu/setHelpSelectedItems", async(_,{dispatch, getState, rejectWithValue})=>{
+    const {allItems} = getState().menu;
     const {selectedMainCategory, selectedSubCategory} = getState().categories;
     var displayItems = [];
-    displayItems = allItems.filter(item => item.prod_l1_cd == selectedMainCategory);
-    //displayItems = allItems.filter(item => (item.prod_l1_cd == selectedMainCategory && item.prod_l2_cd == selectedSubCategory));
+    //displayItems = allItems.filter(item => item.prod_l1_cd == selectedMainCategory);
+    displayItems = allItems.filter(item => (item.prod_l1_cd == "help"));
     
-    console.log("displayItems: ",displayItems);
+    //console.log("displayItems: ",displayItems);
     return displayItems;
 })
 
@@ -215,6 +237,7 @@ export const menuSlice = createSlice({
     initialState: {
         menu: [],
         displayMenu:[],
+        helpMenu:[],
         allItems:[],
         allSets:[],
         isProcessPaying:false,
@@ -248,7 +271,17 @@ export const menuSlice = createSlice({
         builder.addCase(setSelectedItems.pending,(state, action)=>{
             
         }) 
+        setHelpSelectedItems
 
+        builder.addCase(setHelpSelectedItems.fulfilled,(state, action)=>{
+            state.helpMenu = action?.payload;
+        }) 
+        builder.addCase(setHelpSelectedItems.rejected,(state, action)=>{
+            
+        }) 
+        builder.addCase(setHelpSelectedItems.pending,(state, action)=>{
+            
+        }) 
         builder.addCase(initMenu.fulfilled,(state, action)=>{
             state.menu = action.payload;
         })

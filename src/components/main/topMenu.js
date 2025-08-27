@@ -37,7 +37,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const MAINIMG = windowWidth;
 
-const TopMenu = () =>{
+const TopMenu = (props) =>{
     const dispatch = useDispatch();
     const scrollViewRef = useRef();
     const {selectedMainCategory,subCategories, allCategories} = useSelector(state => state.categories);
@@ -124,7 +124,11 @@ const TopMenu = () =>{
                     <CategoryScrollView ref={scrollViewRef} horizontal showsHorizontalScrollIndicator={false} >
                         <CategoryWrapper>
                             <TopMenuList
-                                onSelectItem={(data)=>{  /* onPressItem(index); */ }}
+                                tab={props.tab}
+                                onSelectItem={(data)=>{                                    
+                                    if(data!="howto" && data!="orderList" ){
+                                        props.setTab(data);
+                                    }}}
                                 initSelect={0}
                             />
                        </CategoryWrapper>

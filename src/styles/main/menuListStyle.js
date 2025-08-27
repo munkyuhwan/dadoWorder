@@ -9,7 +9,7 @@ export const MenuListWrapper = styled.View`
     paddingTop:10px;
     paddingLeft:${props=>props?.viewType==4?"102px":"42px"};
     paddingRight:${props=>props?.viewType==4?"102px":"42px"};
-    paddingBottom:${props=>props?.viewType==3?(props?.isSub?"110px":"50px"):"50px"};
+    paddingBottom:140px;
     backgroundColor:#252525;
     justifyContent:center;
 `
