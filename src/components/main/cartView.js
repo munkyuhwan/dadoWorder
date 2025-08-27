@@ -36,6 +36,7 @@ import { getAD } from '../../store/ad';
 import { getAdminBulletin } from '../../store/menuExtra';
 import { colorBlack, colorBrown, colorLightBrown, colorRed, colorWhite } from '../../assets/colors/color';
 import { useFocusEffect } from '@react-navigation/native';
+import { setLanguage } from '../../store/languages';
 
 const windowWidth = Dimensions.get('window').width;
 const CartView = () =>{
@@ -151,11 +152,13 @@ const CartView = () =>{
                     })
                 }
             }else {
+                console.log("post pay=-============");
                 EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:false, msg:""});
                 const orderData = await metaPostPayFormat(orderList,{}, allItems);
                 dispatch(adminDataPost({payData:null,orderData:orderData, isMultiPay:false}));
                 dispatch(postOrderToPos({isHelp:false, isQuick:false, payData:null,orderData:orderData, isMultiPay:false}));
                 setPayProcess(false);
+                dispatch(setLanguage("korean"))
             }
     }
     const ItemOptionTitle = (additiveId) =>{
@@ -249,14 +252,6 @@ const CartView = () =>{
                                 //displayErrorPopup(dispatch, "XXXX", "메뉴 업데이트가 되었습니다.\n업데이트 후에 주문 해 주세요.");
                                 EventRegister.emit("showSpinnerNonCancel",{isSpinnerShowNonCancel:true, msg:"메뉴 업데이트가 되었습니다.\n업데이트를 진행합니다."});
                                 InitFunction();
-                                /* 
-                                Alert.alert(
-                                    "업데이트",
-                                    "메뉴 업데이트가 되었습니다. 업데이트 후 주문하실 수 있습니다.",
-                                    [{
-                                        text:'확인',
-                                    }]
-                                ); */
                             }else {
             
                                 if( tableStatus?.now_later == "선불") {
