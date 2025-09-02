@@ -322,11 +322,11 @@ const MenuListView = (props) => {
 
                                         if (isCloseToBottom(event.nativeEvent)) {
                                             scrollDownCnt = scrollDownCnt+1;
-                                            if(direction == "down") scrollDownReached = true; scrollUpReached = false;
+                                            if(direction == "down") {scrollDownReached = true; scrollUpReached = false;}
                                         }
                                         if (isCloseToTop(event.nativeEvent)) {
                                             scrollUpCnt = scrollUpCnt+1;
-                                            if(direction == 'up') scrollUpReached = true; scrollDownReached = false;
+                                            if(direction == 'up') {scrollUpReached = true; scrollDownReached = false;}
                                         }
 
                                         
@@ -341,7 +341,7 @@ const MenuListView = (props) => {
                                         
                                         if(touchSize < 0) {
                                             // swipe down
-                                            if( (touchSize*-1) > 150 ) {
+                                            if( (touchSize*-1) > 130 ) {
                                                 // action
                                                 if(scrollDownCnt>=1) {
                                                     toPrevCaterogy();

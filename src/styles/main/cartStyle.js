@@ -311,8 +311,8 @@ export const DutchItemCancelWrapper = styled.View`
     backgroundColor:yellow;
 `
 export const CartItemCancelWrapper = styled.View`
-    width:30px;
-    height:30px;
+    width:45px;
+    height:45px;
     zIndex:9999;
     flex:1;
     position:absolute;

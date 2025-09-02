@@ -1,6 +1,14 @@
 
-export const CURRENT_VERSION = "1.0.13";
+export const CURRENT_VERSION = "1.0.15";
 export const releaseNote = {
+    "1.0.15": //2025.08.29
+    `
+        - 스크롤 카테고리 이동 수정
+    `,
+    "1.0.14": //2025.08.29
+    `
+        - 취소 버튼 크기 키움
+    `,
     "1.0.13": //2025.08.27
     `
         - 마지막 카테고리 이동 버그 수정
